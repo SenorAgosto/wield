@@ -18,7 +18,7 @@ namespace wield {
 		virtual void ProcessWith(ProcessingFunctor& process);
 
     private:
-        std::atomic<std::size_t> reference_count_;
+        std::atomic<size_t> reference_count_;
 
         friend void intrusive_ptr_add_ref(Message* m);
         friend void intrusive_ptr_release(Message* m);
