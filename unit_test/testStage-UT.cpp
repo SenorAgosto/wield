@@ -2,6 +2,7 @@
 
 namespace {
 
+    /*
     using namespace wield;
     
     TEST(verifyStageInstantiation)
@@ -28,4 +29,5 @@ namespace {
         
         CHECK(f.testMessageFunctorCalled);
     }
+    */
 }
