@@ -1,10 +1,10 @@
 #include <UnitTest++/UnitTest++.h>
+#include "TestProcessingFunctor.h"
 
 namespace {
-
     /*
     using namespace wield;
-    
+
     TEST(verifyStageInstantiation)
     {
         TestDispactcher d;
