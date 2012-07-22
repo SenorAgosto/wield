@@ -15,3 +15,9 @@ class TestMessage2 : public Message
 public:
     virtual void ProcessWith(ProcessingFunctor& process) override;
 };
+
+class TestMessage3 : public Message
+{
+public:
+    virtual void ProcessWith(ProcessingFunctor& process) override;
+};
