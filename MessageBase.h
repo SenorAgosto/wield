@@ -1,4 +1,5 @@
 #pragma once
+
 #include <atomic>
 #include <boost/intrusive_ptr.hpp>
 
@@ -16,10 +17,7 @@ namespace wield {
 
         virtual ~MessageBase(){}
 
-		virtual void ProcessWith(ProcessingFunctor& process)
-        {
-            process(*this);
-        }
+		virtual void ProcessWith(ProcessingFunctor& process) = 0;
 
     private:
         std::atomic<size_t> reference_count_;
