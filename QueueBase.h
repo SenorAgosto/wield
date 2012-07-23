@@ -3,11 +3,11 @@
 
 namespace wield {
 
-    template<class ProcessingFunctor, class queue_type>
+    template<class ProcessingFunctor, class QueueType>
     class QueueBase
     {
     public:
-        typedef typename queue_type::size_type size_type;
+        typedef typename QueueType::size_type size_type;
 
         QueueBase()
         {
@@ -38,6 +38,6 @@ namespace wield {
 
     private:
         //queue_type<typename MessageBase<ProcessingFunctor>::smartptr, std::allocator<typename MessageBase<ProcessingFunctor> > > queue_;
-        queue_type queue_;
+        QueueType queue_;
     };
 }
