@@ -17,6 +17,20 @@ namespace wield
         {
         }
 
+        void push(const typename MessageBase<ProcessingFunctor>::smartptr& m)
+        {
+            queue_.push(m);
+        }
+
+        void process(void) const
+        {
+            MessageBase<ProcessingFunctor>::smartptr m;
+            if( queue_.try_pop(m) )
+            {
+                m->ProcessWith(processingFunctor_);
+            }
+        }
+
     private:
         ProcessingFunctor& processingFunctor_;
         QueueType& queue_;
