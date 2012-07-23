@@ -10,14 +10,15 @@ namespace wield {
 	{
 	public:
         typedef boost::intrusive_ptr<MessageBase> smartptr;
+        virtual ~MessageBase(){}
+
+		virtual void ProcessWith(ProcessingFunctor& process) = 0;
+
+    protected:
         MessageBase()
             : reference_count_(0)
         {
         }
-
-        virtual ~MessageBase(){}
-
-		virtual void ProcessWith(ProcessingFunctor& process) = 0;
 
     private:
         std::atomic<size_t> reference_count_;
