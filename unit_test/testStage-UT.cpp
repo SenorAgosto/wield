@@ -13,25 +13,21 @@ namespace {
         TestDispatcher d;
         TestQueue q;
         TestProcessingFunctor f;
-        
+
         Stage s(Stages::Stage1, d, q, f);
     }
     
-    /*
     TEST(verifyStageProcessWorks)
     {
         TestDispatcher d;
         TestQueue q;
         TestProcessingFunctor f;
-        TestMessage m;
-       
-        //put something in the queue for processing
-        q.enque(m);
+        TestMessage::smartptr m = new TestMessage();
         
-        Stage s("stage1", d, q, f);
+        Stage s(Stages::Stage1, d, q, f);
+        s.push(m);
         s.process();
         
-        CHECK(f.testMessageFunctorCalled);
+        CHECK(f.message1Called);
     }
-    */
 }
