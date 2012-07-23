@@ -7,3 +7,7 @@ target_link_libraries( wield-UT
 					   wield 
 					   "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib"
 					 )
+
+add_custom_command(TARGET wield-UT
+				   POST_BUILD
+				   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName)/wield-UT.exe )
