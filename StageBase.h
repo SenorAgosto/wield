@@ -6,6 +6,8 @@ namespace wield
     class StageBase
     {
     public:
+        typedef MessageBase<ProcessingFunctor> Message;
+
         StageBase(StageEnum stageName, Dispatcher<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
             : processingFunctor_(processingFunctor)
             , queue_(queue)

@@ -20,6 +20,11 @@ namespace wield
             stages[static_cast<size_t>(stageName)] = stage;
         }
 
+        void dispatch(StageEnum stageName, typename Stage::Message& message)
+        {
+            stages[static_cast<size_t>(stageName)]->push( typename Stage::Message::smartptr(&message) );
+        }
+
     private:
         Stage* stages[StageEnum::NumberOfStages];
     };
