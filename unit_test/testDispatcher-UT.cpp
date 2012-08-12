@@ -14,11 +14,12 @@ namespace {
     {
         TestDispatcher d;
         TestQueue q;
+        TestQueue q2;
         TestProcessingFunctorWithDispatcher<TestDispatcher> f(d);
         TestProcessingFunctor f2;
 
         TestStage s(Stages::Stage1, d, q, f);
-        TestStage s2(Stages::Stage2, d, q, f2);
+        TestStage s2(Stages::Stage2, d, q2, f2);
 
         TestMessage::smartptr m = new TestMessage();
         s.push(m);
