@@ -37,5 +37,4 @@ namespace {
             CHECK(m);
         }
     }
-
 }
