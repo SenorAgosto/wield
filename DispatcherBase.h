@@ -6,8 +6,14 @@ namespace wield
     class DispatcherBase
     {
     public:
-        DispatcherBase(){}
-        ~DispatcherBase(){}
+        DispatcherBase()
+        {
+            memset(stages, 0, sizeof(stages));
+        }
+
+        ~DispatcherBase()
+        {
+        }
 
         void registerStage(StageEnum stageName, Stage* stage)
         {
