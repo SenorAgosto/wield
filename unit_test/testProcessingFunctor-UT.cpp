@@ -19,9 +19,9 @@ namespace {
 		Message::smartptr m = new TestMessage();
 		
 		m->ProcessWith(tpf);
-        CHECK(!tpf.messageBaseCalled);
-		CHECK(tpf.message1Called);
-		CHECK(! tpf.message2Called);
+        CHECK(!tpf.messageBaseCalled_);
+		CHECK(tpf.message1Called_);
+		CHECK(! tpf.message2Called_);
 	}
 
     TEST(verifyProcessingFunctorIsCalledWhenProcessingTestMessage2)
@@ -30,9 +30,9 @@ namespace {
         Message::smartptr m = new TestMessage2();
 
         m->ProcessWith(tpf);
-        CHECK(!tpf.messageBaseCalled);
-        CHECK(!tpf.message1Called);
-        CHECK(tpf.message2Called);
+        CHECK(!tpf.messageBaseCalled_);
+        CHECK(!tpf.message1Called_);
+        CHECK(tpf.message2Called_);
     }
 
     TEST(verifyProcessingFunctorMessageBaseIsCalledWhenUnknownMessageTypeIsProcessed)
@@ -41,8 +41,8 @@ namespace {
         Message::smartptr m = new TestMessage3();
 
         m->ProcessWith(tpf);
-        CHECK(tpf.messageBaseCalled);
-        CHECK(!tpf.message1Called);
-        CHECK(!tpf.message2Called);
+        CHECK(tpf.messageBaseCalled_);
+        CHECK(!tpf.message1Called_);
+        CHECK(!tpf.message2Called_);
     }
 }

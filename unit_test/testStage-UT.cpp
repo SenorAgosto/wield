@@ -28,6 +28,6 @@ namespace {
         s.push(m);
         s.process();
         
-        CHECK(f.message1Called);
+        CHECK(f.message1Called_);
     }
 }
