@@ -25,7 +25,12 @@ namespace {
         s.process();    // this should pass the message on to Stage2.
         s2.process();
 
+        CHECK(!f.messageBaseCalled_);
         CHECK(f.message1Called_);
+        CHECK(!f.message2Called_);
+
+        CHECK(!f2.messageBaseCalled_);
         CHECK(f2.message1Called_);
+        CHECK(!f2.message2Called_);
     }
 }
