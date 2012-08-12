@@ -15,7 +15,7 @@ namespace {
         TestDispatcher d;
         TestQueue q;
         TestProcessingFunctorWithDispatcher<TestDispatcher> f(d);
-        TestProcessingFunctorWithDispatcher<TestDispatcher> f2(d);
+        TestProcessingFunctor f2;
 
         TestStage s(Stages::Stage1, d, q, f);
         TestStage s2(Stages::Stage2, d, q, f2);
