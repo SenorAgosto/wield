@@ -2,7 +2,7 @@
 #include "TestProcessingFunctor.h"
 #include "TestQueue.h"
 #include "TestDispatcher.h"
-#include "Stage.h"
+#include "TestStage.h"
 
 namespace {
 
@@ -14,7 +14,7 @@ namespace {
         TestQueue q;
         TestProcessingFunctor f;
 
-        Stage s(Stages::Stage1, d, q, f);
+        TestStage s(Stages::Stage1, d, q, f);
     }
     
     TEST(verifyStageProcessWorks)
@@ -24,7 +24,7 @@ namespace {
         TestProcessingFunctor f;
         TestMessage::smartptr m = new TestMessage();
         
-        Stage s(Stages::Stage1, d, q, f);
+        TestStage s(Stages::Stage1, d, q, f);
         s.push(m);
         s.process();
         
