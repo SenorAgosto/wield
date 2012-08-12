@@ -1,7 +1,7 @@
 #include <UnitTest++/UnitTest++.h>
 #include <wield/MessageBase.h>
 
-#include "Message.h"
+#include "TestMessage.h"
 #include "TestProcessingFunctor.h"
 
 namespace {

@@ -1,4 +1,4 @@
-#include "Message.h"
+#include "TestMessage.h"
 #include "TestProcessingFunctor.h"
 
 //virtual

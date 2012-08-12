@@ -1,6 +1,6 @@
 #pragma once
-#include "Message.h"
-#include "stages.h"
+#include "TestMessage.h"
+#include "Stages.h"
 
 class TestMessage;
 class TestMessage2;
