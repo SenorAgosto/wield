@@ -4,7 +4,7 @@
 #include "TestDispatcher.h"
 #include "TestStage.h"
 #include "TestQueue.h"
-#include "Message.h"
+#include "TestMessage.h"
 
 namespace {
 
