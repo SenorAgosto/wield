@@ -6,4 +6,4 @@
 #include "TestDispatcher.h"
 #include "Stages.h"
 
-typedef wield::StageBase<ProcessingFunctor, TestDispatcher, TestQueue, Stages> Stage;
+typedef wield::StageBase<ProcessingFunctor, wield::DispatcherBase, TestQueue, Stages> Stage;
