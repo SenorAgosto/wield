@@ -2,15 +2,15 @@
 
 namespace wield
 {
-    template<typename ProcessingFunctor, typename Dispatcher, typename QueueType, typename StageEnum>
+    template<typename ProcessingFunctor, template<typename StageEnum, typename Stage> class Dispatcher, typename QueueType, typename StageEnum>
     class StageBase
     {
     public:
-        StageBase(StageEnum stageName, Dispatcher& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
+        StageBase(StageEnum stageName, Dispatcher<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
             : processingFunctor_(processingFunctor)
             , queue_(queue)
         {
-            //dispatcher.registerStage(stageName, *this);
+            dispatcher.registerStage(stageName, this);
         }
 
         ~StageBase()

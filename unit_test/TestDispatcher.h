@@ -1,6 +1,7 @@
 #pragma once
 #include <wield/DispatcherBase.h>
 
-struct TestDispatcher : public wield::DispatcherBase
-{
-};
+#include "Stages.h"
+#include "Stage.h"
+
+typedef wield::DispatcherBase<Stages, Stage> TestDispatcher;
