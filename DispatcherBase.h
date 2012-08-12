@@ -2,10 +2,19 @@
 
 namespace wield
 {
+    template<typename StageEnum, typename Stage>
     class DispatcherBase
     {
     public:
         DispatcherBase(){}
-        virtual ~DispatcherBase(){}
+        ~DispatcherBase(){}
+
+        void registerStage(StageEnum stageName, Stage* stage)
+        {
+            stages[static_cast<size_t>(stageName)] = stage;
+        }
+
+    private:
+        Stage* stages[StageEnum::NumberOfStages];
     };
 }
