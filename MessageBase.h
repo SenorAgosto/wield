@@ -23,25 +23,17 @@ namespace wield {
     private:
         std::atomic<size_t> reference_count_;
 
-        template<class ProcessingFunctor>
-        friend void intrusive_ptr_add_ref(MessageBase<ProcessingFunctor>* m);
-
-        template<class ProcessingFunctor>
-        friend void intrusive_ptr_release(MessageBase<ProcessingFunctor>* m);
-    };
-
-    template<class ProcessingFunctor>
-    void intrusive_ptr_add_ref(MessageBase<ProcessingFunctor>* m)
-    {
-        ++m->reference_count_;
-    }
-
-    template<class ProcessingFunctor>
-    void intrusive_ptr_release(MessageBase<ProcessingFunctor>* m)
-    {
-        if( 0 == --m->reference_count_)
+        friend void intrusive_ptr_add_ref(MessageBase<ProcessingFunctor>* m)
         {
-            delete m;
+            ++m->reference_count_;
         }
-    }
+
+        friend void intrusive_ptr_release(MessageBase<ProcessingFunctor>* m)
+        {
+            if( 0 == --m->reference_count_)
+            {
+                delete m;
+            }
+        }
+    };
 }
