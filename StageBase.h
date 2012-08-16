@@ -24,13 +24,16 @@ namespace wield
             queue_.push(m);
         }
 
-        void process(void) const
+        bool process(void) const
         {
             Message::smartptr m;
             if( queue_.try_pop(m) )
             {
                 m->ProcessWith(processingFunctor_);
+                return true;
             }
+
+            return false;
         }
 
     private:
