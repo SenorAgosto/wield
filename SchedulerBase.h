@@ -7,7 +7,7 @@
 
 namespace wield {
 
-    template<typename SchedulingPolicy>
+    template<typename StageEnum, typename SchedulingPolicy>
     class SchedulerBase final
     {
     public:
@@ -45,9 +45,10 @@ namespace wield {
         {
             try
             {
+                std::thread::id thread_id = std::this_thread::get_id();
                 while(!done())
                 {
-                    process();
+                    process(thread_id);
                 }
             }
             catch (const std::exception&)
@@ -61,9 +62,12 @@ namespace wield {
             return done_.load(std::memory_order_acquire);
         }
 
-        inline void process(void) const
+        inline void process(std::thread::id thread_id) const
         {
             size_t batchCount = 0;
+
+            // ask the SchedulingPolicy for the next stage.
+            // process until the batchCount for the stage is reached, or the stage queue is empty.
         }
 
         inline void waitForThreads(void)
