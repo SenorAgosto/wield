@@ -3,7 +3,7 @@
 namespace wield
 {
     template<typename StageEnum, typename Stage>
-    class DispatcherBase
+    class DispatcherBase final
     {
     public:
         DispatcherBase()
