@@ -37,7 +37,6 @@ namespace wield {
         }
 
     private:
-        //queue_type<typename MessageBase<ProcessingFunctor>::smartptr, std::allocator<typename MessageBase<ProcessingFunctor> > > queue_;
         QueueType queue_;
     };
 }
