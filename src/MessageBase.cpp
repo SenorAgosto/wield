@@ -1,0 +1,1 @@
+// there has to be at least one cpp file for cmake to figure out the target type for the library.
