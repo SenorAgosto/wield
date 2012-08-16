@@ -26,8 +26,24 @@ namespace {
         
         TestStage s(Stages::Stage1, d, q, f);
         s.push(m);
-        s.process();
-        
+
+        CHECK(s.process());
         CHECK(f.message1Called_);
+    }
+
+    TEST(verifyStageProcessingForMultipleMessages)
+    {
+        TestDispatcher d;
+        TestQueue q;
+        TestProcessingFunctor f;
+        TestMessage::smartptr m = new TestMessage();
+
+        TestStage s(Stages::Stage1, d, q, f);
+        s.push(m);
+        s.push(m);
+        
+        CHECK(s.process());
+        CHECK(s.process());
+        CHECK(!s.process());
     }
 }
