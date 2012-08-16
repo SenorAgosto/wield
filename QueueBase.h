@@ -4,7 +4,7 @@
 namespace wield {
 
     template<class ProcessingFunctor, class QueueType>
-    class QueueBase
+    class QueueBase final
     {
     public:
         typedef typename QueueType::size_type size_type;
