@@ -1,4 +1,5 @@
 #include <UnitTest++/UnitTest++.h>
+#include <exception>
 
 #include "TestProcessingFunctor.h"
 #include "TestDispatcher.h"
@@ -45,5 +46,15 @@ namespace {
 
         TestStage& sr = d[Stages::Stage1];
         CHECK(&sr);
+    }
+
+    TEST(verifyDispatcherThrowsIfStageNameIsRegisteredTwice)
+    {
+        TestDispatcher d;
+        TestQueue q;
+        TestProcessingFunctor f;
+
+        TestStage s(Stages::Stage1, d, q, f);
+        CHECK_THROW( TestStage s2(Stages::Stage1, d, q, f);, std::runtime_error );
     }
 }
