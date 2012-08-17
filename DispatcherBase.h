@@ -1,4 +1,5 @@
 #pragma once
+#include <exception>
 
 namespace wield
 {
@@ -20,6 +21,11 @@ namespace wield
 
         inline void registerStage(StageEnum stageName, Stage* stage)
         {
+            if(nullptr != stages[static_cast<size_t>(stageName)])
+            {
+                throw std::runtime_error("DispatcherBase::registerStage() duplicate registration of stage.");
+            }
+
             stages[static_cast<size_t>(stageName)] = stage;
         }
 
