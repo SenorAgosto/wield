@@ -34,4 +34,16 @@ namespace {
         CHECK(f2.message1Called_);
         CHECK(!f2.message2Called_);
     }
+
+    TEST(verifyBracketOperator)
+    {
+        TestDispatcher d;
+        TestQueue q;
+        TestProcessingFunctorWithDispatcher<TestDispatcher> f(d);
+
+        TestStage s(Stages::Stage1, d, q, f);
+
+        TestStage& sr = d[Stages::Stage1];
+        CHECK(&sr);
+    }
 }

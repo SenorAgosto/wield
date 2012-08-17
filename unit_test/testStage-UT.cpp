@@ -15,6 +15,7 @@ namespace {
         TestProcessingFunctor f;
 
         TestStage s(Stages::Stage1, d, q, f);
+        CHECK(Stages::Stage1 == s.name());
     }
     
     TEST(verifyStageProcessWorks)

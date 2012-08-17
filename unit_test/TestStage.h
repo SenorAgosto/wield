@@ -1,5 +1,6 @@
 #pragma once
 #include <wield/StageBase.h>
+#include <wield/DispatcherBase.h>
 
 #include "TestProcessingFunctor.h"
 #include "TestQueue.h"
