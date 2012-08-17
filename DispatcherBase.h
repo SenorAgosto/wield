@@ -6,6 +6,9 @@ namespace wield
     class DispatcherBase final
     {
     public:
+        typedef Stage stage_t;
+        typedef StageEnum stage_enum_t;
+
         DispatcherBase()
         {
             memset(stages, 0, sizeof(stages));
@@ -15,14 +18,19 @@ namespace wield
         {
         }
 
-        void registerStage(StageEnum stageName, Stage* stage)
+        inline void registerStage(StageEnum stageName, Stage* stage)
         {
             stages[static_cast<size_t>(stageName)] = stage;
         }
 
-        void dispatch(StageEnum stageName, typename Stage::Message& message)
+        inline void dispatch(StageEnum stageName, typename Stage::message_t& message)
         {
-            stages[static_cast<size_t>(stageName)]->push( typename Stage::Message::smartptr(&message) );
+            stages[static_cast<size_t>(stageName)]->push( typename Stage::message_t::smartptr(&message) );
+        }
+
+        inline Stage& operator[](StageEnum stageName)
+        {
+            return *stages[static_cast<size_t>(stageName)];
         }
 
     private:
