@@ -66,7 +66,7 @@ namespace wield {
 
             for(size_t t = 0; t < numberOfThreads; ++t)
             {
-                threads_.emplace_back(std::thread(processLambda));
+                threads_.emplace_back(processLambda);
             }
 
             waitForThreads();
