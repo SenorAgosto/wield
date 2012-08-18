@@ -16,10 +16,16 @@ namespace {
     {
         TestDispatcher d;
         TestQueue q;
-        TestProcessingFunctorWithDispatcher<TestDispatcher> f(d);
+        TestProcessingFunctor f;
         TestStage s(Stages::Stage1, d, q, f);
 
         TestScheduler scheduler(d);
+
+        TestMessage::smartptr m = new TestMessage();
+        std::thread producer([&d, m]()
+        {
+            d.dispatch(Stages::Stage1, *m);
+        });
 
         std::thread t([&scheduler]()
         {
@@ -29,5 +35,6 @@ namespace {
 
         scheduler.start();
         t.join();
+        producer.join();
     }
 }
