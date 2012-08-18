@@ -101,12 +101,24 @@ namespace wield {
 
         inline void process(std::thread::id thread_id)
         {
-            SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
-            size_t batchCount = schedulingPolicy_.batchSize(stage.name());
+            register SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
+            register size_t batchCount = schedulingPolicy_.batchSize(stage.name());
+            register size_t emptyRetryCount = schedulingPolicy_.emptyRetryCount(stage.name());
+            register bool continueProcessing = true;
 
-            // TODO:
-            // process until the batchCount for the stage is reached, or the stage queue is empty and the empty count is reached.
-            while( stage.process() );
+            // process until the batchCount for the stage is reached, 
+            // if the stage queue is empty, then retry for at least emptyRetryCount attempts
+            while(continueProcessing && (batchCount > 0))
+            {
+                continueProcessing = stage.process();
+                --batchCount;
+
+                if(!continueProcessing && (emptyRetryCount > 0))
+                {
+                    continueProcessing = true;
+                    --emptyRetryCount;
+                }
+            }
         }
 
         inline void waitForThreads(void)
