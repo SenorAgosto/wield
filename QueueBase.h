@@ -13,27 +13,19 @@ namespace wield {
         {
         }
 
-        void push(const typename MessageBase<ProcessingFunctor>::smartptr& value)
+        inline void push(const typename MessageBase<ProcessingFunctor>::smartptr& value)
         {
             queue_.push(value);
         }
 
-        bool try_pop(typename MessageBase<ProcessingFunctor>::smartptr& value)
+        inline bool try_pop(typename MessageBase<ProcessingFunctor>::smartptr& value)
         {
-            if(!queue_.empty())
-            {
-                value = queue_.front();
-                queue_.pop();
-
-                return true;
-            }
-
-            return false;
+            return queue_.try_pop(value);
         }
         
-        size_type unsafe_size(void) const
+        inline size_type unsafe_size(void) const
         {
-            return queue_.size();
+            return queue_.unsafe_size();
         }
 
     private:
