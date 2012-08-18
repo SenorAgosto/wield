@@ -24,10 +24,15 @@ public:
         return dispatcher_[Dispatcher::stage_enum_t::Stage1];
     }
 
-    size_t batchSize(typename Dispatcher::stage_enum_t stageName)
+    inline size_t batchSize(typename Dispatcher::stage_enum_t stageName) const
     {
         // return the configured batchSize for this stage.
-        return 0;
+        return std::numeric_limits<size_t>::max();
+    }
+
+    inline size_t emptyRetryCount(typename Dispatcher::stage_enum_t stageName) const
+    {
+        return 10;
     }
 
 private:
