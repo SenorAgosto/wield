@@ -6,15 +6,15 @@
 #include <iostream>
 #include <string>
 
-#include <wield/logging/Message.h>
+#include <wield/logging/LogMessage.h>
 
 namespace wield { namespace logging {
 
-    class InfoMessage : public Message
+    class InfoMessage : public LogMessage
     {
     public:
         InfoMessage(const std::string& str)
-            : Message(str)
+            : LogMessage(str)
         {
         }
 
@@ -29,11 +29,11 @@ namespace wield { namespace logging {
         }
     };
 
-    class WarningMessage : public Message
+    class WarningMessage : public LogMessage
     {
     public:
         WarningMessage(const std::string& str)
-            : Message(str)
+            : LogMessage(str)
         {
         }
 
@@ -48,11 +48,11 @@ namespace wield { namespace logging {
         }
     };
 
-    class ErrorMessage : public Message
+    class ErrorMessage : public LogMessage
     {
     public:
         ErrorMessage(const std::string& str)
-            : Message(str)
+            : LogMessage(str)
         {
         }
 
