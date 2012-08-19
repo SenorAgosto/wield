@@ -1,5 +1,5 @@
 #pragma once
-#include <exception>
+#include <wield/Exceptions.h>
 
 namespace wield
 {
@@ -23,7 +23,7 @@ namespace wield
         {
             if(nullptr != stages[static_cast<size_t>(stageName)])
             {
-                throw std::runtime_error("DispatcherBase::registerStage() duplicate registration of stage.");
+                throw wield::DuplicateStageRegistrationException(); 
             }
 
             stages[static_cast<size_t>(stageName)] = stage;
