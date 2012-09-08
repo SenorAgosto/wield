@@ -68,8 +68,14 @@ namespace wield {
             {
                 threads_.emplace_back(processLambda);
             }
+        }
 
-            waitForThreads();
+        inline void join(void)
+        {
+            std::for_each(threads_.begin(), threads_.end(), [](std::thread& t)
+            {
+                t.join();
+            });
         }
 
         inline void stop(void)
@@ -119,14 +125,6 @@ namespace wield {
                     --emptyRetryCount;
                 }
             }
-        }
-
-        inline void waitForThreads(void)
-        {
-            std::for_each(threads_.begin(), threads_.end(), [](std::thread& t)
-            {
-                t.join();
-            });
         }
 
     private:
