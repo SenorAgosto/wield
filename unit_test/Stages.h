@@ -6,5 +6,12 @@ enum class Stages
     Stage2,
     Stage3,
 
-    NumberOfStages
+    NumberOfEntries
+};
+
+static const char* StageEnumStrings[] = 
+{
+    "Stage1",
+    "Stage2",
+    "Stage3"
 };

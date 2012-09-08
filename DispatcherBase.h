@@ -40,6 +40,6 @@ namespace wield
         }
 
     private:
-        Stage* stages[StageEnum::NumberOfStages];
+        Stage* stages[StageEnum::NumberOfEntries];
     };
 }
