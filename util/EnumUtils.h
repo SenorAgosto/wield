@@ -20,7 +20,6 @@ namespace wield { namespace util {
         return EnumType::NumberOfEntries;
     }
 
-
     // given an enum type and an array of conversion strings, this function returns the string associated with the enum 
     template<typename EnumType, typename EnumStrings>
     std::string convertEnumToString(EnumType e, EnumStrings enumStrings)
@@ -28,4 +27,11 @@ namespace wield { namespace util {
         return std::string(enumStrings[static_cast<size_t>(e)]);
     }
 
+    // convert the EnumType to T.
+    template<typename EnumType, typename T>
+    T convertEnumTo(EnumType e)
+    {
+        static_assert(false, "conevrsionMapping not overloaded");
+        return T();
+    }
 }}
