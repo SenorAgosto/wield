@@ -34,6 +34,8 @@ namespace {
         });
 
         scheduler.start();
+
+        scheduler.join();
         t.join();
         producer.join();
     }
