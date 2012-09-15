@@ -1,0 +1,9 @@
+- functionality for setting processor affiinity
+- functionality for setting process and thread priority
+- (not sure about this) change QueueBase template arguments to take queue_type as a template template parameter
+
+Performance:
+- In SchedulerBase, compare whether using done_.load(std::memory_order_acquire)/done_.store(true, std::memory_order_release) is better or whether just doing done_ = true; and reading done_ is better.
+- Test different compiler options
+- Benchmark the differences between just using std::clog with ofstream backend and asynchronous I/O.
+- see if using std::array has a penalty versus C-style arrays
