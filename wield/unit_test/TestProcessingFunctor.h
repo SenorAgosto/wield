@@ -85,3 +85,15 @@ public:
 private:
     Dispatcher& dispatcher_;
 };
+
+class ThrowingProcessingFunctor : public ProcessingFunctor
+{
+public:
+    ThrowingProcessingFunctor()
+    {
+    }
+
+    virtual void operator()(Message& msg ){ throw std::exception("I'm broke."); }
+    virtual void operator()(TestMessage& msg){ throw std::exception("I'm broke."); }
+    virtual void operator()(TestMessage2& msg){ throw std::exception("I'm broke."); }
+};
