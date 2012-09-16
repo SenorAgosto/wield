@@ -18,7 +18,7 @@ public:
     {
     }
 
-    typename Dispatcher::stage_t& nextStage(std::thread::id thread_id)
+    typename Dispatcher::stage_t& nextStage(const size_t thread_id)
     {
         // this is where the magic happens...
         return dispatcher_[Dispatcher::stage_enum_t::Stage1];
