@@ -1,8 +1,8 @@
 #pragma once
 #include <wield/Exceptions.h>
 
-namespace wield
-{
+namespace wield {
+
     template<typename StageEnum, typename Stage>
     class DispatcherBase final
     {
