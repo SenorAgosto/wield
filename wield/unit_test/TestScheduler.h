@@ -13,8 +13,9 @@ class SchedulingPolicy
 public:
     typedef typename Dispatcher::stage_t stage_t;
 
-    SchedulingPolicy(Dispatcher& dispatcher)
+    SchedulingPolicy(Dispatcher& dispatcher, const std::size_t numberOfThreads = std::thread::hardware_concurrency())
         : dispatcher_(dispatcher)
+        , numberOfThreads_(numberOfThreads)
     {
     }
 
@@ -37,11 +38,12 @@ public:
     
     inline std::size_t numberOfThreads(void) const
     {
-        return std::thread::hardware_concurrency();
+        return numberOfThreads_;
     }
 
 private:
     Dispatcher& dispatcher_;
+    std::size_t numberOfThreads_;
 };
 
 typedef wield::SchedulerBase<SchedulingPolicy<TestDispatcher> > TestScheduler;

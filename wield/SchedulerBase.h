@@ -6,6 +6,8 @@
 #include <list>
 #include <utility>
 
+#include <wield/logging/Logging.h>
+
 namespace wield {
 
     template<typename SchedulingPolicy>
@@ -94,9 +96,9 @@ namespace wield {
                     process(thread_id);
                 }
             }
-            catch (const std::exception&)
+            catch (const std::exception& e)
             {
-                // TODO: log the exception
+                std::clog << logging::ErrorMessage(std::string("Scheduler: an exception occurred: ") + e.what());
             }
         }
 
