@@ -24,14 +24,14 @@ namespace {
         TestQueue q;
         Message::smartptr m = nullptr;
 
-        for(size_t i = 0; i < 10; ++i)
+        for(std::size_t i = 0; i < 10; ++i)
         {
             m = new TestMessage();
             q.push(m);
         }
 
         CHECK_EQUAL(10, q.unsafe_size() );
-        for(size_t i = 0; i < 10; ++i)
+        for(std::size_t i = 0; i < 10; ++i)
         {
             CHECK(q.try_pop(m));
             CHECK(m);

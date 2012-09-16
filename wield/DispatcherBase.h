@@ -21,22 +21,22 @@ namespace wield
 
         inline void registerStage(StageEnum stageName, Stage* stage)
         {
-            if(nullptr != stages[static_cast<size_t>(stageName)])
+            if(nullptr != stages[static_cast<std::size_t>(stageName)])
             {
                 throw wield::DuplicateStageRegistrationException(); 
             }
 
-            stages[static_cast<size_t>(stageName)] = stage;
+            stages[static_cast<std::size_t>(stageName)] = stage;
         }
 
         inline void dispatch(StageEnum stageName, typename Stage::message_t& message)
         {
-            stages[static_cast<size_t>(stageName)]->push( typename Stage::message_t::smartptr(&message) );
+            stages[static_cast<std::size_t>(stageName)]->push( typename Stage::message_t::smartptr(&message) );
         }
 
         inline Stage& operator[](StageEnum stageName)
         {
-            return *stages[static_cast<size_t>(stageName)];
+            return *stages[static_cast<std::size_t>(stageName)];
         }
 
     private:

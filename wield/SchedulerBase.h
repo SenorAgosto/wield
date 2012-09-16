@@ -59,13 +59,13 @@ namespace wield {
 
         void start(void)
         {
-            auto processLambda = [this](const size_t thread_id)
+            auto processLambda = [this](const std::size_t thread_id)
             {
                 try_process(thread_id);
             };
             
-            size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
-            for(size_t t = 0; t < numberOfThreads; ++t)
+            std::size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
+            for(std::size_t t = 0; t < numberOfThreads; ++t)
             {
                 threads_.emplace_back(processLambda, t);
             }
@@ -85,7 +85,7 @@ namespace wield {
         }
 
     private:
-        inline void try_process(const size_t thread_id)
+        inline void try_process(const std::size_t thread_id)
         {
             try
             {
@@ -105,11 +105,11 @@ namespace wield {
             return done_.load(std::memory_order_acquire);
         }
 
-        inline void process(const size_t thread_id)
+        inline void process(const std::size_t thread_id)
         {
             register SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
-            register size_t batchCount = schedulingPolicy_.batchSize(stage.name());
-            register size_t emptyRetryCount = schedulingPolicy_.emptyRetryCount(stage.name());
+            register std::size_t batchCount = schedulingPolicy_.batchSize(stage.name());
+            register std::size_t emptyRetryCount = schedulingPolicy_.emptyRetryCount(stage.name());
             register bool continueProcessing = true;
 
             // process until the batchCount for the stage is reached, 
