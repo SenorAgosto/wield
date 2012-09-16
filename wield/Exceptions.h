@@ -3,7 +3,7 @@
 
 namespace wield {
 
-    class DuplicateStageRegistrationException : public std::runtime_error
+    class DuplicateStageRegistrationException final : public std::runtime_error
     {
     public:
         DuplicateStageRegistrationException()
