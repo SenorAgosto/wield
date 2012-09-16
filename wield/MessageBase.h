@@ -21,7 +21,7 @@ namespace wield {
         }
 
     private:
-        std::atomic<size_t> reference_count_;
+        std::atomic<std::size_t> reference_count_;
 
         friend void intrusive_ptr_add_ref(MessageBase<ProcessingFunctor>* m)
         {
