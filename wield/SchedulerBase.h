@@ -57,13 +57,14 @@ namespace wield {
         {
         }
 
-        void start(size_t numberOfThreads = std::thread::hardware_concurrency() )
+        void start(void)
         {
             auto processLambda = [this]()
             {
                 try_process();
             };
 
+            size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
             for(size_t t = 0; t < numberOfThreads; ++t)
             {
                 threads_.emplace_back(processLambda);

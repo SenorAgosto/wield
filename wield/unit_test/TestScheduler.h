@@ -35,6 +35,11 @@ public:
         return 10;
     }
 
+    inline size_t numberOfThreads(void) const
+    {
+        return std::thread::hardware_concurrency();
+    }
+
 private:
     Dispatcher& dispatcher_;
 };
