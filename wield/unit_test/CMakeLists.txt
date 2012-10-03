@@ -15,12 +15,16 @@ add_executable( wield-UT ${implementation_files} ${interface_files})
 target_link_libraries( wield-UT
 					   wield 
 					   "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib"
-					   "\\lib\\x64\\vc110\\yaml-cpp\\0.3.0\\lib\\debug\\libyaml-cppmdd.lib"
 					 )
 
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND @echo off)
+
+#setup VLD.ini file
+add_custom_command(TARGET wield-UT
+				   POST_BUILD
+				   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/configs/vld.ini ${CMAKE_CURRENT_BINARY_DIR} )
 
 #setup unit test config files
 add_custom_command(TARGET wield-UT
@@ -30,3 +34,4 @@ add_custom_command(TARGET wield-UT
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName)/wield-UT.exe )
+				   
