@@ -1,4 +1,4 @@
-#include <VLD/vld.h>
+#include <wield/unit_test/MemoryLeakDetection.h>
 #include <UnitTest++/UnitTest++.h>
 
 int main()
