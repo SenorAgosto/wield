@@ -1,5 +1,6 @@
 - functionality for setting processor affiinity
 - functionality for setting process and thread priority
+- functionality to set NUMA affinity
 - (not sure about this) change QueueBase template arguments to take queue_type as a template template parameter
 
 Performance:
