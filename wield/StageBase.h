@@ -1,8 +1,8 @@
 #pragma once
 #include <wield/MessageBase.h>
 
-namespace wield
-{
+namespace wield {
+
     template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum, typename Stage> class Dispatcher>
     class StageBase final
     {
