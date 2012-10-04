@@ -5,6 +5,7 @@
 #include "TestStage.h"
 #include "TestDispatcher.h"
 
+#include <limits>
 #include <thread>
 
 template<typename Dispatcher>
