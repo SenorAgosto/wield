@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <cstddef>
 #include <boost/intrusive_ptr.hpp>
 
 namespace wield {

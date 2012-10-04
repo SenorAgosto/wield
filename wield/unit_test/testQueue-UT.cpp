@@ -1,6 +1,8 @@
 #include <UnitTest++/UnitTest++.h> 
 #include "TestQueue.h"
 
+#include <cstddef>
+
 namespace {
 
     TEST(verifyQueueBaseInstantiationWithStdQueue)
