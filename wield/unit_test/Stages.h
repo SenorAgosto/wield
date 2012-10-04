@@ -8,10 +8,3 @@ enum class Stages
 
     NumberOfEntries
 };
-
-static const char* StageEnumStrings[] = 
-{
-    "Stage1",
-    "Stage2",
-    "Stage3"
-};
