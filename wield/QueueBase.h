@@ -13,6 +13,10 @@ namespace wield {
         {
         }
 
+        ~QueueBase()
+        {
+        }
+
         inline void push(const typename MessageBase<ProcessingFunctor>::smartptr& value)
         {
             queue_.push(value);
