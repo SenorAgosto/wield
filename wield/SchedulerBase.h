@@ -1,12 +1,12 @@
 #pragma once
 
+#include <wield/logging/Logging.h>
+
 #include <algorithm>
 #include <atomic>
 #include <thread>
 #include <list>
 #include <utility>
-
-#include <wield/logging/Logging.h>
 
 namespace wield {
 
