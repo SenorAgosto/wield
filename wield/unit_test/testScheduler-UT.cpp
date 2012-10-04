@@ -3,6 +3,8 @@
 #include "TestDispatcher.h"
 
 #include <wield/logging/ScopedClogRedirector.h>
+
+#include <cstddef>
 #include <thread>
 #include <regex>
 

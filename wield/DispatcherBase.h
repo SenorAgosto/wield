@@ -1,6 +1,8 @@
 #pragma once
 #include <wield/Exceptions.h>
 
+#include <cstddef>
+
 namespace wield {
 
     template<typename StageEnum, typename Stage>
