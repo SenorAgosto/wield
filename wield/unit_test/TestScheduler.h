@@ -5,6 +5,7 @@
 #include "TestStage.h"
 #include "TestDispatcher.h"
 
+#include <cstddef>
 #include <limits>
 #include <thread>
 
