@@ -44,6 +44,11 @@ namespace wield {
         }
 
     private:
+        // disable copy constructor and assignment operator
+        StageBase(const StageBase&);
+        StageBase& operator=(const StageBase&);
+
+    private:
         ProcessingFunctor& processingFunctor_;
         QueueType& queue_;
 

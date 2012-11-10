@@ -27,17 +27,17 @@ public:
     {
     }
 
-    virtual void operator()(Message& msg)
+    virtual void operator()(Message&)
     {
         messageBaseCalled_ = true;
     }
 
-    virtual void operator()(TestMessage& msg)
+    virtual void operator()(TestMessage&)
     { 
         message1Called_ = true;
     }
 
-    virtual void operator()(TestMessage2& msg) 
+    virtual void operator()(TestMessage2&) 
     { 
         message2Called_ = true;
     }
@@ -83,6 +83,11 @@ public:
     bool message2Called_;
 
 private:
+    // disable copy-constructor and assignment operator
+    TestProcessingFunctorWithDispatcher(const TestProcessingFunctorWithDispatcher&);
+    TestProcessingFunctorWithDispatcher& operator=(const TestProcessingFunctorWithDispatcher&);
+
+private:
     Dispatcher& dispatcher_;
 };
 
@@ -93,7 +98,7 @@ public:
     {
     }
 
-    virtual void operator()(Message& msg ){ throw std::exception("I'm broke."); }
-    virtual void operator()(TestMessage& msg){ throw std::exception("I'm broke."); }
-    virtual void operator()(TestMessage2& msg){ throw std::exception("I'm broke."); }
+    virtual void operator()(Message&){ throw std::exception("I'm broke."); }
+    virtual void operator()(TestMessage&){ throw std::exception("I'm broke."); }
+    virtual void operator()(TestMessage2&){ throw std::exception("I'm broke."); }
 };

@@ -21,9 +21,15 @@ namespace wield {
         {
         }
 
-    private:
-        std::atomic<std::size_t> reference_count_;
+        MessageBase(const MessageBase&)
+            : reference_count_(0)
+        { 
+        }
 
+        // assignment operator is default implementation
+        MessageBase& operator=(const MessageBase&){}
+
+    private:
         friend inline void intrusive_ptr_add_ref(MessageBase<ProcessingFunctor>* m)
         {
             ++m->reference_count_;
@@ -36,5 +42,8 @@ namespace wield {
                 delete m;
             }
         }
+
+    private:
+        std::atomic<std::size_t> reference_count_;
     };
 }
