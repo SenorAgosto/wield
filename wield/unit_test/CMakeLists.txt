@@ -1,9 +1,6 @@
 file(GLOB interface_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.hpp)
 file(GLOB implementation_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c *.cpp)
 
-add_definitions(-D_SCL_SECURE_NO_WARNINGS=1)
-add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
-
 include_directories("\\lib\\x64\\vc110\\UnitTestxx\\1.4\\include")
 include_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\include")
 
@@ -16,7 +13,7 @@ target_link_libraries( wield-UT
 					   wield 
 					   "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib"
 					 )
-
+					 
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND @echo off)
@@ -30,6 +27,17 @@ add_custom_command(TARGET wield-UT
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/configs/ ${CMAKE_CURRENT_BINARY_DIR}/configs/ )
+
+#setup VLD DLL in prebuild step.
+add_custom_command(TARGET wield-UT
+				   POST_BUILD
+				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\vld_x64.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+add_custom_command(TARGET wield-UT
+				   POST_BUILD
+				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\dbghelp.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+add_custom_command(TARGET wield-UT
+				   POST_BUILD
+				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\Microsoft.DTfW.DHL.manifest" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
 				   
 add_custom_command(TARGET wield-UT
 				   POST_BUILD

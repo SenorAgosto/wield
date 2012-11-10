@@ -10,7 +10,7 @@
 #include <thread>
 
 template<typename Dispatcher>
-class SchedulingPolicy
+class SchedulingPolicy final
 {
 public:
     typedef typename Dispatcher::stage_t stage_t;
@@ -21,19 +21,19 @@ public:
     {
     }
 
-    typename Dispatcher::stage_t& nextStage(const std::size_t thread_id)
+    typename Dispatcher::stage_t& nextStage(const std::size_t /* thread_id */)
     {
         // this is where the magic happens...
         return dispatcher_[Dispatcher::stage_enum_t::Stage1];
     }
 
-    inline std::size_t batchSize(typename Dispatcher::stage_enum_t stageName) const
+    inline std::size_t batchSize(typename Dispatcher::stage_enum_t /* stageName */) const
     {
         // return the configured batchSize for this stage.
         return std::numeric_limits<std::size_t>::max();
     }
 
-    inline std::size_t emptyRetryCount(typename Dispatcher::stage_enum_t stageName) const
+    inline std::size_t emptyRetryCount(typename Dispatcher::stage_enum_t /* stageName */) const
     {
         return 10;
     }
@@ -42,6 +42,11 @@ public:
     {
         return numberOfThreads_;
     }
+
+private:
+    // disable copy constructor and assigment operator
+    SchedulingPolicy(const SchedulingPolicy&);
+    SchedulingPolicy& operator=(const SchedulingPolicy&);
 
 private:
     Dispatcher& dispatcher_;
