@@ -42,6 +42,11 @@ namespace wield {
         }
 
     private:
+        // disable copy constructor and assignment operator
+        DispatcherBase(const DispatcherBase&);
+        DispatcherBase& operator=(const DispatcherBase&);
+
+    private:
         Stage* stages[StageEnum::NumberOfEntries];
     };
 }
