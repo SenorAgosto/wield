@@ -1,9 +1,6 @@
-- rework CMake config files to include the path of DLLs prior to executing UT.exe, rather than
-  copying the DLLs to the working directory.
-
 - allow injection of logging implementation into wield classes.
 
-- functionality for setting processor affiinity
+- functionality for setting processor affinity
 - functionality for setting process and thread priority
 - functionality to set NUMA affinity (http://msdn.microsoft.com/en-us/library/windows/desktop/aa363804(v=vs.85).aspx)
 - (not sure about this) change QueueBase template arguments to take queue_type as a template template parameter
