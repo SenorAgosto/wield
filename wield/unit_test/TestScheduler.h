@@ -1,5 +1,6 @@
 #pragma once
 #include <wield/SchedulerBase.h>
+#include <wield/platform/thread>
 
 #include "Stages.h"
 #include "TestStage.h"
@@ -7,7 +8,6 @@
 
 #include <cstddef>
 #include <limits>
-#include <thread>
 
 template<typename Dispatcher>
 class SchedulingPolicy final

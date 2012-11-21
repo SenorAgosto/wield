@@ -20,8 +20,6 @@ if(WIN32)
 		
 		# C++ Disabled because Visual Studio's headers don't past mustard.
 		# In this case, we probably really do want these errors to be emmitted.
-		/wd4265		# class has virtual functions without virtual destructor, xthread header triggers this.
 		/wd4350		# binding an rvalue to a non-const reference, xstring header triggers this.
-		/wd4548		# expected expression with side effect, malloc.h triggers this error in VS2012.
 	)
 endif()

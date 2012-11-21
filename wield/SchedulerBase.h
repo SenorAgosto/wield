@@ -1,10 +1,10 @@
 #pragma once
 
 #include <wield/logging/Logging.h>
+#include <wield/platform/thread>
 
 #include <algorithm>
 #include <atomic>
-#include <thread>
 #include <list>
 #include <utility>
 
