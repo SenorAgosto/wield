@@ -1,3 +1,6 @@
+- rework CMake config files to include the path of DLLs prior to executing UT.exe, rather than
+  copying the DLLs to the working directory.
+
 - allow injection of logging implementation into wield classes.
 
 - functionality for setting processor affiinity
