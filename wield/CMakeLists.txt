@@ -7,6 +7,6 @@ source_group("Logging" FILES ${logging_headers})
 source_group("Interface" FILES ${interface_files})
 
 add_library( wield ${implementation_files} ${interface_files} ${logging_headers})
-include_directories("\\lib\\x64\\vc110\\Boost\\1.50.0\\include")
+include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
 
 add_subdirectory(unit_test)
