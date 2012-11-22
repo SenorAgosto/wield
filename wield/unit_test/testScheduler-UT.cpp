@@ -1,4 +1,6 @@
 #include "platform/UnitTestSupport.h"
+#include "platform/Regex.h"
+
 #include "test/Scheduler.h"
 #include "test/Dispatcher.h"
 
@@ -6,7 +8,6 @@
 #include <wield/platform/thread>
 
 #include <cstddef>
-#include <regex>
 
 namespace {
 

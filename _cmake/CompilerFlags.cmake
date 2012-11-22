@@ -1,6 +1,5 @@
 if(WIN32)
 	add_definitions(
-		#/D_SCL_SECURE_NO_WARNINGS
 		/D_CRT_SECURE_NO_WARNINGS 	# currently calling std::gmtime in wield/logging/Logging.h
 		/DNOMINMAX	#disable creation of min/max macro
 		/EHa
@@ -17,9 +16,5 @@ if(WIN32)
 		/wd4626		# derived class assignment operator cannot be generated because base class operator inaccessible.
 		/wd4640		# construction of local static objects is not thread-safe.
 		/wd4668		# preprocessor directive not defined, this is normal.
-		
-		# C++ Disabled because Visual Studio's headers don't past mustard.
-		# In this case, we probably really do want these errors to be emmitted.
-		/wd4350		# binding an rvalue to a non-const reference, xstring header triggers this.
 	)
 endif()

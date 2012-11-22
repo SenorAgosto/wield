@@ -2,10 +2,10 @@
 
 #include <wield/logging/Logging.h>
 #include <wield/platform/thread>
+#include <wield/platform/list>
 
 #include <algorithm>
 #include <atomic>
-#include <list>
 #include <utility>
 
 namespace wield {
