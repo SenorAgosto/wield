@@ -51,6 +51,9 @@ namespace wield { namespace logging {
         }
 
     private:
+        ScopedClogRedirector(const ScopedClogRedirector&);
+        ScopedClogRedirector& operator=(const ScopedClogRedirector&);
+
         std::ostringstream ostream_;
         std::streambuf* old_clog_;
     };
@@ -80,6 +83,9 @@ namespace wield { namespace logging {
         }
 
     private:
+        ScopedClogRedirector(const ScopedClogRedirector&);
+        ScopedClogRedirector& operator=(const ScopedClogRedirector&);
+
         std::string logPath_;
         std::ofstream file_stream_;
         std::streambuf* old_clog_;
