@@ -1,8 +1,8 @@
 #include "platform/UnitTestSupport.h"
-#include <wield/logging/ScopedClogRedirector.h>
+#include "platform/FileSystem.h"
 
+#include <wield/logging/ScopedClogRedirector.h>
 #include <sstream>
-#include <boost/filesystem.hpp>
 
 namespace {
 
