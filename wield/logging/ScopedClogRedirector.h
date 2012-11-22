@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <string>
+
+#include <wield/platform/string>
 
 namespace wield { namespace logging {
 
