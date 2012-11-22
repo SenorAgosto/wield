@@ -1,11 +1,11 @@
-#include "UnitTestSupport.h"
+#include "platform/UnitTestSupport.h"
 #include <exception>
 
-#include "TestProcessingFunctor.h"
-#include "TestDispatcher.h"
-#include "TestStage.h"
-#include "TestQueue.h"
-#include "TestMessage.h"
+#include "test/ProcessingFunctor.h"
+#include "test/Dispatcher.h"
+#include "test/Stage.h"
+#include "test/Queue.h"
+#include "test/Message.h"
 
 namespace {
 

@@ -1,6 +1,6 @@
-#include "UnitTestSupport.h"
-#include "TestScheduler.h"
-#include "TestDispatcher.h"
+#include "platform/UnitTestSupport.h"
+#include "test/Scheduler.h"
+#include "test/Dispatcher.h"
 
 #include <wield/logging/ScopedClogRedirector.h>
 #include <wield/platform/thread>

@@ -1,8 +1,8 @@
-#include "UnitTestSupport.h"
-#include "TestProcessingFunctor.h"
-#include "TestQueue.h"
-#include "TestDispatcher.h"
-#include "TestStage.h"
+#include "platform/UnitTestSupport.h"
+#include "test/ProcessingFunctor.h"
+#include "test/Queue.h"
+#include "test/Dispatcher.h"
+#include "test/Stage.h"
 
 namespace {
 

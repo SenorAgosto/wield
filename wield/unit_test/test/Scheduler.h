@@ -3,8 +3,8 @@
 #include <wield/platform/thread>
 
 #include "Stages.h"
-#include "TestStage.h"
-#include "TestDispatcher.h"
+#include "Stage.h"
+#include "Dispatcher.h"
 
 #include <cstddef>
 #include <limits>

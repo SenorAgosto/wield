@@ -1,4 +1,4 @@
-#include "UnitTestSupport.h"
+#include "platform/UnitTestSupport.h"
 #include <wield/logging/ScopedClogRedirector.h>
 
 #include <sstream>

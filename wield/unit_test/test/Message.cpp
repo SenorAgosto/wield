@@ -1,5 +1,5 @@
-#include "TestMessage.h"
-#include "TestProcessingFunctor.h"
+#include "Message.h"
+#include "ProcessingFunctor.h"
 
 //virtual
 void TestMessage::ProcessWith(ProcessingFunctor& process)
