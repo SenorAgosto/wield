@@ -1,5 +1,5 @@
-#include "UnitTestSupport.h"
-#include "TestQueue.h"
+#include "platform/UnitTestSupport.h"
+#include "test/Queue.h"
 
 #include <cstddef>
 
