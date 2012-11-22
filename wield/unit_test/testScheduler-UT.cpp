@@ -1,11 +1,11 @@
-#include <UnitTest++/UnitTest++.h>
+#include "UnitTestSupport.h"
 #include "TestScheduler.h"
 #include "TestDispatcher.h"
 
 #include <wield/logging/ScopedClogRedirector.h>
+#include <wield/platform/thread>
 
 #include <cstddef>
-#include <thread>
 #include <regex>
 
 namespace {

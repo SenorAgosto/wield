@@ -1,4 +1,4 @@
-#include <UnitTest++/UnitTest++.h>
+#include "UnitTestSupport.h"
 #include <wield/MessageBase.h>
 
 #include "TestMessage.h"
