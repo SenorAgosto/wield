@@ -2,6 +2,6 @@
 #include <wield/DispatcherBase.h>
 
 #include "Stages.h"
-#include "TestStage.h"
+#include "Stage.h"
 
 typedef wield::DispatcherBase<Stages, TestStage> TestDispatcher;

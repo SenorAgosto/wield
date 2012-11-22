@@ -1,13 +1,21 @@
 file(GLOB interface_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.hpp)
 file(GLOB implementation_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c *.cpp)
+file(GLOB platform_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} platform/*.h platform/*.hpp)
+file(GLOB test_application_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.h test/*.hpp test/*.c test/*.cpp)
 
+source_group("Platform" FILES ${platform_files})
+source_group("Source" FILES ${interface_files} ${implementation_files})
+source_group("Test" FILES ${test_application_files})
+
+include_directories("test")
+include_directories("platform")
 include_directories("\\lib\\x64\\vc110\\UnitTestxx\\1.4\\include")
 include_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\include")
 
 link_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\lib")
 link_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\lib")
 
-add_executable( wield-UT ${implementation_files} ${interface_files})
+add_executable( wield-UT ${implementation_files} ${interface_files} ${platform_files} ${test_application_files})
 
 target_link_libraries( wield-UT
 					   wield 
