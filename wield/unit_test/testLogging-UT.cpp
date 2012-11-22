@@ -1,4 +1,5 @@
-#include <UnitTest++/UnitTest++.h>
+#include "UnitTestSupport.h"
+
 #include <wield/logging/Logging.h>
 #include <wield/logging/ScopedClogRedirector.h>
 

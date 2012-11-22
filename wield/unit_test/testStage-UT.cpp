@@ -1,4 +1,4 @@
-#include <UnitTest++/UnitTest++.h>
+#include "UnitTestSupport.h"
 #include "TestProcessingFunctor.h"
 #include "TestQueue.h"
 #include "TestDispatcher.h"

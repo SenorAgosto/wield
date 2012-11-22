@@ -4,9 +4,9 @@
 #include <ctime>
 #include <iomanip>
 #include <iostream>
-#include <string>
 
 #include <wield/logging/LogMessage.h>
+#include <wield/platform/string>
 
 namespace wield { namespace logging {
 
