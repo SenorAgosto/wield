@@ -6,6 +6,18 @@
 
 namespace wield {
 
+    /// @note [ARG]: scritly speaking, we don't need to parameterize
+    /// Messages on the ProcessingFunctor. We could introduce an
+    /// interface and force client code ProcessingFunctors to inherit
+    /// from the interface, then use the interface for ProcessWith() here.
+    ///
+    /// However, the current solution allows an interesting potential
+    /// for a message's ProcessWith to invoke methods on the ProcessingFunctor
+    /// prior dispatching into it for processing.
+    ///
+    /// This flexability maybe useful for updating statistics or informing
+    /// the scheduler of events via ProcessingFunctor - if that is how
+    /// client code decides to feed statistics or information into their scheduler.
     template<class ProcessingFunctor>
 	class MessageBase
 	{
