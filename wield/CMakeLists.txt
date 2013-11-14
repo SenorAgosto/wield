@@ -8,7 +8,21 @@ source_group("Logging" FILES ${logging_headers})
 source_group("Platform" FILES ${platform_headers})
 source_group("Interface" FILES ${interface_files})
 
-add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers})
-include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
+if(WIN32)
+	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
+else()
+	set(Boost_USE_STATIC_LIBS ON)
+	set(Boost_USE_MULTITHREADED ON)
+	set(Boost_USE_STATIC_RUNTIME OFF)
 
+	find_package(Boost COMPONENTS filesystem REQUIRED) 
+	
+	if(Boost_FOUND)
+		include_directories(${Boost_INCLUDE_DIR})
+		link_directories(${Boost_LIBRARY_DIR})
+		add_definitions("-DHAS_BOOST")
+	endif() 	
+endif()
+
+add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers})
 add_subdirectory(unit_test)

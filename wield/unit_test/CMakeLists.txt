@@ -9,17 +9,31 @@ source_group("Test" FILES ${test_application_files})
 
 include_directories("test")
 include_directories("platform")
-include_directories("\\lib\\x64\\vc110\\UnitTestxx\\1.4\\include")
-include_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\include")
 
-link_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\lib")
-link_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\lib")
+if(WIN32)
+	include_directories("\\lib\\x64\\vc110\\UnitTestxx\\1.4\\include")
+	include_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\include")
+
+	link_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\lib")
+	link_directories("\\lib\\x64\\vc110\\VLD\\2.2.3\\lib")
+	
+	set(UNITTEST++_LIBRARIES "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib")
+else()
+	include_directories("/Volumes/proj/unittest++/")
+	set(UNITTEST++_LIBRARIES "/Volumes/proj/unittest++/libUnitTest++.a")
+	#find_package(UnitTest++ REQUIRED)
+
+	include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/include")
+	link_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib")
+	#find_package(tbb 4.2 REQUIRED)
+endif()
 
 add_executable( wield-UT ${implementation_files} ${interface_files} ${platform_files} ${test_application_files})
 
 target_link_libraries( wield-UT
 					   wield 
-					   "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib"
+					   ${UNITTEST++_LIBRARIES}
+					   ${Boost_LIBRARIES}
 					 )
 					 
 add_custom_command(TARGET wield-UT
@@ -36,22 +50,26 @@ add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/configs/ ${CMAKE_CURRENT_BINARY_DIR}/configs/ )
 
-#setup VLD DLL in prebuild step.
-add_custom_command(TARGET wield-UT
-				   POST_BUILD
-				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\vld_x64.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
-add_custom_command(TARGET wield-UT
-				   POST_BUILD
-				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\dbghelp.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
-add_custom_command(TARGET wield-UT
-				   POST_BUILD
-				   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\Microsoft.DTfW.DHL.manifest" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
-				   
+if(WIN32)
+	#setup VLD DLL in prebuild step.
+	add_custom_command(TARGET wield-UT
+					   POST_BUILD
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\vld_x64.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+	add_custom_command(TARGET wield-UT
+					   POST_BUILD
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\dbghelp.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+	add_custom_command(TARGET wield-UT
+					   POST_BUILD
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\Microsoft.DTfW.DHL.manifest" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+endif()
+
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName)/wield-UT.exe )
 
-#scan memory report file for leak message, fail the build if there is a leak.
-add_custom_command(TARGET wield-UT
-				   POST_BUILD
-				   COMMAND ${CMAKE_COMMAND} -DMemoryLeakReportFilename=${CMAKE_CURRENT_BINARY_DIR}/memory_leak_report.txt -P ${PROJECT_SOURCE_DIR}/_cmake/FailOnMemoryLeak.cmake ) 
+if(WIN32)
+	#scan memory report file for leak message, fail the build if there is a leak.
+	add_custom_command(TARGET wield-UT
+					   POST_BUILD
+					   COMMAND ${CMAKE_COMMAND} -DMemoryLeakReportFilename=${CMAKE_CURRENT_BINARY_DIR}/memory_leak_report.txt -P ${PROJECT_SOURCE_DIR}/_cmake/FailOnMemoryLeak.cmake ) 
+endif()
