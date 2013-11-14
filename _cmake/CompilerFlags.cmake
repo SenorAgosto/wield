@@ -17,4 +17,13 @@ if(WIN32)
 		/wd4640		# construction of local static objects is not thread-safe.
 		/wd4668		# preprocessor directive not defined, this is normal.
 	)
+else()
+	# currently assumes we are building on MacOSX using clang++.
+	add_definitions(
+			-std=c++11		# use c++11 features
+			-stdlib=libc++  # use the good runtime
+			#-Weverything 	# Turn on all warnings 
+			#-Werror			# warnings as errors
+	)
+	
 endif()
