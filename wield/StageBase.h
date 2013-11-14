@@ -3,7 +3,7 @@
 
 namespace wield {
 
-    template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum, typename Stage> class Dispatcher>
+    template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum2, typename Stage> class Dispatcher>
     class StageBase final
     {
     public:
@@ -28,7 +28,7 @@ namespace wield {
 
         bool process(void)
         {
-            message_t::smartptr m;
+            typename message_t::smartptr m;
             if( queue_.try_pop(m) )
             {
                 m->ProcessWith(processingFunctor_);
