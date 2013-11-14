@@ -15,44 +15,44 @@ namespace wield {
     {
     public:
         SchedulerBase()
-            : schedulingPolicy_() 
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_()
         {
         }
 
         template<typename Arg1>
         SchedulerBase(Arg1&& arg1)
-            : schedulingPolicy_(std::forward<Arg1>(arg1)) 
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_(std::forward<Arg1>(arg1))
         {
         }
 
         template<typename Arg1, typename Arg2>
         SchedulerBase(Arg1&& arg1, Arg2&& arg2)
-            : schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2))
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2))
         {
         }
 
         template<typename Arg1, typename Arg2, typename Arg3>
         SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3)
-            : schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3))
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3))
         {
         }
 
         template<typename Arg1, typename Arg2, typename Arg3, typename Arg4>
         SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3, Arg4&& arg4)
-            : schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4))
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4))
         {
         }
 
         // five is infinity.
         template<typename Arg1, typename Arg2, typename Arg3, typename Arg4, typename Arg5>
         SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3, Arg4&& arg4, Arg5&& arg5)
-            : schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4), std::forward<Arg5>(arg5))
-            , done_(false)
+            : done_(false)
+            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4), std::forward<Arg5>(arg5))
         {
         }
 
@@ -113,7 +113,7 @@ namespace wield {
 
         inline void process(const std::size_t thread_id)
         {
-            register SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
+            register typename SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
             register std::size_t batchCount = schedulingPolicy_.batchSize(stage.name());
             register std::size_t emptyRetryCount = schedulingPolicy_.emptyRetryCount(stage.name());
             register bool continueProcessing = true;
