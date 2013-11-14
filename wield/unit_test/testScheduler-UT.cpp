@@ -3,6 +3,7 @@
 
 #include "test/Scheduler.h"
 #include "test/Dispatcher.h"
+#include "test/Queue.h"
 
 #include <wield/logging/ScopedClogRedirector.h>
 #include <wield/platform/thread>
