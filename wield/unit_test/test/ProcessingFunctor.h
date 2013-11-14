@@ -2,6 +2,8 @@
 #include "Message.h"
 #include "Stages.h"
 
+#include <stdexcept>
+
 class TestMessage;
 class TestMessage2;
 
@@ -53,10 +55,10 @@ class TestProcessingFunctorWithDispatcher : public ProcessingFunctor
 {
 public:
     TestProcessingFunctorWithDispatcher(Dispatcher& dispatcher)
-        : dispatcher_(dispatcher) 
-        , messageBaseCalled_(false)
+        : messageBaseCalled_(false)
         , message1Called_(false)
         , message2Called_(false)
+        , dispatcher_(dispatcher)
     {
     }
 
@@ -98,7 +100,7 @@ public:
     {
     }
 
-    virtual void operator()(Message&){ throw std::exception("I'm broke."); }
-    virtual void operator()(TestMessage&){ throw std::exception("I'm broke."); }
-    virtual void operator()(TestMessage2&){ throw std::exception("I'm broke."); }
+    virtual void operator()(Message&){ throw std::runtime_error("I'm broke."); }
+    virtual void operator()(TestMessage&){ throw std::runtime_error("I'm broke."); }
+    virtual void operator()(TestMessage2&){ throw std::runtime_error("I'm broke."); }
 };

@@ -47,6 +47,6 @@ namespace wield {
         DispatcherBase& operator=(const DispatcherBase&);
 
     private:
-        Stage* stages[StageEnum::NumberOfEntries];
+        Stage* stages[static_cast<std::size_t>(StageEnum::NumberOfEntries)];
     };
 }
