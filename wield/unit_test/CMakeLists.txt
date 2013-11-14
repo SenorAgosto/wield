@@ -24,7 +24,9 @@ else()
 	#find_package(UnitTest++ REQUIRED)
 
 	include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/include")
-	link_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib")
+	set(TBB_LIBRARIES "/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib/libtbb.dylib" "/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib/libtbbmalloc.dylib")
+
+	#link_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib")
 	#find_package(tbb 4.2 REQUIRED)
 endif()
 
@@ -34,6 +36,7 @@ target_link_libraries( wield-UT
 					   wield 
 					   ${UNITTEST++_LIBRARIES}
 					   ${Boost_LIBRARIES}
+					   ${TBB_LIBRARIES}
 					 )
 					 
 add_custom_command(TARGET wield-UT
@@ -54,18 +57,19 @@ if(WIN32)
 	#setup VLD DLL in prebuild step.
 	add_custom_command(TARGET wield-UT
 					   POST_BUILD
-					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\vld_x64.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\vld_x64.dll" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR} )
 	add_custom_command(TARGET wield-UT
 					   POST_BUILD
-					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\dbghelp.dll" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\dbghelp.dll" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR} )
 	add_custom_command(TARGET wield-UT
 					   POST_BUILD
-					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\Microsoft.DTfW.DHL.manifest" ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName) )
+					   COMMAND ${CMAKE_COMMAND} -E copy "\\lib\\x64\\vc110\\VLD\\2.2.3\\lib\\debug\\Microsoft.DTfW.DHL.manifest" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR} )
+
 endif()
 
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
-				   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/$(ConfigurationName)/wield-UT.exe )
+				   COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/wield-UT )
 
 if(WIN32)
 	#scan memory report file for leak message, fail the build if there is a leak.
