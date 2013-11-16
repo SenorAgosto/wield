@@ -14,48 +14,14 @@ namespace wield {
     class SchedulerBase final
     {
     public:
-        SchedulerBase()
+        
+        template<typename... Args>
+        SchedulerBase(Args&&... arg)
             : done_(false)
-            , schedulingPolicy_()
+            , schedulingPolicy_(std::forward<Args>(arg)...)
         {
         }
-
-        template<typename Arg1>
-        SchedulerBase(Arg1&& arg1)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Arg1>(arg1))
-        {
-        }
-
-        template<typename Arg1, typename Arg2>
-        SchedulerBase(Arg1&& arg1, Arg2&& arg2)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2))
-        {
-        }
-
-        template<typename Arg1, typename Arg2, typename Arg3>
-        SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3))
-        {
-        }
-
-        template<typename Arg1, typename Arg2, typename Arg3, typename Arg4>
-        SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3, Arg4&& arg4)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4))
-        {
-        }
-
-        // five is infinity.
-        template<typename Arg1, typename Arg2, typename Arg3, typename Arg4, typename Arg5>
-        SchedulerBase(Arg1&& arg1, Arg2&& arg2, Arg3&& arg3, Arg4&& arg4, Arg5&& arg5)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Arg1>(arg1), std::forward<Arg2>(arg2), std::forward<Arg3>(arg3), std::forward<Arg4>(arg4), std::forward<Arg5>(arg5))
-        {
-        }
-
+        
         ~SchedulerBase()
         {
         }
