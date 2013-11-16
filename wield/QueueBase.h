@@ -33,9 +33,8 @@ namespace wield {
         }
 
     private:
-        // disable copy constructor and assignment operator
-        QueueBase(const QueueBase&);
-        QueueBase& operator=(const QueueBase&);
+        QueueBase(const QueueBase&) = delete;
+        QueueBase& operator=(const QueueBase&) = delete;
 
     private:
         QueueType queue_;
