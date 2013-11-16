@@ -1,5 +1,6 @@
 #pragma once
 #include <wield/Exceptions.h>
+#include <wield/Concepts.h>
 
 #include <cstddef>
 
@@ -7,11 +8,12 @@ namespace wield {
 
     template<typename StageEnum, typename Stage>
     class DispatcherBase final
+        : IsEnumConcept<StageEnum>
     {
     public:
-        typedef Stage stage_t;
-        typedef StageEnum stage_enum_t;
-
+        using stage_t = Stage;
+        using stage_enum_t = StageEnum;
+        
         DispatcherBase()
         {
             memset(stages, 0, sizeof(stages));
@@ -42,10 +44,9 @@ namespace wield {
         }
 
     private:
-        // disable copy constructor and assignment operator
-        DispatcherBase(const DispatcherBase&);
-        DispatcherBase& operator=(const DispatcherBase&);
-
+        DispatcherBase(const DispatcherBase&) = delete;
+        DispatcherBase& operator=(const DispatcherBase&) = delete;
+        
     private:
         Stage* stages[static_cast<std::size_t>(StageEnum::NumberOfEntries)];
     };
