@@ -88,8 +88,8 @@ namespace wield {
         }
 
     private:
-        SchedulerBase(const SchedulerBase&);
-        SchedulerBase& operator=(const SchedulerBase&);
+        SchedulerBase(const SchedulerBase&) = delete;
+        SchedulerBase& operator=(const SchedulerBase&) = delete;
 
         inline void try_process(const std::size_t thread_id)
         {
