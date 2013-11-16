@@ -1,16 +1,15 @@
 #pragma once
 #include <wield/Exceptions.h>
-#include <wield/Concepts.h>
-
 #include <cstddef>
 
 namespace wield {
 
     template<typename StageEnum, typename Stage>
     class DispatcherBase final
-        : IsEnumConcept<StageEnum>
     {
     public:
+        static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
+        
         using stage_t = Stage;
         using stage_enum_t = StageEnum;
         

@@ -1,14 +1,13 @@
 #pragma once
 #include <wield/MessageBase.h>
-#include <wield/Concepts.h>
 
 namespace wield {
 
     template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum2, typename Stage> class Dispatcher>
     class StageBase final
-        : private IsEnumConcept<StageEnum>
     {
     public:
+        static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
         using message_t = MessageBase<ProcessingFunctor>;
 
         StageBase(StageEnum stageName, Dispatcher<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
