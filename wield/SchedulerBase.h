@@ -1,6 +1,6 @@
 #pragma once
 
-#include <wield/logging/Logging.h>
+#include <wield/logging/Log.h>
 #include <wield/platform/thread>
 #include <wield/platform/list>
 
@@ -102,7 +102,7 @@ namespace wield {
             }
             catch (const std::exception& e)
             {
-                std::clog << logging::ErrorMessage(std::string("Scheduler: an exception occurred: ") + e.what());
+                logging::Log::Error(std::string("Scheduler: an exception occurred: ") + e.what());
             }
         }
 

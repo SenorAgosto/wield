@@ -5,6 +5,8 @@
 #include "test/Dispatcher.h"
 #include "test/Queue.h"
 
+#include <wield/logging/Log.h>
+#include <wield/logging/LoggingPolicy.h>
 #include <wield/platform/thread>
 
 #include <cstddef>
@@ -45,24 +47,41 @@ namespace {
         producer.join();
     }
     
-// TODO: replace use of ScopedClogRedirector here with new logging interface.
-//    TEST(verifyAnExceptionThrownByStageIsCaughtAndLogged)
-//    {
-//        wield::logging::ScopedClogRedirector<std::ostringstream> loggingRedirector;
-//        TestDispatcher d;
-//        TestQueue q;
-//        ThrowingProcessingFunctor f;
-//        TestStage s(Stages::Stage1, d, q, f);
-//
-//        static const std::size_t numberOfThreads = 1;
-//        TestScheduler scheduler(d, numberOfThreads);
-//
-//        TestMessage::smartptr m = new TestMessage();
-//        d.dispatch(Stages::Stage1, *m);
-//
-//        scheduler.start();
-//        scheduler.join();
-//
-//        CHECK(std::regex_match(loggingRedirector.str(), std::regex(".*Scheduler: an exception occurred: I'm broke.\n")));
-//    }
+    class LogToStr : public wield::logging::LoggingPolicy
+    {
+    public:
+        LogToStr(std::stringstream& ss)
+            : ss_(ss)
+        {
+        }
+        
+        void Info(const std::string& info) const override { ss_ << "[Info]" << info << std::endl; }
+        void Warning(const std::string& warning) const override { ss_ << "[Warning]" << warning << std::endl; }
+        void Error(const std::string& error) const override { ss_ << "[Error]" << error << std::endl; }
+        
+    private:
+        std::stringstream& ss_;
+    };
+    
+    TEST(verifyAnExceptionThrownByStageIsCaughtAndLogged)
+    {
+        std::stringstream ss;
+        wield::logging::Log::SetLoggingPolicy(wield::logging::LoggingPolicyType(new LogToStr(ss)));
+
+        TestDispatcher d;
+        TestQueue q;
+        ThrowingProcessingFunctor f;
+        TestStage s(Stages::Stage1, d, q, f);
+
+        static const std::size_t numberOfThreads = 1;
+        TestScheduler scheduler(d, numberOfThreads);
+
+        TestMessage::smartptr m = new TestMessage();
+        d.dispatch(Stages::Stage1, *m);
+
+        scheduler.start();
+        scheduler.join();
+
+        CHECK(std::regex_match(ss.str(), std::regex(".*Scheduler: an exception occurred: I'm broke.\n")));
+    }
 }
