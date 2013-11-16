@@ -1,13 +1,15 @@
 #pragma once
 #include <wield/MessageBase.h>
+#include <wield/Concepts.h>
 
 namespace wield {
 
     template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum2, typename Stage> class Dispatcher>
     class StageBase final
+        : private IsEnumConcept<StageEnum>
     {
     public:
-        typedef MessageBase<ProcessingFunctor> message_t;
+        using message_t = MessageBase<ProcessingFunctor>;
 
         StageBase(StageEnum stageName, Dispatcher<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
             : processingFunctor_(processingFunctor)
@@ -44,9 +46,8 @@ namespace wield {
         }
 
     private:
-        // disable copy constructor and assignment operator
-        StageBase(const StageBase&);
-        StageBase& operator=(const StageBase&);
+        StageBase(const StageBase&) = delete;
+        StageBase& operator=(const StageBase&) = delete;
 
     private:
         ProcessingFunctor& processingFunctor_;
