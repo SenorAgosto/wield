@@ -79,6 +79,8 @@ namespace {
         Message::smartptr m = new TestMessage();
         d.dispatch(Stages::Stage1, *m);
 
+        CHECK_EQUAL(1, q.unsafeSize());
+        
         scheduler.start();
         scheduler.join();
 

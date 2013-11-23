@@ -3,14 +3,14 @@
 
 namespace wield {
 
-    template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum2, typename Stage> class Dispatcher>
+    template<typename StageEnum, typename ProcessingFunctor, typename QueueType, template<typename StageEnum2, typename Stage> class DispatcherType>
     class StageBase final
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
-        using message_t = MessageBase<ProcessingFunctor>;
+        using MessageType = MessageBase<ProcessingFunctor>;
 
-        StageBase(StageEnum stageName, Dispatcher<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor )
+        StageBase(StageEnum stageName, DispatcherType<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
             : processingFunctor_(processingFunctor)
             , queue_(queue)
             , stageName_(stageName)
@@ -22,17 +22,17 @@ namespace wield {
         {
         }
 
-        void push(const typename message_t::smartptr& m)
+        void push(const typename MessageType::smartptr& m)
         {
             queue_.push(m);
         }
 
         bool process(void)
         {
-            typename message_t::smartptr m;
-            if( queue_.try_pop(m) )
+            typename MessageType::smartptr m;
+            if( queue_.tryPop(m) )
             {
-                m->ProcessWith(processingFunctor_);
+                m->processWith(processingFunctor_);
                 return true;
             }
 
