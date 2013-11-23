@@ -5,4 +5,6 @@
 #include "../platform/ConcurrentQueue.h"
 #include "ProcessingFunctor.h"
 
-using Queue = wield::QueueBase<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
+namespace test {
+    using Queue = wield::QueueBase<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
+}

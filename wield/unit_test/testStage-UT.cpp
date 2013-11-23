@@ -6,8 +6,8 @@
 
 namespace {
 
-    using namespace wield;
-
+    using namespace test;
+    
     TEST(verifyStageInstantiation)
     {
         Dispatcher d;

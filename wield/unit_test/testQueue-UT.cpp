@@ -5,6 +5,8 @@
 
 namespace {
 
+    using namespace test;
+    
     TEST(verifyQueueBaseInstantiationWithStdQueue)
     {
         Queue q;

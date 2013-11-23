@@ -6,6 +6,8 @@
 
 namespace {
 
+    using namespace test;
+    
 	TEST(verifyProcessingFunctorInitialization)
 	{
 		ProcessingFunctor tpf;
