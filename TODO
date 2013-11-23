@@ -1,5 +1,3 @@
-- move unit_test/test implementation of exhaustive polling strategy to wield namespace for convenient reuse (and because getting the stopping conditions correct could be a challenge). 
-
 - functionality for setting processor affinity
 - functionality for setting process and thread priority
 - functionality to set NUMA affinity (http://msdn.microsoft.com/en-us/library/windows/desktop/aa363804(v=vs.85).aspx)

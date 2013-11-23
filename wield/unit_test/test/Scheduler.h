@@ -5,7 +5,8 @@
 #include "Stages.h"
 #include "Stage.h"
 #include "Dispatcher.h"
-#include "PollingPolicy.h"
+
+#include <wield/policies/ExhaustivePollingPolicy.h>
 
 #include <cstddef>
 #include <limits>
@@ -62,5 +63,6 @@ namespace test {
         std::size_t numberOfThreads_;
     };
 
-    using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher, PollingPolicy<Stages>>>;
+    using PollingPolicy = wield::policies::ExhaustivePollingPolicy<Stages>;
+    using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher, PollingPolicy>>;
 }
