@@ -1,4 +1,4 @@
-- allow injection of logging implementation into wield classes.
+- move unit_test/test implementation of exhaustive polling strategy to wield namespace for convenient reuse (and because getting the stopping conditions correct could be a challenge). 
 
 - functionality for setting processor affinity
 - functionality for setting process and thread priority
@@ -8,5 +8,3 @@
 Performance:
 - In SchedulerBase, compare whether using done_.load(std::memory_order_acquire)/done_.store(true, std::memory_order_release) is better or whether just doing done_ = true; and reading done_ is better.
 - Test different compiler options
-- Benchmark the differences between just using std::clog with ofstream backend and asynchronous I/O.
-- see if using std::array has a penalty versus C-style arrays
