@@ -5,7 +5,7 @@
 namespace wield {
 
     template<typename StageEnum, class Stage>
-    class DispatcherBase final
+    class DispatcherBase
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
