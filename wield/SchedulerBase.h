@@ -101,7 +101,7 @@ namespace wield {
 
     private:
         std::list<std::thread> threads_;
-        std::atomic<bool> done_;
+        std::atomic_bool done_;
 
         SchedulingPolicy schedulingPolicy_;
     };

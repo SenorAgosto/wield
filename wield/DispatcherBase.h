@@ -9,9 +9,9 @@ namespace wield {
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
-        
-        using stage_t = Stage;
-        using stage_enum_t = StageEnum;
+
+        using StageType = Stage;
+        using StageEnumType = StageEnum;
         
         DispatcherBase()
         {
@@ -22,7 +22,7 @@ namespace wield {
         {
         }
 
-        inline void registerStage(StageEnum stageName, Stage* stage)
+        inline void registerStage(StageEnumType stageName, StageType* stage)
         {
             if(nullptr != stages[static_cast<std::size_t>(stageName)])
             {
@@ -32,12 +32,12 @@ namespace wield {
             stages[static_cast<std::size_t>(stageName)] = stage;
         }
 
-        inline void dispatch(StageEnum stageName, typename Stage::message_t& message)
+        inline void dispatch(StageEnumType stageName, typename StageType::MessageType& message)
         {
-            stages[static_cast<std::size_t>(stageName)]->push( typename Stage::message_t::smartptr(&message) );
+            stages[static_cast<std::size_t>(stageName)]->push( typename StageType::MessageType::smartptr(&message) );
         }
 
-        inline Stage& operator[](StageEnum stageName)
+        inline StageType& operator[](StageEnumType stageName)
         {
             return *stages[static_cast<std::size_t>(stageName)];
         }
@@ -47,6 +47,6 @@ namespace wield {
         DispatcherBase& operator=(const DispatcherBase&) = delete;
         
     private:
-        Stage* stages[static_cast<std::size_t>(StageEnum::NumberOfEntries)];
+        StageType* stages[static_cast<std::size_t>(StageEnum::NumberOfEntries)];
     };
 }
