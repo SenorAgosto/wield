@@ -79,24 +79,19 @@ namespace wield {
 
         inline void process(const std::size_t thread_id)
         {
-            register typename SchedulingPolicy::stage_t& stage = schedulingPolicy_.nextStage(thread_id);
-            register std::size_t batchCount = schedulingPolicy_.batchSize(stage.name());
-            register std::size_t emptyRetryCount = schedulingPolicy_.emptyRetryCount(stage.name());
-            register bool continueProcessing = true;
-
-            // process until the batchCount for the stage is reached, 
-            // if the stage queue is empty, then retry for at least emptyRetryCount attempts
-            while(continueProcessing && (batchCount > 0))
+            typename SchedulingPolicy::StageType& stage = schedulingPolicy_.nextStage(thread_id);
+            typename SchedulingPolicy::PollingInformation pollingInfo(thread_id, stage.name());
+            
+            schedulingPolicy_.batchStart(pollingInfo);
+            
+            do
             {
-                continueProcessing = stage.process();
-                --batchCount;
-
-                if(!continueProcessing && (emptyRetryCount > 0))
-                {
-                    continueProcessing = true;
-                    --emptyRetryCount;
-                }
-            }
+                const bool messageProcessed = stage.process();
+                pollingInfo.incrementMessageCount(messageProcessed);
+                
+            } while(schedulingPolicy_.continueProcessing(pollingInfo));
+            
+            schedulingPolicy_.batchEnd(pollingInfo);
         }
 
     private:
