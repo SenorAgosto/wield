@@ -1,12 +1,12 @@
 #pragma once
 
-namespace test_adapter {
+namespace wield { namespace policies {
     
     // NOTE: store behavior only on the PollingPolicy, but all data
     // needed to the decision to keep polling or not on the PollingInformation
     // type.
     template<typename StageEnum>
-    class PollingPolicy
+    class ExhaustivePollingPolicy
     {
     public:
         using StageEnumType = StageEnum;
@@ -15,9 +15,9 @@ namespace test_adapter {
         
         inline bool continueProcessing(PollingInformation& pollingInfo)
         {
-            // PollingPolicy is implementing exhaustive polling,
-            // the only thing we need to track was whether on not the
-            // queue was empty on our previous check.
+            // ExhaustivePollingPolicy is implementing exhaustive polling
+            // of the stage queue, the only thing we need to track was whether
+            // or not the queue was empty on our previous check.
             return pollingInfo.hadMessage();
         }
         
@@ -26,7 +26,7 @@ namespace test_adapter {
     };
 
     template<typename StageEnum>
-    class PollingPolicy<StageEnum>::PollingInformation
+    class ExhaustivePollingPolicy<StageEnum>::PollingInformation
     {
     public:
         // this constructor signature and incrementMessageCount are required.
@@ -46,5 +46,5 @@ namespace test_adapter {
     private:
         bool hadMessage_;
     };
+}}
 
-}
