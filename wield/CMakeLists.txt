@@ -1,12 +1,14 @@
 file( GLOB interface_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.hpp)
 file( GLOB logging_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} logging/*.h logging/*.hpp)
 file( GLOB implementation_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.h src/*.hpp src/*.c src/*.cpp)
+file( GLOB adapter_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/*.h adapters/*.hpp)
 file( GLOB platform_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} platform/*)
 
 source_group("Source" FILES ${implementation_files})
-source_group("Logging" FILES ${logging_headers})
-source_group("Platform" FILES ${platform_headers})
 source_group("Interface" FILES ${interface_files})
+source_group("Interface\\Adapters" FILES ${adapter_headers})
+source_group("Interface\\Logging" FILES ${logging_headers})
+source_group("Interface\\Platform" FILES ${platform_headers})
 
 if(WIN32)
 	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
@@ -24,5 +26,5 @@ else()
 	endif() 	
 endif()
 
-add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers})
+add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers})
 add_subdirectory(unit_test)
