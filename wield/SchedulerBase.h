@@ -10,7 +10,7 @@
 
 namespace wield {
 
-    template<typename SchedulingPolicy>
+    template<class SchedulingPolicy>
     class SchedulerBase final
     {
     public:
