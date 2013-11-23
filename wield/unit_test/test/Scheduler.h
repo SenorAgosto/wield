@@ -5,16 +5,18 @@
 #include "Stages.h"
 #include "Stage.h"
 #include "Dispatcher.h"
+#include "PollingPolicy.h"
 
 #include <cstddef>
 #include <limits>
 
-template<typename Dispatcher>
+template<typename Dispatcher, typename PollingPolicy>
 class SchedulingPolicy final
 {
 public:
     using StageType = typename Dispatcher::StageType;
     using StageEnumType = typename Dispatcher::StageEnumType;
+    using PollingInformation = typename PollingPolicy::PollingInformation;
     
     SchedulingPolicy(Dispatcher& dispatcher, const std::size_t numberOfThreads = std::thread::hardware_concurrency())
         : dispatcher_(dispatcher)
@@ -27,16 +29,20 @@ public:
         // this is where the magic happens...
         return dispatcher_[Dispatcher::StageEnumType::Stage1];
     }
-
-    inline std::size_t batchSize(typename Dispatcher::stage_enum_t /* stageName */) const
+    
+    inline bool continueProcessing(PollingInformation& pollingInfo)
     {
-        // return the configured batchSize for this stage.
-        return std::numeric_limits<std::size_t>::max();
+        return pollingPolicy_.continueProcessing(pollingInfo);
     }
-
-    inline std::size_t emptyRetryCount(typename Dispatcher::stage_enum_t /* stageName */) const
+    
+    inline void batchStart(PollingInformation& pollingInfo)
     {
-        return 10;
+        pollingPolicy_.batchStart(pollingInfo);
+    }
+    
+    inline void batchEnd(PollingInformation& pollingInfo)
+    {
+        pollingPolicy_.batchEnd(pollingInfo);
     }
     
     inline std::size_t numberOfThreads(void) const
@@ -49,8 +55,9 @@ private:
     SchedulingPolicy& operator=(const SchedulingPolicy&) = delete;
 
 private:
+    PollingPolicy pollingPolicy_;
     Dispatcher& dispatcher_;
     std::size_t numberOfThreads_;
 };
 
-using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher>>;
+using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher, PollingPolicy<Stages>>>;
