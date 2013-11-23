@@ -44,13 +44,12 @@ public:
     }
 
 private:
-    // disable copy constructor and assigment operator
-    SchedulingPolicy(const SchedulingPolicy&);
-    SchedulingPolicy& operator=(const SchedulingPolicy&);
+    SchedulingPolicy(const SchedulingPolicy&) = delete;
+    SchedulingPolicy& operator=(const SchedulingPolicy&) = delete;
 
 private:
     Dispatcher& dispatcher_;
     std::size_t numberOfThreads_;
 };
 
-typedef wield::SchedulerBase<SchedulingPolicy<TestDispatcher> > TestScheduler;
+using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher>>;

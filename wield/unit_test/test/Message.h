@@ -1,23 +1,23 @@
 #pragma once
 #include <wield/MessageBase.h>
 
-class ProcessingFunctor;
-typedef wield::MessageBase<ProcessingFunctor> Message;
+class ProcessingFunctorInterface;
+using Message = wield::MessageBase<ProcessingFunctorInterface>;
 
 class TestMessage : public Message
 {
 public:
-    virtual void ProcessWith(ProcessingFunctor& process) override;
+    void processWith(ProcessingFunctorInterface& process) override;
 };
 
 class TestMessage2 : public Message
 {
 public:
-    virtual void ProcessWith(ProcessingFunctor& process) override;
+    void processWith(ProcessingFunctorInterface& process) override;
 };
 
 class TestMessage3 : public Message
 {
 public:
-    virtual void ProcessWith(ProcessingFunctor& process) override;
+    void processWith(ProcessingFunctorInterface& process) override;
 };

@@ -6,16 +6,14 @@
 
 namespace {
 
-	using namespace wield;
-
 	TEST(verifyProcessingFunctorInitialization)
 	{
-		TestProcessingFunctor tpf;
+		ProcessingFunctor tpf;
 	}
 	
 	TEST(verifyProcessingFunctorIsCalledWhenProcessingTestMessage)
 	{
-		TestProcessingFunctor tpf;
+		ProcessingFunctor tpf;
 		Message::smartptr m = new TestMessage();
 		
 		m->ProcessWith(tpf);
@@ -26,7 +24,7 @@ namespace {
 
     TEST(verifyProcessingFunctorIsCalledWhenProcessingTestMessage2)
     {
-        TestProcessingFunctor tpf;
+        ProcessingFunctor tpf;
         Message::smartptr m = new TestMessage2();
 
         m->ProcessWith(tpf);
@@ -37,7 +35,7 @@ namespace {
 
     TEST(verifyProcessingFunctorMessageBaseIsCalledWhenUnknownMessageTypeIsProcessed)
     {
-        TestProcessingFunctor tpf;
+        ProcessingFunctor tpf;
         Message::smartptr m = new TestMessage3();
 
         m->ProcessWith(tpf);
