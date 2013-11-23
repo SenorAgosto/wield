@@ -8,6 +8,7 @@ namespace wield {
     {
     public:
         using SizeType = typename QueueType::size_type;
+        using MessagePtr = typename MessageBase<ProcessingFunctor>::smartptr;
         
         template<typename... Args>
         QueueBase(Args&&... arg)
@@ -15,12 +16,12 @@ namespace wield {
         {
         }
 
-        inline void push(const typename MessageBase<ProcessingFunctor>::smartptr& value)
+        inline void push(const MessagePtr& value)
         {
             queue_.push(value);
         }
 
-        inline bool tryPop(typename MessageBase<ProcessingFunctor>::smartptr& value)
+        inline bool tryPop(MessagePtr& value)
         {
             return queue_.try_pop(value);
         }
