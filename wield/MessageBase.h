@@ -6,13 +6,13 @@
 
 namespace wield {
 
-    /// @note [ARG]: scritly speaking, we don't need to parameterize
+    /// @note [ARG]: strictly speaking, we don't need to parameterize
     /// Messages on the ProcessingFunctor. We could introduce an
     /// interface and force client code ProcessingFunctors to inherit
-    /// from the interface, then use the interface for ProcessWith() here.
+    /// from the interface, then use the interface for processWith() here.
     ///
     /// However, the current solution allows an interesting potential
-    /// for a message's ProcessWith to invoke methods on the ProcessingFunctor
+    /// for a message's processWith to invoke methods on the ProcessingFunctor
     /// prior dispatching into it for processing.
     ///
     /// This flexability maybe useful for updating statistics or informing
@@ -25,7 +25,7 @@ namespace wield {
         typedef boost::intrusive_ptr<MessageBase> smartptr;
         virtual ~MessageBase(){}
 
-		virtual void ProcessWith(ProcessingFunctor& process) = 0;
+		virtual void processWith(ProcessingFunctor& process) = 0;
 
     protected:
         MessageBase()

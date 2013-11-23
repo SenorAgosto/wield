@@ -30,7 +30,7 @@ namespace wield {
         {
             auto processLambda = [this](const std::size_t thread_id)
             {
-                try_process(thread_id);
+                tryProcess(thread_id);
             };
             
             std::size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
@@ -57,7 +57,7 @@ namespace wield {
         SchedulerBase(const SchedulerBase&) = delete;
         SchedulerBase& operator=(const SchedulerBase&) = delete;
 
-        inline void try_process(const std::size_t thread_id)
+        inline void tryProcess(const std::size_t thread_id)
         {
             try
             {

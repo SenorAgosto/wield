@@ -13,18 +13,19 @@ template<typename Dispatcher>
 class SchedulingPolicy final
 {
 public:
-    typedef typename Dispatcher::stage_t stage_t;
-
+    using StageType = typename Dispatcher::StageType;
+    using StageEnumType = typename Dispatcher::StageEnumType;
+    
     SchedulingPolicy(Dispatcher& dispatcher, const std::size_t numberOfThreads = std::thread::hardware_concurrency())
         : dispatcher_(dispatcher)
         , numberOfThreads_(numberOfThreads)
     {
     }
 
-    typename Dispatcher::stage_t& nextStage(const std::size_t /* thread_id */)
+    typename Dispatcher::StageType& nextStage(const std::size_t /* thread_id */)
     {
         // this is where the magic happens...
-        return dispatcher_[Dispatcher::stage_enum_t::Stage1];
+        return dispatcher_[Dispatcher::StageEnumType::Stage1];
     }
 
     inline std::size_t batchSize(typename Dispatcher::stage_enum_t /* stageName */) const

@@ -17,7 +17,7 @@ namespace {
         Message::smartptr m2 = nullptr;
 
         q.push(m);
-        CHECK(q.try_pop(m2));
+        CHECK(q.tryPop(m2));
         CHECK(m2);
     }
 
@@ -32,10 +32,10 @@ namespace {
             q.push(m);
         }
 
-        CHECK_EQUAL(10, q.unsafe_size() );
+        CHECK_EQUAL(10, q.unsafeSize() );
         for(std::size_t i = 0; i < 10; ++i)
         {
-            CHECK(q.try_pop(m));
+            CHECK(q.tryPop(m));
             CHECK(m);
         }
     }
