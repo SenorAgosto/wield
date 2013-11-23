@@ -17,6 +17,7 @@
 namespace {
    
     using namespace wield;
+    using namespace test_adapter;
     
     // A basic concurrent queue implementation using mutex to protect std::queue.
     template<class ProcessingFunctor>

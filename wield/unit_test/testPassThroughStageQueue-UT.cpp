@@ -10,6 +10,8 @@
 
 namespace {
 
+    using namespace test_adapter;
+    
     TEST(verifyPassThroughStageQueueUsage)
     {
         Dispatcher d;

@@ -4,4 +4,6 @@
 #include "Stages.h"
 #include "Stage.h"
 
-using Dispatcher = wield::DispatcherBase<Stages, Stage>;
+namespace test_adapter {
+    using Dispatcher = wield::DispatcherBase<Stages, Stage>;
+}
