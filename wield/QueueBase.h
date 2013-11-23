@@ -20,12 +20,12 @@ namespace wield {
             queue_.push(value);
         }
 
-        inline bool try_pop(typename MessageBase<ProcessingFunctor>::smartptr& value)
+        inline bool tryPop(typename MessageBase<ProcessingFunctor>::smartptr& value)
         {
             return queue_.try_pop(value);
         }
         
-        inline size_type unsafe_size(void) const
+        inline size_type unsafeSize(void) const
         {
             return queue_.unsafe_size();
         }
