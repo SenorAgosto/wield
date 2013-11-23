@@ -9,11 +9,9 @@ namespace wield {
     public:
         typedef typename QueueType::size_type size_type;
 
-        QueueBase()
-        {
-        }
-
-        ~QueueBase()
+        template<typename... Args>
+        QueueBase(Args&&... arg)
+            : queue_(std::forward<Args>(arg)...)
         {
         }
 
