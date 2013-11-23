@@ -7,8 +7,8 @@ namespace wield {
     class QueueBase final
     {
     public:
-        typedef typename QueueType::size_type size_type;
-
+        using SizeType = typename QueueType::size_type;
+        
         template<typename... Args>
         QueueBase(Args&&... arg)
             : queue_(std::forward<Args>(arg)...)
@@ -25,7 +25,7 @@ namespace wield {
             return queue_.try_pop(value);
         }
         
-        inline size_type unsafeSize(void) const
+        inline SizeType unsafeSize(void) const
         {
             return queue_.unsafe_size();
         }
