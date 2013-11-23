@@ -6,4 +6,4 @@
 #include "Queue.h"
 #include "Stages.h"
 
-typedef wield::StageBase<Stages, ProcessingFunctor, TestQueue, wield::DispatcherBase> TestStage;
+using Stage = wield::StageBase<Stages, ProcessingFunctorInterface, Queue, wield::DispatcherBase>;

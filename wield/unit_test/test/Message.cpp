@@ -2,19 +2,19 @@
 #include "ProcessingFunctor.h"
 
 //virtual
-void TestMessage::ProcessWith(ProcessingFunctor& process)
+void TestMessage::processWith(ProcessingFunctorInterface& process)
 {
     process(*this);
 }
 
 //virtual
-void TestMessage2::ProcessWith(ProcessingFunctor& process)
+void TestMessage2::processWith(ProcessingFunctorInterface& process)
 {
     process(*this);
 }
 
 //virtual
-void TestMessage3::ProcessWith(ProcessingFunctor& process)
+void TestMessage3::processWith(ProcessingFunctorInterface& process)
 {
     process(*this);
 }

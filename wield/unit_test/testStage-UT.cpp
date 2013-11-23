@@ -10,22 +10,22 @@ namespace {
 
     TEST(verifyStageInstantiation)
     {
-        TestDispatcher d;
-        TestQueue q;
-        TestProcessingFunctor f;
+        Dispatcher d;
+        Queue q;
+        ProcessingFunctor f;
 
-        TestStage s(Stages::Stage1, d, q, f);
+        Stage s(Stages::Stage1, d, q, f);
         CHECK(Stages::Stage1 == s.name());
     }
     
     TEST(verifyStageProcessWorks)
     {
-        TestDispatcher d;
-        TestQueue q;
-        TestProcessingFunctor f;
-        TestMessage::smartptr m = new TestMessage();
+        Dispatcher d;
+        Queue q;
+        ProcessingFunctor f;
+        Message::smartptr m = new TestMessage();
         
-        TestStage s(Stages::Stage1, d, q, f);
+        Stage s(Stages::Stage1, d, q, f);
         s.push(m);
 
         CHECK(s.process());
@@ -34,12 +34,12 @@ namespace {
 
     TEST(verifyStageProcessingForMultipleMessages)
     {
-        TestDispatcher d;
-        TestQueue q;
-        TestProcessingFunctor f;
-        TestMessage::smartptr m = new TestMessage();
+        Dispatcher d;
+        Queue q;
+        ProcessingFunctor f;
+        Message::smartptr m = new TestMessage();
 
-        TestStage s(Stages::Stage1, d, q, f);
+        Stage s(Stages::Stage1, d, q, f);
         s.push(m);
         s.push(m);
         
