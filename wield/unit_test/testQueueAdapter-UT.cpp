@@ -5,7 +5,6 @@
 
 #include <wield/adapters/QueueAdapter.h>
 #include <wield/MessageBase.h>
-#include <wield/Queuebase.h>
 
 #include "platform/ConcurrentQueue.h"
 
