@@ -7,12 +7,12 @@ namespace {
 
     TEST(verifyQueueBaseInstantiationWithStdQueue)
     {
-        TestQueue q;
+        Queue q;
     }
 
     TEST(verifyQueuePushAndPop)
     {
-        TestQueue q;
+        Queue q;
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
 
@@ -23,7 +23,7 @@ namespace {
 
     TEST(verifyQueuePushAndPopWithMultipleMessages)
     {
-        TestQueue q;
+        Queue q;
         Message::smartptr m = nullptr;
 
         for(std::size_t i = 0; i < 10; ++i)

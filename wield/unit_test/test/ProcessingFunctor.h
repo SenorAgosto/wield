@@ -7,39 +7,41 @@
 class TestMessage;
 class TestMessage2;
 
-class ProcessingFunctor
+class ProcessingFunctorInterface
 {
 public:
-    ProcessingFunctor()
+    ProcessingFunctorInterface()
     {
     }
 
+    virtual ~ProcessingFunctorInterface(){}
+    
     virtual void operator()(Message& msg ) = 0;
     virtual void operator()(TestMessage& msg) = 0;
     virtual void operator()(TestMessage2& msg) = 0;
 };
 
-class TestProcessingFunctor : public ProcessingFunctor
+class ProcessingFunctor : public ProcessingFunctorInterface
 {
 public:
-    TestProcessingFunctor()
+    ProcessingFunctor()
         : messageBaseCalled_(false)
         , message1Called_(false)
         , message2Called_(false)
     {
     }
 
-    virtual void operator()(Message&)
+    void operator() (Message&) override
     {
         messageBaseCalled_ = true;
     }
 
-    virtual void operator()(TestMessage&)
+    void operator()(TestMessage&) override
     { 
         message1Called_ = true;
     }
 
-    virtual void operator()(TestMessage2&) 
+    void operator()(TestMessage2&) override
     { 
         message2Called_ = true;
     }
@@ -51,10 +53,10 @@ public:
 
 
 template<typename Dispatcher>
-class TestProcessingFunctorWithDispatcher : public ProcessingFunctor
+class ProcessingFunctorWithDispatcher : public ProcessingFunctorInterface
 {
 public:
-    TestProcessingFunctorWithDispatcher(Dispatcher& dispatcher)
+    ProcessingFunctorWithDispatcher(Dispatcher& dispatcher)
         : messageBaseCalled_(false)
         , message1Called_(false)
         , message2Called_(false)
@@ -62,19 +64,19 @@ public:
     {
     }
 
-    virtual void operator()(Message& msg)
+    void operator()(Message& msg) override
     {
         messageBaseCalled_ = true;
         dispatcher_.dispatch(Stages::Stage2, msg);   //forward the message to stage2
     }
 
-    virtual void operator()(TestMessage& msg)
+    void operator()(TestMessage& msg) override
     { 
         message1Called_ = true;
         dispatcher_.dispatch(Stages::Stage2, msg);
     }
 
-    virtual void operator()(TestMessage2& msg) 
+    void operator()(TestMessage2& msg) override
     { 
         message2Called_ = true;
         dispatcher_.dispatch(Stages::Stage2, msg);
@@ -85,9 +87,8 @@ public:
     bool message2Called_;
 
 private:
-    // disable copy-constructor and assignment operator
-    TestProcessingFunctorWithDispatcher(const TestProcessingFunctorWithDispatcher&);
-    TestProcessingFunctorWithDispatcher& operator=(const TestProcessingFunctorWithDispatcher&);
+    ProcessingFunctorWithDispatcher(const ProcessingFunctorWithDispatcher&) = delete;
+    ProcessingFunctorWithDispatcher& operator=(const ProcessingFunctorWithDispatcher&) = delete;
 
 private:
     Dispatcher& dispatcher_;
@@ -100,7 +101,7 @@ public:
     {
     }
 
-    virtual void operator()(Message&){ throw std::runtime_error("I'm broke."); }
-    virtual void operator()(TestMessage&){ throw std::runtime_error("I'm broke."); }
-    virtual void operator()(TestMessage2&){ throw std::runtime_error("I'm broke."); }
+    void operator()(Message&) override { throw std::runtime_error("I'm broke."); }
+    void operator()(TestMessage&) override { throw std::runtime_error("I'm broke."); }
+    void operator()(TestMessage2&) override { throw std::runtime_error("I'm broke."); }
 };

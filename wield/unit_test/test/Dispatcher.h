@@ -4,4 +4,4 @@
 #include "Stages.h"
 #include "Stage.h"
 
-typedef wield::DispatcherBase<Stages, TestStage> TestDispatcher;
+using Dispatcher = wield::DispatcherBase<Stages, Stage>;
