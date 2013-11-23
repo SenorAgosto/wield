@@ -13,6 +13,8 @@
 
 namespace {
 
+    using namespace test;
+    
     TEST(verifySchedulerInstantiation)
     {
         Dispatcher d;

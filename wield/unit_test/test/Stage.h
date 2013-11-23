@@ -6,4 +6,6 @@
 #include "Queue.h"
 #include "Stages.h"
 
-using Stage = wield::StageBase<Stages, ProcessingFunctorInterface, Queue, wield::DispatcherBase>;
+namespace test {
+    using Stage = wield::StageBase<Stages, ProcessingFunctorInterface, Queue, wield::DispatcherBase>;
+}

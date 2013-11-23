@@ -6,4 +6,6 @@
 #include "../platform/ConcurrentQueue.h"
 #include "ProcessingFunctor.h"
 
-using Queue = wield::adapters::QueueInterface<ProcessingFunctorInterface>;
+namespace test_adapter {
+    using Queue = wield::adapters::QueueInterface<ProcessingFunctorInterface>;
+}
