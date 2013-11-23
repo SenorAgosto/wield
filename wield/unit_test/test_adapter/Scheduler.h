@@ -1,11 +1,11 @@
 #pragma once
 #include <wield/SchedulerBase.h>
 #include <wield/platform/thread>
+#include <wield/policies/ExhaustivePollingPolicy.h>
 
 #include "Stages.h"
 #include "Stage.h"
 #include "Dispatcher.h"
-#include "PollingPolicy.h"
 
 #include <cstddef>
 #include <limits>
@@ -62,5 +62,6 @@ namespace test_adapter {
         std::size_t numberOfThreads_;
     };
 
-    using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher, PollingPolicy<Stages>>>;
+    using PollingPolicy = wield::policies::ExhaustivePollingPolicy<Stages>;
+    using Scheduler = wield::SchedulerBase<SchedulingPolicy<Dispatcher, PollingPolicy>>;
 }
