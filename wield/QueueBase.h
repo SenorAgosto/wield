@@ -16,14 +16,14 @@ namespace wield {
         {
         }
 
-        inline void push(const MessagePtr& value)
+        inline void push(const MessagePtr& message)
         {
-            queue_.push(value);
+            queue_.push(message);
         }
 
-        inline bool tryPop(MessagePtr& value)
+        inline bool tryPop(MessagePtr& message)
         {
-            return queue_.try_pop(value);
+            return queue_.try_pop(message);
         }
         
         inline SizeType unsafeSize(void) const
