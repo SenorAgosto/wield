@@ -4,7 +4,7 @@
 
 namespace wield {
 
-    template<typename StageEnum, typename Stage>
+    template<typename StageEnum, class Stage>
     class DispatcherBase final
     {
     public:
