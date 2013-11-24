@@ -4,6 +4,7 @@ file( GLOB implementation_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.h src
 file( GLOB adapter_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/*.h adapters/*.hpp)
 file( GLOB platform_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} platform/*)
 file( GLOB policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} policies/*.h policies/*.hpp)
+file( GLOB polymorphic_policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} policies/polymorphic/*.h policies/polymorphic/*.hpp)
 
 source_group("Source" FILES ${implementation_files})
 source_group("Interface" FILES ${interface_files})
@@ -11,6 +12,7 @@ source_group("Interface\\Adapters" FILES ${adapter_headers})
 source_group("Interface\\Logging" FILES ${logging_headers})
 source_group("Interface\\Platform" FILES ${platform_headers})
 source_group("Interface\\Policies" FILES ${policies_headers})
+source_group("Interface\\Policies\\Polymorphic" FILES ${polymorphic_policies_headers})
 
 if(WIN32)
 	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
@@ -28,5 +30,5 @@ else()
 	endif() 	
 endif()
 
-add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers})
+add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers} ${polymorphic_policies_headers})
 add_subdirectory(unit_test)
