@@ -2,15 +2,18 @@
 
 #include <wield/adapters/polymorphic/PassThroughStageQueue.h>
 
+#include "test_adapter/Traits.h"
 #include "test_adapter/ProcessingFunctor.h"
-#include "test_adapter/Dispatcher.h"
-#include "test_adapter/Stage.h"
-#include "test_adapter/Queue.h"
 #include "test_adapter/Message.h"
 
 namespace {
 
     using namespace test_adapter;
+
+    using Dispatcher = Traits::Dispatcher;
+
+    using PassThroughStageQueue = Traits::ApplicationTraits::PassThroughStageQueue;
+    using Stage = Traits::Stage;
     
     TEST(verifyPassThroughStageQueueUsage)
     {
