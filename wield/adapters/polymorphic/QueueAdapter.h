@@ -1,7 +1,7 @@
 #pragma once
-#include <wield/adapters/QueueInterface.h>
+#include <wield/adapters/polymorphic/QueueInterface.h>
 
-namespace wield { namespace adapters {
+namespace wield { namespace adapters { namespace polymorphic {
   
     template<class ProcessingFunctor, class QueueType>
     class QueueAdapter : public QueueInterface<ProcessingFunctor>
@@ -20,12 +20,12 @@ namespace wield { namespace adapters {
             queue_.push(message);
         }
     
-        bool tryPop(MessagePtr& message) override
+        bool try_pop(MessagePtr& message) override
         {
             return queue_.try_pop(message);
         }
         
-        std::size_t unsafeSize(void) const override
+        std::size_t unsafe_size(void) const override
         {
             return queue_.unsafe_size();
         }
@@ -37,4 +37,4 @@ namespace wield { namespace adapters {
     private:
         QueueType queue_;
     };
-}}
+}}}

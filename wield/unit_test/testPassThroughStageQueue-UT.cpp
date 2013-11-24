@@ -1,6 +1,6 @@
 #include "platform/UnitTestSupport.h"
 
-#include <wield/adapters/PassThroughStageQueue.h>
+#include <wield/adapters/polymorphic/PassThroughStageQueue.h>
 
 #include "test_adapter/ProcessingFunctor.h"
 #include "test_adapter/Dispatcher.h"
@@ -20,7 +20,7 @@ namespace {
         ProcessingFunctor f2;
 
         // use pass-through stage queues for every stage in the pipeline.
-        using PassThroughStageQueue = wield::adapters::PassThroughStageQueue<ProcessingFunctorInterface>;
+        using PassThroughStageQueue = wield::adapters::polymorphic::PassThroughStageQueue<ProcessingFunctorInterface>;
         
         // Note: realize that whatever functor is assigned to the pass-through stage queue is
         // the one employed. The processing functor passed to Stage during construction will be

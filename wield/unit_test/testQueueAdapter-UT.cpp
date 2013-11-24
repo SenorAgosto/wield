@@ -3,7 +3,7 @@
 #include <mutex>
 #include <queue>
 
-#include <wield/adapters/QueueAdapter.h>
+#include <wield/adapters/polymorphic/QueueAdapter.h>
 #include <wield/MessageBase.h>
 
 #include "platform/ConcurrentQueue.h"
@@ -65,11 +65,11 @@ namespace {
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
         
-        adapters::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>> queue;
+        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>> queue;
         queue.push(m);
         
-        CHECK_EQUAL(1, queue.unsafeSize());
-        CHECK(queue.tryPop(m2));
+        CHECK_EQUAL(1, queue.unsafe_size());
+        CHECK(queue.try_pop(m2));
         CHECK(m2 != nullptr);
     }
     
@@ -78,11 +78,11 @@ namespace {
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
         
-        adapters::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>> queue;
+        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>> queue;
         queue.push(m);
         
-        CHECK_EQUAL(1, queue.unsafeSize());
-        CHECK(queue.tryPop(m2));
+        CHECK_EQUAL(1, queue.unsafe_size());
+        CHECK(queue.try_pop(m2));
     }
     
     TEST(verifyCanDispatcheBetweenStagesUsingQueueAdapterAsQueueTypeForStage)
@@ -93,10 +93,10 @@ namespace {
         ProcessingFunctor f2;
         
         // construct concrete queues with different implementations.
-        using ConcreteQueue1 = adapters::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
+        using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
         ConcreteQueue1 q1;
         
-        using ConcreteQueue2 = adapters::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>>;
+        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>>;
         ConcreteQueue2 q2;
         
         Stage s(Stages::Stage1, d, q1, f);
