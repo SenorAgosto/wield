@@ -21,9 +21,6 @@ namespace {
         
         ProcessingFunctorWithDispatcher<Dispatcher> f(d);
         ProcessingFunctor f2;
-
-        // use pass-through stage queues for every stage in the pipeline.
-        using PassThroughStageQueue = wield::adapters::polymorphic::PassThroughStageQueue<ProcessingFunctorInterface>;
         
         // Note: realize that whatever functor is assigned to the pass-through stage queue is
         // the one employed. The processing functor passed to Stage during construction will be

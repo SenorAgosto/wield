@@ -39,7 +39,7 @@ namespace {
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
         
-        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>> queue;
+        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue> queue;
         queue.push(m);
         
         CHECK_EQUAL(1, queue.unsafe_size());
@@ -57,7 +57,7 @@ namespace {
         using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
         ConcreteQueue1 q1;
         
-        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue<ProcessingFunctorInterface>>;
+        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue>;
         ConcreteQueue2 q2;
         
         Stage s(Stages::Stage1, d, q1, f);
