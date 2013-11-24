@@ -1,8 +1,7 @@
 #pragma once
-#include "Message.h"
-#include "Stages.h"
-
 #include <stdexcept>
+
+#include "Traits.h"
 
 namespace test {
     
@@ -12,13 +11,15 @@ namespace test {
     class ProcessingFunctorInterface
     {
     public:
+        using Message = Traits::Message;
+        
         ProcessingFunctorInterface()
         {
         }
 
         virtual ~ProcessingFunctorInterface(){}
         
-        virtual void operator()(Message& msg ) = 0;
+        virtual void operator()(Message& msg) = 0;
         virtual void operator()(TestMessage& msg) = 0;
         virtual void operator()(TestMessage2& msg) = 0;
     };

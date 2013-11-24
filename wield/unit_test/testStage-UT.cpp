@@ -1,12 +1,15 @@
 #include "platform/UnitTestSupport.h"
+#include "test/Traits.h"
 #include "test/ProcessingFunctor.h"
-#include "test/Queue.h"
-#include "test/Dispatcher.h"
-#include "test/Stage.h"
+#include "test/Message.h"
 
 namespace {
 
     using namespace test;
+    using Dispatcher = Traits::Dispatcher;
+    using Queue = Traits::Queue;
+    using Stage = Traits::Stage;
+    using Message = Traits::Message;
     
     TEST(verifyStageInstantiation)
     {

@@ -1,9 +1,10 @@
 #include "platform/UnitTestSupport.h"
 #include "platform/Regex.h"
 
+#include "test/Traits.h"
+#include "test/Message.h"
+#include "test/ProcessingFunctor.h"
 #include "test/Scheduler.h"
-#include "test/Dispatcher.h"
-#include "test/Queue.h"
 
 #include <wield/logging/Log.h>
 #include <wield/logging/LoggingPolicy.h>
@@ -14,6 +15,12 @@
 namespace {
 
     using namespace test;
+    
+    using Dispatcher = Traits::Dispatcher;
+    using Message = Traits::Message;
+    using Scheduler = Traits::Scheduler;
+    using Stage = Traits::Stage;
+    using Queue = Traits::Queue;
     
     TEST(verifySchedulerInstantiation)
     {
