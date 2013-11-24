@@ -30,7 +30,7 @@ namespace wield {
         bool process(void)
         {
             typename MessageType::smartptr m;
-            if( queue_.tryPop(m) )
+            if( queue_.try_pop(m) )
             {
                 m->processWith(processingFunctor_);
                 return true;
