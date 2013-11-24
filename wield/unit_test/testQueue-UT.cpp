@@ -1,11 +1,14 @@
 #include "platform/UnitTestSupport.h"
-#include "test/Queue.h"
-
 #include <cstddef>
+
+#include "test/Traits.h"
+#include "test/Message.h"
 
 namespace {
 
     using namespace test;
+    using Queue = Traits::Queue;
+    using Message = Traits::Message;
     
     TEST(verifyQueueBaseInstantiationWithStdQueue)
     {

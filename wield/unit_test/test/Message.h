@@ -1,11 +1,13 @@
 #pragma once
 #include <wield/MessageBase.h>
 
+#include "Traits.h"
+
 namespace test {
     
     class ProcessingFunctorInterface;
-    using Message = wield::MessageBase<ProcessingFunctorInterface>;
-
+    using Message = Traits::Message;
+    
     class TestMessage : public Message
     {
     public:

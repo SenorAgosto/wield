@@ -1,16 +1,18 @@
 #include "platform/UnitTestSupport.h"
 #include <exception>
 
+#include "test/Traits.h"
 #include "test/ProcessingFunctor.h"
-#include "test/Dispatcher.h"
-#include "test/Stage.h"
-#include "test/Queue.h"
 #include "test/Message.h"
 
 namespace {
 
     using namespace test;
-
+    
+    using Dispatcher = Traits::Dispatcher;
+    using Stage = Traits::Stage;
+    using Queue = Traits::Queue;
+    
     TEST(verifyDispatchingCanGetAMessageFromOneStageToAnother)
     {
         Dispatcher d;
