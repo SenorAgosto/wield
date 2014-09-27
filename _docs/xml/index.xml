@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<index xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <namespace name="wield" ref="wield#wield">
+    <namespace name="adapters" ref="wield::adapters#wield::adapters">
+      <classtemplate name="PassThroughStageQueue" ref="wield::adapters::PassThroughStageQueue#wield::adapters::PassThroughStageQueue">
+        <brief>A pass-through stage is a stage that does not queue a message</brief>
+        <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
+      </classtemplate>
+      <classtemplate name="QueueAdapter" ref="wield::adapters::QueueAdapter#wield::adapters::QueueAdapter">
+        <templatetypeparameter id="wield::adapters::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
+        <templatetypeparameter id="wield::adapters::QueueAdapter::QueueType" name="QueueType" />
+      </classtemplate>
+      <classtemplate name="QueueInterface" ref="wield::adapters::QueueInterface#wield::adapters::QueueInterface">
+        <brief>An abstract interface for adapting different</brief>
+        <templatetypeparameter id="wield::adapters::QueueInterface::ProcessingFunctor" name="ProcessingFunctor" />
+      </classtemplate>
+    </namespace>
+    <namespace name="logging" ref="wield::logging#wield::logging">
+      <class name="DefaultLoggingPolicy" ref="wield::logging::DefaultLoggingPolicy#wield::logging::DefaultLoggingPolicy" />
+      <class name="Log" ref="wield::logging::Log#wield::logging::Log" />
+      <class name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy" />
+    </namespace>
+    <classtemplate name="DispatcherBase" ref="wield::DispatcherBase#wield::DispatcherBase">
+      <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
+      <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
+    </classtemplate>
+    <class name="DuplicateStageRegistrationException" ref="wield::DuplicateStageRegistrationException#wield::DuplicateStageRegistrationException" />
+    <classtemplate name="MessageBase" ref="wield::MessageBase#wield::MessageBase">
+      <brief>/ @note [ARG]: strictly speaking, we don't need to parameterize</brief>
+      <templatetypeparameter id="wield::MessageBase::ProcessingFunctor" name="ProcessingFunctor" />
+    </classtemplate>
+    <classtemplate name="QueueBase" ref="wield::QueueBase#wield::QueueBase">
+      <templatetypeparameter id="wield::QueueBase::ProcessingFunctor" name="ProcessingFunctor" />
+      <templatetypeparameter id="wield::QueueBase::QueueType" name="QueueType" />
+    </classtemplate>
+    <classtemplate name="SchedulerBase" ref="wield::SchedulerBase#wield::SchedulerBase">
+      <templatetypeparameter id="wield::SchedulerBase::SchedulingPolicy" name="SchedulingPolicy" />
+    </classtemplate>
+    <classtemplate name="StageBase" ref="wield::StageBase#wield::StageBase">
+      <templatetypeparameter id="wield::StageBase::StageEnum" name="StageEnum" />
+      <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor" />
+      <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType" />
+    </classtemplate>
+  </namespace>
+  <report name="Documentation generator" ref="report" />
+</index>

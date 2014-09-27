@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<classtemplate abstract="true" id="wield::QueueBase" name="QueueBase" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <templatetypeparameter id="wield::QueueBase::ProcessingFunctor" name="ProcessingFunctor" />
+  <templatetypeparameter id="wield::QueueBase::QueueType" name="QueueType" />
+  <methodtemplate id="wield::QueueBase::QueueBase&lt;ProcessingFunctor, QueueType&gt;" name="QueueBase&lt;ProcessingFunctor, QueueType&gt;">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::QueueBase::QueueBase&lt;ProcessingFunctor, QueueType&gt;::arg" name="arg">
+      <type name="Args &amp;&amp;..." />
+    </argument>
+    <templatetypeparameter id="wield::QueueBase::QueueBase&lt;ProcessingFunctor, QueueType&gt;::Args" name="Args" />
+  </methodtemplate>
+  <method id="wield::QueueBase::push" name="push">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::QueueBase::push::message" name="message">
+      <type name="QueueBase&lt;ProcessingFunctor, QueueType&gt;::MessagePtr" qualifier=" const &amp;" />
+    </argument>
+  </method>
+  <method id="wield::QueueBase::tryPop" name="tryPop">
+    <return>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="wield::QueueBase::tryPop::message" name="message">
+      <type name="QueueBase&lt;ProcessingFunctor, QueueType&gt;::MessagePtr" qualifier=" &amp;" />
+    </argument>
+  </method>
+  <method id="wield::QueueBase::unsafeSize" name="unsafeSize">
+    <return>
+      <type name="QueueBase&lt;ProcessingFunctor, QueueType&gt;::SizeType" />
+    </return>
+  </method>
+</classtemplate>

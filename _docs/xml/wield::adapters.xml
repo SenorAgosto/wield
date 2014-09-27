@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<namespace id="wield::adapters" name="adapters" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <classtemplate name="PassThroughStageQueue" ref="wield::adapters::PassThroughStageQueue#wield::adapters::PassThroughStageQueue">
+    <brief>A pass-through stage is a stage that does not queue a message</brief>
+    <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
+  </classtemplate>
+  <classtemplate name="QueueAdapter" ref="wield::adapters::QueueAdapter#wield::adapters::QueueAdapter">
+    <templatetypeparameter id="wield::adapters::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
+    <templatetypeparameter id="wield::adapters::QueueAdapter::QueueType" name="QueueType" />
+  </classtemplate>
+  <classtemplate name="QueueInterface" ref="wield::adapters::QueueInterface#wield::adapters::QueueInterface">
+    <brief>An abstract interface for adapting different</brief>
+    <templatetypeparameter id="wield::adapters::QueueInterface::ProcessingFunctor" name="ProcessingFunctor" />
+  </classtemplate>
+</namespace>

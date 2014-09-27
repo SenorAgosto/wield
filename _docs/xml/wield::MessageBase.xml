@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<classtemplate abstract="true" id="wield::MessageBase" name="MessageBase" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>/ @note [ARG]: strictly speaking, we don't need to parameterize</brief>
+  <doc>/ Messages on the ProcessingFunctor. We could introduce an
+/ interface and force client code ProcessingFunctors to inherit
+/ from the interface, then use the interface for processWith() here.
+/
+/ However, the current solution allows an interesting potential
+/ for a message's processWith to invoke methods on the ProcessingFunctor
+/ prior dispatching into it for processing.
+/
+/ This flexability maybe useful for updating statistics or informing
+/ the scheduler of events via ProcessingFunctor - if that is how
+/ client code decides to feed statistics or information into their scheduler.</doc>
+  <templatetypeparameter id="wield::MessageBase::ProcessingFunctor" name="ProcessingFunctor" />
+  <typedef id="wield::MessageBase::smartptr" name="smartptr">
+    <type name="MessageBase" ref="wield::MessageBase#wield::MessageBase" />
+  </typedef>
+  <destructor id="wield::MessageBase::~MessageBase&lt;ProcessingFunctor&gt;" name="~MessageBase&lt;ProcessingFunctor&gt;" virtual="yes" />
+  <method abstract="yes" id="wield::MessageBase::processWith" name="processWith" virtual="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::MessageBase::processWith::process" name="process">
+      <type name="ProcessingFunctor" qualifier=" &amp;" />
+    </argument>
+  </method>
+  <constructor access="protected" id="wield::MessageBase::MessageBase&lt;ProcessingFunctor&gt;" name="MessageBase&lt;ProcessingFunctor&gt;" />
+  <constructor access="protected" id="wield::MessageBase::MessageBase&lt;ProcessingFunctor&gt;" name="MessageBase&lt;ProcessingFunctor&gt;">
+    <argument id="wield::MessageBase::MessageBase&lt;ProcessingFunctor&gt;::" name="">
+      <type name="MessageBase" qualifier=" const &amp;" ref="wield::MessageBase#wield::MessageBase" />
+    </argument>
+  </constructor>
+  <method access="protected" id="wield::MessageBase::operator=" name="operator=">
+    <brief>assignment operator is default implementation</brief>
+    <return>
+      <type name="MessageBase" qualifier=" &amp;" ref="wield::MessageBase#wield::MessageBase" />
+    </return>
+    <argument id="wield::MessageBase::operator=::" name="">
+      <type name="MessageBase" qualifier=" const &amp;" ref="wield::MessageBase#wield::MessageBase" />
+    </argument>
+  </method>
+</classtemplate>
