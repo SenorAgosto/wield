@@ -28,7 +28,9 @@
     <namespace name="logging" ref="wield::logging#wield::logging">
       <class name="DefaultLoggingPolicy" ref="wield::logging::DefaultLoggingPolicy#wield::logging::DefaultLoggingPolicy" />
       <class name="Log" ref="wield::logging::Log#wield::logging::Log" />
-      <class name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy" />
+      <class name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy">
+        <brief> A logging interface</brief>
+      </class>
     </namespace>
     <namespace name="policies" ref="wield::policies#wield::policies">
       <classtemplate name="ExhaustivePollingPolicy" ref="wield::policies::ExhaustivePollingPolicy#wield::policies::ExhaustivePollingPolicy">
@@ -51,9 +53,16 @@
       <templatetypeparameter id="wield::SchedulerBase::SchedulingPolicy" name="SchedulingPolicy" />
     </classtemplate>
     <classtemplate name="StageBase" ref="wield::StageBase#wield::StageBase">
-      <templatetypeparameter id="wield::StageBase::StageEnum" name="StageEnum" />
-      <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor" />
-      <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType" />
+      <brief> Stage</brief>
+      <templatetypeparameter id="wield::StageBase::StageEnum" name="StageEnum">
+        <brief>the enum defining names of all stages.</brief>
+      </templatetypeparameter>
+      <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor">
+        <brief>this stage's processing function.</brief>
+      </templatetypeparameter>
+      <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType">
+        <brief>the type of queue this stage will get inputs from.</brief>
+      </templatetypeparameter>
     </classtemplate>
     <structtemplate name="Traits" ref="wield::Traits#wield::Traits">
       <brief>ClientDefinedTraits contains types the client *must* define.</brief>

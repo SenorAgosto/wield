@@ -1,8 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <classtemplate abstract="true" id="wield::StageBase" name="StageBase" xmlns="http://jessevdk.github.com/cldoc/1.0">
-  <templatetypeparameter id="wield::StageBase::StageEnum" name="StageEnum" />
-  <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor" />
-  <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType" />
+  <brief> Stage</brief>
+  <doc>A stage is the basic unit of processing in a SEDA architecture. It consists of a queue, and a function
+to apply to messages in the queue.
+</doc>
+  <templatetypeparameter id="wield::StageBase::StageEnum" name="StageEnum">
+    <brief>the enum defining names of all stages.</brief>
+  </templatetypeparameter>
+  <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor">
+    <brief>this stage's processing function.</brief>
+  </templatetypeparameter>
+  <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType">
+    <brief>the type of queue this stage will get inputs from.</brief>
+  </templatetypeparameter>
   <constructor id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;">
     <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::stageName" name="stageName">
       <type name="StageEnum" />
