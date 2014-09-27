@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class id="wield::logging::DefaultLoggingPolicy" name="DefaultLoggingPolicy" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <base access="public">
+    <type name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy" />
+  </base>
+  <method id="wield::logging::DefaultLoggingPolicy::Error" name="Error" override="yes" virtual="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::logging::DefaultLoggingPolicy::Error::error" name="error">
+      <type name="std::__1::string" qualifier=" const &amp;" />
+    </argument>
+    <override name="LoggingPolicy::Error" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy::Error" />
+  </method>
+  <method id="wield::logging::DefaultLoggingPolicy::Info" name="Info" override="yes" virtual="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::logging::DefaultLoggingPolicy::Info::info" name="info">
+      <type name="std::__1::string" qualifier=" const &amp;" />
+    </argument>
+    <override name="LoggingPolicy::Info" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy::Info" />
+  </method>
+  <method id="wield::logging::DefaultLoggingPolicy::Warning" name="Warning" override="yes" virtual="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::logging::DefaultLoggingPolicy::Warning::warning" name="warning">
+      <type name="std::__1::string" qualifier=" const &amp;" />
+    </argument>
+    <override name="LoggingPolicy::Warning" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy::Warning" />
+  </method>
+</class>

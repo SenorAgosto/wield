@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class id="wield::DuplicateStageRegistrationException" name="DuplicateStageRegistrationException" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <base access="public">
+    <type name="std::runtime_error" />
+  </base>
+  <constructor id="wield::DuplicateStageRegistrationException::DuplicateStageRegistrationException" name="DuplicateStageRegistrationException" />
+</class>

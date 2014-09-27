@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<classtemplate abstract="true" id="wield::adapters::QueueInterface" name="QueueInterface" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>An abstract interface for adapting different</brief>
+  <doc>queue implementations to wield QueueBase interface.</doc>
+  <templatetypeparameter id="wield::adapters::QueueInterface::ProcessingFunctor" name="ProcessingFunctor" />
+  <destructor id="wield::adapters::QueueInterface::~QueueInterface&lt;ProcessingFunctor&gt;" name="~QueueInterface&lt;ProcessingFunctor&gt;" virtual="yes" />
+  <method abstract="yes" id="wield::adapters::QueueInterface::push" name="push" virtual="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::adapters::QueueInterface::push::message" name="message">
+      <type name="QueueInterface&lt;ProcessingFunctor&gt;::MessagePtr" qualifier=" const &amp;" />
+    </argument>
+  </method>
+  <method abstract="yes" id="wield::adapters::QueueInterface::tryPop" name="tryPop" virtual="yes">
+    <return>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="wield::adapters::QueueInterface::tryPop::message" name="message">
+      <type name="QueueInterface&lt;ProcessingFunctor&gt;::MessagePtr" qualifier=" &amp;" />
+    </argument>
+  </method>
+  <method abstract="yes" id="wield::adapters::QueueInterface::unsafeSize" name="unsafeSize" virtual="yes">
+    <return>
+      <type name="size_t" />
+    </return>
+  </method>
+</classtemplate>
