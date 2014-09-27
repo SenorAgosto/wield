@@ -1,36 +1,51 @@
 <?xml version='1.0' encoding='utf-8'?>
 <classtemplate abstract="true" id="wield::DispatcherBase" name="DispatcherBase" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief> Dispatcher</brief>
+  <doc>This is the dispatcher class, parameterized on your applications StageEnum type
+and Stage type. The dispatcher knows about all the stages in the system and is
+passed to stages so they can get messages from their processing functor to another
+stage in the system. Routing is done by StageEnum which defines the stage names.
+</doc>
   <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
   <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
   <constructor id="wield::DispatcherBase::DispatcherBase&lt;StageEnum, Stage&gt;" name="DispatcherBase&lt;StageEnum, Stage&gt;" />
   <destructor id="wield::DispatcherBase::~DispatcherBase&lt;StageEnum, Stage&gt;" name="~DispatcherBase&lt;StageEnum, Stage&gt;" />
   <method id="wield::DispatcherBase::registerStage" name="registerStage">
+    <brief> Register a <ref ref="wield::DispatcherBase#wield::DispatcherBase::Stage">wield::DispatcherBase::Stage</ref> with the Dispatcher</brief>
     <return>
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::DispatcherBase::registerStage::stageName" name="stageName">
+      <doc>is the name this stage will be referenced as</doc>
       <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
     </argument>
     <argument id="wield::DispatcherBase::registerStage::stage" name="stage">
+      <doc>is the pointer to the stage</doc>
       <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageType" qualifier="*" />
     </argument>
   </method>
   <method id="wield::DispatcherBase::dispatch" name="dispatch">
+    <brief> Send a message to a stage</brief>
     <return>
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::DispatcherBase::dispatch::stageName" name="stageName">
+      <doc>the stage to dispatch the message to.</doc>
       <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
     </argument>
     <argument id="wield::DispatcherBase::dispatch::message" name="message">
+      <doc>is the message to send</doc>
       <type name="typename StageType::MessageType" qualifier=" &amp;" />
     </argument>
   </method>
   <method id="wield::DispatcherBase::operator[]" name="operator[]">
+    <brief> Stage lookup function</brief>
     <return>
+      <doc>a reference to the requested stage.</doc>
       <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageType" qualifier=" &amp;" />
     </return>
     <argument id="wield::DispatcherBase::operator[]::stageName" name="stageName">
+      <doc>is the name of the stage to get a reference to.</doc>
       <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
     </argument>
   </method>

@@ -17,35 +17,23 @@ return values.
         <location column="9" file="MessageBase.h" line="25" />
       </undocumented>
     </type>
-    <type documented="0" name="methodtemplate" undocumented="3">
-      <undocumented id="wield::QueueBase::QueueBase&lt;ProcessingFunctor, QueueType&gt;" name="QueueBase&lt;ProcessingFunctor, QueueType&gt;">
-        <location column="9" file="QueueBase.h" line="13" />
-      </undocumented>
+    <type documented="0" name="methodtemplate" undocumented="2">
       <undocumented id="wield::SchedulerBase::SchedulerBase&lt;SchedulingPolicy&gt;" name="SchedulerBase&lt;SchedulingPolicy&gt;">
         <location column="9" file="SchedulerBase.h" line="18" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;" name="QueueAdapter&lt;ProcessingFunctor, QueueType&gt;">
-        <location column="9" file="adapters/QueueAdapter.h" line="12" />
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;" name="QueueAdapter&lt;ProcessingFunctor, QueueType&gt;">
+        <location column="9" file="adapters/polymorphic/QueueAdapter.h" line="12" />
       </undocumented>
     </type>
-    <type documented="0" name="templatetypeparameter" undocumented="16">
+    <type documented="0" name="templatetypeparameter" undocumented="17">
       <undocumented id="wield::DispatcherBase::Stage" name="Stage">
-        <location column="34" file="DispatcherBase.h" line="7" />
+        <location column="34" file="DispatcherBase.h" line="16" />
       </undocumented>
       <undocumented id="wield::DispatcherBase::StageEnum" name="StageEnum">
-        <location column="14" file="DispatcherBase.h" line="7" />
+        <location column="14" file="DispatcherBase.h" line="16" />
       </undocumented>
       <undocumented id="wield::MessageBase::ProcessingFunctor" name="ProcessingFunctor">
         <location column="14" file="MessageBase.h" line="21" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::ProcessingFunctor" name="ProcessingFunctor">
-        <location column="14" file="QueueBase.h" line="6" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::QueueBase&lt;ProcessingFunctor, QueueType&gt;::Args" name="Args">
-        <location column="18" file="QueueBase.h" line="13" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::QueueType" name="QueueType">
-        <location column="39" file="QueueBase.h" line="6" />
       </undocumented>
       <undocumented id="wield::SchedulerBase::SchedulerBase&lt;SchedulingPolicy&gt;::Args" name="Args">
         <location column="18" file="SchedulerBase.h" line="18" />
@@ -62,43 +50,65 @@ return values.
       <undocumented id="wield::StageBase::StageEnum" name="StageEnum">
         <location column="14" file="StageBase.h" line="6" />
       </undocumented>
+      <undocumented id="wield::Traits::ClientDefinedTraits" name="ClientDefinedTraits">
+        <location column="14" file="Traits.h" line="13" />
+      </undocumented>
       <undocumented id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor">
         <location column="14" file="adapters/PassThroughStageQueue.h" line="20" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor">
-        <location column="14" file="adapters/QueueAdapter.h" line="6" />
-      </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;::Args" name="Args">
-        <location column="18" file="adapters/QueueAdapter.h" line="12" />
-      </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::QueueType" name="QueueType">
-        <location column="39" file="adapters/QueueAdapter.h" line="6" />
-      </undocumented>
-      <undocumented id="wield::adapters::QueueInterface::ProcessingFunctor" name="ProcessingFunctor">
+      <undocumented id="wield::adapters::QueueInterface::MessagePtr" name="MessagePtr">
         <location column="14" file="adapters/QueueInterface.h" line="9" />
       </undocumented>
+      <undocumented id="wield::adapters::polymorphic::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor">
+        <location column="14" file="adapters/polymorphic/PassThroughStageQueue.h" line="20" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor">
+        <location column="14" file="adapters/polymorphic/QueueAdapter.h" line="6" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;::Args" name="Args">
+        <location column="18" file="adapters/polymorphic/QueueAdapter.h" line="12" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::QueueType" name="QueueType">
+        <location column="39" file="adapters/polymorphic/QueueAdapter.h" line="6" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueInterface::ProcessingFunctor" name="ProcessingFunctor">
+        <location column="14" file="adapters/polymorphic/QueueInterface.h" line="9" />
+      </undocumented>
+      <undocumented id="wield::policies::ExhaustivePollingPolicy::StageEnum" name="StageEnum">
+        <location column="14" file="policies/ExhaustivePollingPolicy.h" line="9" />
+      </undocumented>
     </type>
-    <type documented="0" name="namespace" undocumented="3">
+    <type documented="0" name="namespace" undocumented="5">
       <undocumented id="wield" name="wield">
         <location column="1" file="src/DefaultLoggingPolicy.h" line="3" />
         <location column="1" file="src/DefaultLoggingPolicy.cpp" line="4" />
         <location column="1" file="src/Log.cpp" line="6" />
         <location column="1" file="adapters/PassThroughStageQueue.h" line="5" />
-        <location column="1" file="adapters/QueueAdapter.h" line="4" />
-        <location column="1" file="adapters/QueueInterface.h" line="5" />
-        <location column="1" file="DispatcherBase.h" line="5" />
+        <location column="1" file="adapters/polymorphic/PassThroughStageQueue.h" line="5" />
+        <location column="1" file="adapters/polymorphic/QueueAdapter.h" line="4" />
+        <location column="1" file="adapters/polymorphic/QueueInterface.h" line="5" />
+        <location column="1" file="adapters/QueueInterface.h" line="4" />
+        <location column="1" file="DispatcherBase.h" line="7" />
         <location column="1" file="Exceptions.h" line="4" />
         <location column="1" file="logging/Log.h" line="5" />
         <location column="1" file="logging/LoggingPolicy.h" line="4" />
         <location column="1" file="MessageBase.h" line="7" />
-        <location column="1" file="QueueBase.h" line="4" />
+        <location column="1" file="policies/ExhaustivePollingPolicy.h" line="4" />
         <location column="1" file="SchedulerBase.h" line="11" />
         <location column="1" file="StageBase.h" line="4" />
+        <location column="1" file="Traits.h" line="7" />
       </undocumented>
       <undocumented id="wield::adapters" name="adapters">
         <location column="19" file="adapters/PassThroughStageQueue.h" line="5" />
-        <location column="19" file="adapters/QueueAdapter.h" line="4" />
-        <location column="19" file="adapters/QueueInterface.h" line="5" />
+        <location column="19" file="adapters/polymorphic/PassThroughStageQueue.h" line="5" />
+        <location column="19" file="adapters/polymorphic/QueueAdapter.h" line="4" />
+        <location column="19" file="adapters/polymorphic/QueueInterface.h" line="5" />
+        <location column="19" file="adapters/QueueInterface.h" line="4" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic" name="polymorphic">
+        <location column="40" file="adapters/polymorphic/PassThroughStageQueue.h" line="5" />
+        <location column="40" file="adapters/polymorphic/QueueAdapter.h" line="4" />
+        <location column="40" file="adapters/polymorphic/QueueInterface.h" line="5" />
       </undocumented>
       <undocumented id="wield::logging" name="logging">
         <location column="19" file="src/DefaultLoggingPolicy.h" line="3" />
@@ -107,28 +117,14 @@ return values.
         <location column="19" file="logging/Log.h" line="5" />
         <location column="19" file="logging/LoggingPolicy.h" line="4" />
       </undocumented>
+      <undocumented id="wield::policies" name="policies">
+        <location column="19" file="policies/ExhaustivePollingPolicy.h" line="4" />
+      </undocumented>
     </type>
-    <type documented="3" name="method" undocumented="30">
-      <undocumented id="wield::DispatcherBase::dispatch" name="dispatch">
-        <location column="9" file="DispatcherBase.h" line="35" />
-      </undocumented>
-      <undocumented id="wield::DispatcherBase::operator[]" name="operator[]">
-        <location column="9" file="DispatcherBase.h" line="40" />
-      </undocumented>
-      <undocumented id="wield::DispatcherBase::registerStage" name="registerStage">
-        <location column="9" file="DispatcherBase.h" line="25" />
-      </undocumented>
+    <type documented="1" name="structtemplate" undocumented="0" />
+    <type documented="12" name="method" undocumented="29">
       <undocumented id="wield::MessageBase::processWith" name="processWith">
         <location column="3" file="MessageBase.h" line="28" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::push" name="push">
-        <location column="9" file="QueueBase.h" line="19" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::tryPop" name="tryPop">
-        <location column="9" file="QueueBase.h" line="24" />
-      </undocumented>
-      <undocumented id="wield::QueueBase::unsafeSize" name="unsafeSize">
-        <location column="9" file="QueueBase.h" line="29" />
       </undocumented>
       <undocumented id="wield::SchedulerBase::join" name="join">
         <location column="9" file="SchedulerBase.h" line="43" />
@@ -139,38 +135,44 @@ return values.
       <undocumented id="wield::SchedulerBase::stop" name="stop">
         <location column="9" file="SchedulerBase.h" line="51" />
       </undocumented>
-      <undocumented id="wield::StageBase::name" name="name">
-        <location column="9" file="StageBase.h" line="42" />
-      </undocumented>
-      <undocumented id="wield::StageBase::process" name="process">
-        <location column="9" file="StageBase.h" line="30" />
-      </undocumented>
-      <undocumented id="wield::StageBase::push" name="push">
-        <location column="9" file="StageBase.h" line="25" />
-      </undocumented>
       <undocumented id="wield::adapters::PassThroughStageQueue::tryPop" name="tryPop">
         <location column="9" file="adapters/PassThroughStageQueue.h" line="40" />
       </undocumented>
       <undocumented id="wield::adapters::PassThroughStageQueue::unsafeSize" name="unsafeSize">
         <location column="9" file="adapters/PassThroughStageQueue.h" line="41" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::push" name="push">
-        <location column="9" file="adapters/QueueAdapter.h" line="18" />
-      </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::tryPop" name="tryPop">
-        <location column="9" file="adapters/QueueAdapter.h" line="23" />
-      </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter::unsafeSize" name="unsafeSize">
-        <location column="9" file="adapters/QueueAdapter.h" line="28" />
-      </undocumented>
       <undocumented id="wield::adapters::QueueInterface::push" name="push">
+        <location column="9" file="adapters/QueueInterface.h" line="15" />
+      </undocumented>
+      <undocumented id="wield::adapters::QueueInterface::try_pop" name="try_pop">
         <location column="9" file="adapters/QueueInterface.h" line="16" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueInterface::tryPop" name="tryPop">
+      <undocumented id="wield::adapters::QueueInterface::unsafe_size" name="unsafe_size">
         <location column="9" file="adapters/QueueInterface.h" line="17" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueInterface::unsafeSize" name="unsafeSize">
-        <location column="9" file="adapters/QueueInterface.h" line="18" />
+      <undocumented id="wield::adapters::polymorphic::PassThroughStageQueue::try_pop" name="try_pop">
+        <location column="9" file="adapters/polymorphic/PassThroughStageQueue.h" line="40" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::PassThroughStageQueue::unsafe_size" name="unsafe_size">
+        <location column="9" file="adapters/polymorphic/PassThroughStageQueue.h" line="41" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::push" name="push">
+        <location column="9" file="adapters/polymorphic/QueueAdapter.h" line="18" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::try_pop" name="try_pop">
+        <location column="9" file="adapters/polymorphic/QueueAdapter.h" line="23" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter::unsafe_size" name="unsafe_size">
+        <location column="9" file="adapters/polymorphic/QueueAdapter.h" line="28" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueInterface::push" name="push">
+        <location column="9" file="adapters/polymorphic/QueueInterface.h" line="16" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueInterface::try_pop" name="try_pop">
+        <location column="9" file="adapters/polymorphic/QueueInterface.h" line="17" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueInterface::unsafe_size" name="unsafe_size">
+        <location column="9" file="adapters/polymorphic/QueueInterface.h" line="18" />
       </undocumented>
       <undocumented id="wield::logging::DefaultLoggingPolicy::Error" name="Error">
         <location column="9" file="src/DefaultLoggingPolicy.h" line="10" />
@@ -202,10 +204,19 @@ return values.
       <undocumented id="wield::logging::LoggingPolicy::Warning" name="Warning">
         <location column="9" file="logging/LoggingPolicy.h" line="12" />
       </undocumented>
+      <undocumented id="wield::policies::ExhaustivePollingPolicy::PollingInformation::incrementMessageCount" name="incrementMessageCount">
+        <location column="9" file="policies/ExhaustivePollingPolicy.h" line="39" />
+      </undocumented>
+      <undocumented id="wield::policies::ExhaustivePollingPolicy::batchEnd" name="batchEnd">
+        <location column="9" file="policies/ExhaustivePollingPolicy.h" line="26" />
+      </undocumented>
+      <undocumented id="wield::policies::ExhaustivePollingPolicy::batchStart" name="batchStart">
+        <location column="9" file="policies/ExhaustivePollingPolicy.h" line="25" />
+      </undocumented>
     </type>
-    <type documented="0" name="constructor" undocumented="6">
+    <type documented="1" name="constructor" undocumented="7">
       <undocumented id="wield::DispatcherBase::DispatcherBase&lt;StageEnum, Stage&gt;" name="DispatcherBase&lt;StageEnum, Stage&gt;">
-        <location column="9" file="DispatcherBase.h" line="16" />
+        <location column="9" file="DispatcherBase.h" line="25" />
       </undocumented>
       <undocumented id="wield::DuplicateStageRegistrationException::DuplicateStageRegistrationException" name="DuplicateStageRegistrationException">
         <location column="9" file="Exceptions.h" line="9" />
@@ -222,27 +233,24 @@ return values.
       <undocumented id="wield::adapters::PassThroughStageQueue::PassThroughStageQueue&lt;ProcessingFunctor&gt;" name="PassThroughStageQueue&lt;ProcessingFunctor&gt;">
         <location column="9" file="adapters/PassThroughStageQueue.h" line="26" />
       </undocumented>
+      <undocumented id="wield::adapters::polymorphic::PassThroughStageQueue::PassThroughStageQueue&lt;ProcessingFunctor&gt;" name="PassThroughStageQueue&lt;ProcessingFunctor&gt;">
+        <location column="9" file="adapters/polymorphic/PassThroughStageQueue.h" line="26" />
+      </undocumented>
     </type>
-    <type documented="3" name="classtemplate" undocumented="5">
-      <undocumented id="wield::DispatcherBase" name="DispatcherBase">
-        <location column="5" file="DispatcherBase.h" line="7" />
-      </undocumented>
-      <undocumented id="wield::QueueBase" name="QueueBase">
-        <location column="5" file="QueueBase.h" line="6" />
-      </undocumented>
+    <type documented="7" name="classtemplate" undocumented="3">
       <undocumented id="wield::SchedulerBase" name="SchedulerBase">
         <location column="5" file="SchedulerBase.h" line="13" />
       </undocumented>
       <undocumented id="wield::StageBase" name="StageBase">
         <location column="5" file="StageBase.h" line="6" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueAdapter" name="QueueAdapter">
-        <location column="5" file="adapters/QueueAdapter.h" line="6" />
+      <undocumented id="wield::adapters::polymorphic::QueueAdapter" name="QueueAdapter">
+        <location column="5" file="adapters/polymorphic/QueueAdapter.h" line="6" />
       </undocumented>
     </type>
-    <type documented="0" name="destructor" undocumented="6">
+    <type documented="0" name="destructor" undocumented="7">
       <undocumented id="wield::DispatcherBase::~DispatcherBase&lt;StageEnum, Stage&gt;" name="~DispatcherBase&lt;StageEnum, Stage&gt;">
-        <location column="9" file="DispatcherBase.h" line="21" />
+        <location column="9" file="DispatcherBase.h" line="30" />
       </undocumented>
       <undocumented id="wield::MessageBase::~MessageBase&lt;ProcessingFunctor&gt;" name="~MessageBase&lt;ProcessingFunctor&gt;">
         <location column="9" file="MessageBase.h" line="26" />
@@ -253,14 +261,17 @@ return values.
       <undocumented id="wield::StageBase::~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;">
         <location column="9" file="StageBase.h" line="21" />
       </undocumented>
-      <undocumented id="wield::adapters::QueueInterface::~QueueInterface&lt;ProcessingFunctor&gt;" name="~QueueInterface&lt;ProcessingFunctor&gt;">
-        <location column="9" file="adapters/QueueInterface.h" line="14" />
+      <undocumented id="wield::adapters::QueueInterface::~QueueInterface&lt;MessagePtr&gt;" name="~QueueInterface&lt;MessagePtr&gt;">
+        <location column="9" file="adapters/QueueInterface.h" line="13" />
+      </undocumented>
+      <undocumented id="wield::adapters::polymorphic::QueueInterface::~QueueInterface&lt;ProcessingFunctor&gt;" name="~QueueInterface&lt;ProcessingFunctor&gt;">
+        <location column="9" file="adapters/polymorphic/QueueInterface.h" line="14" />
       </undocumented>
       <undocumented id="wield::logging::LoggingPolicy::~LoggingPolicy" name="~LoggingPolicy">
         <location column="9" file="logging/LoggingPolicy.h" line="9" />
       </undocumented>
     </type>
-    <type documented="0" name="class" undocumented="4">
+    <type documented="0" name="class" undocumented="5">
       <undocumented id="wield::DuplicateStageRegistrationException" name="DuplicateStageRegistrationException">
         <location column="5" file="Exceptions.h" line="6" />
       </undocumented>
@@ -274,11 +285,19 @@ return values.
         <location column="5" file="logging/Log.h" line="7" />
         <location column="5" file="logging/LoggingPolicy.h" line="6" />
       </undocumented>
+      <undocumented id="wield::policies::ExhaustivePollingPolicy::PollingInformation" name="PollingInformation">
+        <location column="9" file="policies/ExhaustivePollingPolicy.h" line="14" />
+        <location column="5" file="policies/ExhaustivePollingPolicy.h" line="29" />
+      </undocumented>
     </type>
   </coverage>
   <arguments>
     <function id="wield::adapters::PassThroughStageQueue::push" name="push">
       <location column="9" file="adapters/PassThroughStageQueue.h" line="34" />
+      <undocumented name="message" />
+    </function>
+    <function id="wield::adapters::polymorphic::PassThroughStageQueue::push" name="push">
+      <location column="9" file="adapters/polymorphic/PassThroughStageQueue.h" line="34" />
       <undocumented name="message" />
     </function>
     <function id="wield::logging::Log::SetLoggingPolicy" name="SetLoggingPolicy">
@@ -289,6 +308,23 @@ return values.
       <location column="9" file="MessageBase.h" line="42" />
       <undocumented-return />
       <undocumented name="" />
+    </function>
+    <function id="wield::policies::ExhaustivePollingPolicy::continueProcessing" name="continueProcessing">
+      <location column="9" file="policies/ExhaustivePollingPolicy.h" line="17" />
+      <undocumented-return />
+      <undocumented name="pollingInfo" />
+    </function>
+    <function id="wield::policies::ExhaustivePollingPolicy::PollingInformation::PollingInformation" name="PollingInformation">
+      <location column="9" file="policies/ExhaustivePollingPolicy.h" line="34" />
+      <undocumented name="" />
+    </function>
+    <function id="wield::policies::ExhaustivePollingPolicy::PollingInformation::hadMessage" name="hadMessage">
+      <location column="9" file="policies/ExhaustivePollingPolicy.h" line="45" />
+      <undocumented-return />
+    </function>
+    <function id="wield::StageBase::name" name="name">
+      <location column="9" file="StageBase.h" line="51" />
+      <undocumented-return />
     </function>
   </arguments>
   <references />

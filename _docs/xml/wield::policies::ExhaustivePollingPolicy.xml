@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<classtemplate id="wield::policies::ExhaustivePollingPolicy" name="ExhaustivePollingPolicy" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>NOTE: store behavior only on the PollingPolicy, but all data</brief>
+  <doc>needed to the decision to keep polling or not on the PollingInformation
+type.</doc>
+  <templatetypeparameter id="wield::policies::ExhaustivePollingPolicy::StageEnum" name="StageEnum" />
+  <class name="PollingInformation" ref="wield::policies::ExhaustivePollingPolicy::PollingInformation#wield::policies::ExhaustivePollingPolicy::PollingInformation" />
+  <method id="wield::policies::ExhaustivePollingPolicy::continueProcessing" name="continueProcessing">
+    <brief>or you could make PollingInformation a</brief>
+    <doc>template parameter and do 'using PollingInformation = PollingInfo'</doc>
+    <return>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="wield::policies::ExhaustivePollingPolicy::continueProcessing::pollingInfo" name="pollingInfo">
+      <type name="ExhaustivePollingPolicy&lt;StageEnum&gt;::PollingInformation" qualifier=" &amp;" ref="wield::policies::ExhaustivePollingPolicy::PollingInformation#wield::policies::ExhaustivePollingPolicy::PollingInformation" />
+    </argument>
+  </method>
+  <method id="wield::policies::ExhaustivePollingPolicy::batchStart" name="batchStart">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::policies::ExhaustivePollingPolicy::batchStart::pollingInfo" name="pollingInfo">
+      <type name="ExhaustivePollingPolicy&lt;StageEnum&gt;::PollingInformation" qualifier=" &amp;" ref="wield::policies::ExhaustivePollingPolicy::PollingInformation#wield::policies::ExhaustivePollingPolicy::PollingInformation" />
+    </argument>
+  </method>
+  <method id="wield::policies::ExhaustivePollingPolicy::batchEnd" name="batchEnd">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::policies::ExhaustivePollingPolicy::batchEnd::pollingInfo" name="pollingInfo">
+      <type name="ExhaustivePollingPolicy&lt;StageEnum&gt;::PollingInformation" qualifier=" &amp;" ref="wield::policies::ExhaustivePollingPolicy::PollingInformation#wield::policies::ExhaustivePollingPolicy::PollingInformation" />
+    </argument>
+  </method>
+</classtemplate>
