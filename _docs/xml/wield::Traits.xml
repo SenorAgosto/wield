@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<structtemplate id="wield::Traits" name="Traits" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>ClientDefinedTraits contains types the client *must* define.</brief>
+  <doc>If you wish to override particular classes, like
+the DispatcherType, you'll need define similar struct
+with your desired types.</doc>
+  <templatetypeparameter id="wield::Traits::ClientDefinedTraits" name="ClientDefinedTraits" />
+</structtemplate>

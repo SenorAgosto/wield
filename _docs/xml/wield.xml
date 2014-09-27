@@ -2,7 +2,9 @@
 <namespace id="wield" name="wield" xmlns="http://jessevdk.github.com/cldoc/1.0">
   <namespace name="adapters" ref="wield::adapters#wield::adapters" />
   <namespace name="logging" ref="wield::logging#wield::logging" />
+  <namespace name="policies" ref="wield::policies#wield::policies" />
   <classtemplate name="DispatcherBase" ref="wield::DispatcherBase#wield::DispatcherBase">
+    <brief> Dispatcher</brief>
     <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
     <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
   </classtemplate>
@@ -10,10 +12,6 @@
   <classtemplate name="MessageBase" ref="wield::MessageBase#wield::MessageBase">
     <brief>/ @note [ARG]: strictly speaking, we don't need to parameterize</brief>
     <templatetypeparameter id="wield::MessageBase::ProcessingFunctor" name="ProcessingFunctor" />
-  </classtemplate>
-  <classtemplate name="QueueBase" ref="wield::QueueBase#wield::QueueBase">
-    <templatetypeparameter id="wield::QueueBase::ProcessingFunctor" name="ProcessingFunctor" />
-    <templatetypeparameter id="wield::QueueBase::QueueType" name="QueueType" />
   </classtemplate>
   <classtemplate name="SchedulerBase" ref="wield::SchedulerBase#wield::SchedulerBase">
     <templatetypeparameter id="wield::SchedulerBase::SchedulingPolicy" name="SchedulingPolicy" />
@@ -23,4 +21,8 @@
     <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor" />
     <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType" />
   </classtemplate>
+  <structtemplate name="Traits" ref="wield::Traits#wield::Traits">
+    <brief>ClientDefinedTraits contains types the client *must* define.</brief>
+    <templatetypeparameter id="wield::Traits::ClientDefinedTraits" name="ClientDefinedTraits" />
+  </structtemplate>
 </namespace>
