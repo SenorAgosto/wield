@@ -2,6 +2,7 @@
 <class id="wield::logging::DefaultLoggingPolicy" name="DefaultLoggingPolicy" xmlns="http://jessevdk.github.com/cldoc/1.0">
   <base access="public">
     <type name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy" />
+    <brief> A logging interface</brief>
   </base>
   <method id="wield::logging::DefaultLoggingPolicy::Error" name="Error" override="yes" virtual="yes">
     <return>
