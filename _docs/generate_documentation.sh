@@ -1,4 +1,6 @@
 #!/bin/sh
+# We use cldoc to generate our documentation. 
+# https://github.com/jessevdk/cldoc
 
 export SOURCES=`find wield/ -name *.cpp -or -name *.c | grep -v unit_test`
 export HEADERS=`find wield/ -name *.hpp -or -name *.h | grep -v unit_test`
