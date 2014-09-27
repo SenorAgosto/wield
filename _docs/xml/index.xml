@@ -2,17 +2,27 @@
 <index xmlns="http://jessevdk.github.com/cldoc/1.0">
   <namespace name="wield" ref="wield#wield">
     <namespace name="adapters" ref="wield::adapters#wield::adapters">
+      <namespace name="polymorphic" ref="wield::adapters::polymorphic#wield::adapters::polymorphic">
+        <classtemplate name="PassThroughStageQueue" ref="wield::adapters::polymorphic::PassThroughStageQueue#wield::adapters::polymorphic::PassThroughStageQueue">
+          <brief>A pass-through stage is a stage that does not queue a message</brief>
+          <templatetypeparameter id="wield::adapters::polymorphic::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
+        </classtemplate>
+        <classtemplate name="QueueAdapter" ref="wield::adapters::polymorphic::QueueAdapter#wield::adapters::polymorphic::QueueAdapter">
+          <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
+          <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::QueueType" name="QueueType" />
+        </classtemplate>
+        <classtemplate name="QueueInterface" ref="wield::adapters::polymorphic::QueueInterface#wield::adapters::polymorphic::QueueInterface">
+          <brief>An abstract interface for adapting different</brief>
+          <templatetypeparameter id="wield::adapters::polymorphic::QueueInterface::ProcessingFunctor" name="ProcessingFunctor" />
+        </classtemplate>
+      </namespace>
       <classtemplate name="PassThroughStageQueue" ref="wield::adapters::PassThroughStageQueue#wield::adapters::PassThroughStageQueue">
         <brief>A pass-through stage is a stage that does not queue a message</brief>
         <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
       </classtemplate>
-      <classtemplate name="QueueAdapter" ref="wield::adapters::QueueAdapter#wield::adapters::QueueAdapter">
-        <templatetypeparameter id="wield::adapters::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
-        <templatetypeparameter id="wield::adapters::QueueAdapter::QueueType" name="QueueType" />
-      </classtemplate>
       <classtemplate name="QueueInterface" ref="wield::adapters::QueueInterface#wield::adapters::QueueInterface">
-        <brief>An abstract interface for adapting different</brief>
-        <templatetypeparameter id="wield::adapters::QueueInterface::ProcessingFunctor" name="ProcessingFunctor" />
+        <brief>An abstract interface for allowing</brief>
+        <templatetypeparameter id="wield::adapters::QueueInterface::MessagePtr" name="MessagePtr" />
       </classtemplate>
     </namespace>
     <namespace name="logging" ref="wield::logging#wield::logging">
@@ -20,7 +30,15 @@
       <class name="Log" ref="wield::logging::Log#wield::logging::Log" />
       <class name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy" />
     </namespace>
+    <namespace name="policies" ref="wield::policies#wield::policies">
+      <classtemplate name="ExhaustivePollingPolicy" ref="wield::policies::ExhaustivePollingPolicy#wield::policies::ExhaustivePollingPolicy">
+        <brief>NOTE: store behavior only on the PollingPolicy, but all data</brief>
+        <templatetypeparameter id="wield::policies::ExhaustivePollingPolicy::StageEnum" name="StageEnum" />
+        <class name="PollingInformation" ref="wield::policies::ExhaustivePollingPolicy::PollingInformation#wield::policies::ExhaustivePollingPolicy::PollingInformation" />
+      </classtemplate>
+    </namespace>
     <classtemplate name="DispatcherBase" ref="wield::DispatcherBase#wield::DispatcherBase">
+      <brief> Dispatcher</brief>
       <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
       <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
     </classtemplate>
@@ -28,10 +46,6 @@
     <classtemplate name="MessageBase" ref="wield::MessageBase#wield::MessageBase">
       <brief>/ @note [ARG]: strictly speaking, we don't need to parameterize</brief>
       <templatetypeparameter id="wield::MessageBase::ProcessingFunctor" name="ProcessingFunctor" />
-    </classtemplate>
-    <classtemplate name="QueueBase" ref="wield::QueueBase#wield::QueueBase">
-      <templatetypeparameter id="wield::QueueBase::ProcessingFunctor" name="ProcessingFunctor" />
-      <templatetypeparameter id="wield::QueueBase::QueueType" name="QueueType" />
     </classtemplate>
     <classtemplate name="SchedulerBase" ref="wield::SchedulerBase#wield::SchedulerBase">
       <templatetypeparameter id="wield::SchedulerBase::SchedulingPolicy" name="SchedulingPolicy" />
@@ -41,6 +55,10 @@
       <templatetypeparameter id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor" />
       <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType" />
     </classtemplate>
+    <structtemplate name="Traits" ref="wield::Traits#wield::Traits">
+      <brief>ClientDefinedTraits contains types the client *must* define.</brief>
+      <templatetypeparameter id="wield::Traits::ClientDefinedTraits" name="ClientDefinedTraits" />
+    </structtemplate>
   </namespace>
   <report name="Documentation generator" ref="report" />
 </index>

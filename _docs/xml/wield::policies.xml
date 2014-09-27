@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<namespace id="wield::policies" name="policies" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <classtemplate name="ExhaustivePollingPolicy" ref="wield::policies::ExhaustivePollingPolicy#wield::policies::ExhaustivePollingPolicy">
+    <brief>NOTE: store behavior only on the PollingPolicy, but all data</brief>
+    <templatetypeparameter id="wield::policies::ExhaustivePollingPolicy::StageEnum" name="StageEnum" />
+  </classtemplate>
+</namespace>

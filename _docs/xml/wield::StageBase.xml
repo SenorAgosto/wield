@@ -19,19 +19,27 @@
   </constructor>
   <destructor id="wield::StageBase::~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" />
   <method id="wield::StageBase::push" name="push">
+    <brief>Insert a message onto the stage's queue</brief>
     <return>
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::StageBase::push::m" name="m">
+      <doc>the message to insert</doc>
       <type name="const typename MessageType::smartptr" qualifier=" const &amp;" />
     </argument>
   </method>
   <method id="wield::StageBase::process" name="process">
+    <brief> process a message</brief>
+    <doc>pump the queue, if there is a message, process it.
+
+</doc>
     <return>
+      <doc>true if a message was processed, false otherwise.</doc>
       <type builtin="yes" name="bool" />
     </return>
   </method>
   <method id="wield::StageBase::name" name="name">
+    <brief>get the stage's name</brief>
     <return>
       <type name="StageEnum" />
     </return>
