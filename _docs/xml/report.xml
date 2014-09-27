@@ -25,7 +25,7 @@ return values.
         <location column="9" file="adapters/polymorphic/QueueAdapter.h" line="12" />
       </undocumented>
     </type>
-    <type documented="0" name="templatetypeparameter" undocumented="17">
+    <type documented="3" name="templatetypeparameter" undocumented="14">
       <undocumented id="wield::DispatcherBase::Stage" name="Stage">
         <location column="34" file="DispatcherBase.h" line="16" />
       </undocumented>
@@ -40,15 +40,6 @@ return values.
       </undocumented>
       <undocumented id="wield::SchedulerBase::SchedulingPolicy" name="SchedulingPolicy">
         <location column="14" file="SchedulerBase.h" line="13" />
-      </undocumented>
-      <undocumented id="wield::StageBase::ProcessingFunctor" name="ProcessingFunctor">
-        <location column="34" file="StageBase.h" line="6" />
-      </undocumented>
-      <undocumented id="wield::StageBase::QueueType" name="QueueType">
-        <location column="59" file="StageBase.h" line="6" />
-      </undocumented>
-      <undocumented id="wield::StageBase::StageEnum" name="StageEnum">
-        <location column="14" file="StageBase.h" line="6" />
       </undocumented>
       <undocumented id="wield::Traits::ClientDefinedTraits" name="ClientDefinedTraits">
         <location column="14" file="Traits.h" line="13" />
@@ -122,7 +113,7 @@ return values.
       </undocumented>
     </type>
     <type documented="1" name="structtemplate" undocumented="0" />
-    <type documented="12" name="method" undocumented="29">
+    <type documented="15" name="method" undocumented="26">
       <undocumented id="wield::MessageBase::processWith" name="processWith">
         <location column="3" file="MessageBase.h" line="28" />
       </undocumented>
@@ -195,15 +186,6 @@ return values.
       <undocumented id="wield::logging::Log::Warning" name="Warning">
         <location column="9" file="logging/Log.h" line="14" />
       </undocumented>
-      <undocumented id="wield::logging::LoggingPolicy::Error" name="Error">
-        <location column="9" file="logging/LoggingPolicy.h" line="13" />
-      </undocumented>
-      <undocumented id="wield::logging::LoggingPolicy::Info" name="Info">
-        <location column="9" file="logging/LoggingPolicy.h" line="11" />
-      </undocumented>
-      <undocumented id="wield::logging::LoggingPolicy::Warning" name="Warning">
-        <location column="9" file="logging/LoggingPolicy.h" line="12" />
-      </undocumented>
       <undocumented id="wield::policies::ExhaustivePollingPolicy::PollingInformation::incrementMessageCount" name="incrementMessageCount">
         <location column="9" file="policies/ExhaustivePollingPolicy.h" line="39" />
       </undocumented>
@@ -228,7 +210,7 @@ return values.
         <location column="9" file="MessageBase.h" line="36" />
       </undocumented>
       <undocumented id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;">
-        <location column="9" file="StageBase.h" line="13" />
+        <location column="9" file="StageBase.h" line="22" />
       </undocumented>
       <undocumented id="wield::adapters::PassThroughStageQueue::PassThroughStageQueue&lt;ProcessingFunctor&gt;" name="PassThroughStageQueue&lt;ProcessingFunctor&gt;">
         <location column="9" file="adapters/PassThroughStageQueue.h" line="26" />
@@ -237,12 +219,9 @@ return values.
         <location column="9" file="adapters/polymorphic/PassThroughStageQueue.h" line="26" />
       </undocumented>
     </type>
-    <type documented="7" name="classtemplate" undocumented="3">
+    <type documented="8" name="classtemplate" undocumented="2">
       <undocumented id="wield::SchedulerBase" name="SchedulerBase">
         <location column="5" file="SchedulerBase.h" line="13" />
-      </undocumented>
-      <undocumented id="wield::StageBase" name="StageBase">
-        <location column="5" file="StageBase.h" line="6" />
       </undocumented>
       <undocumented id="wield::adapters::polymorphic::QueueAdapter" name="QueueAdapter">
         <location column="5" file="adapters/polymorphic/QueueAdapter.h" line="6" />
@@ -259,7 +238,7 @@ return values.
         <location column="9" file="SchedulerBase.h" line="25" />
       </undocumented>
       <undocumented id="wield::StageBase::~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;">
-        <location column="9" file="StageBase.h" line="21" />
+        <location column="9" file="StageBase.h" line="30" />
       </undocumented>
       <undocumented id="wield::adapters::QueueInterface::~QueueInterface&lt;MessagePtr&gt;" name="~QueueInterface&lt;MessagePtr&gt;">
         <location column="9" file="adapters/QueueInterface.h" line="13" />
@@ -268,10 +247,10 @@ return values.
         <location column="9" file="adapters/polymorphic/QueueInterface.h" line="14" />
       </undocumented>
       <undocumented id="wield::logging::LoggingPolicy::~LoggingPolicy" name="~LoggingPolicy">
-        <location column="9" file="logging/LoggingPolicy.h" line="9" />
+        <location column="9" file="logging/LoggingPolicy.h" line="14" />
       </undocumented>
     </type>
-    <type documented="0" name="class" undocumented="5">
+    <type documented="1" name="class" undocumented="4">
       <undocumented id="wield::DuplicateStageRegistrationException" name="DuplicateStageRegistrationException">
         <location column="5" file="Exceptions.h" line="6" />
       </undocumented>
@@ -280,10 +259,6 @@ return values.
       </undocumented>
       <undocumented id="wield::logging::Log" name="Log">
         <location column="5" file="logging/Log.h" line="10" />
-      </undocumented>
-      <undocumented id="wield::logging::LoggingPolicy" name="LoggingPolicy">
-        <location column="5" file="logging/Log.h" line="7" />
-        <location column="5" file="logging/LoggingPolicy.h" line="6" />
       </undocumented>
       <undocumented id="wield::policies::ExhaustivePollingPolicy::PollingInformation" name="PollingInformation">
         <location column="9" file="policies/ExhaustivePollingPolicy.h" line="14" />
@@ -304,6 +279,18 @@ return values.
       <location column="9" file="logging/Log.h" line="18" />
       <undocumented name="policy" />
     </function>
+    <function id="wield::logging::LoggingPolicy::Info" name="Info">
+      <location column="9" file="logging/LoggingPolicy.h" line="17" />
+      <undocumented name="info" />
+    </function>
+    <function id="wield::logging::LoggingPolicy::Warning" name="Warning">
+      <location column="9" file="logging/LoggingPolicy.h" line="20" />
+      <undocumented name="warning" />
+    </function>
+    <function id="wield::logging::LoggingPolicy::Error" name="Error">
+      <location column="9" file="logging/LoggingPolicy.h" line="23" />
+      <undocumented name="error" />
+    </function>
     <function id="wield::MessageBase::operator=" name="operator=">
       <location column="9" file="MessageBase.h" line="42" />
       <undocumented-return />
@@ -323,7 +310,7 @@ return values.
       <undocumented-return />
     </function>
     <function id="wield::StageBase::name" name="name">
-      <location column="9" file="StageBase.h" line="51" />
+      <location column="9" file="StageBase.h" line="60" />
       <undocumented-return />
     </function>
   </arguments>
