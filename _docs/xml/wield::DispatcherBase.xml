@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<classtemplate abstract="true" id="wield::DispatcherBase" name="DispatcherBase" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
+  <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
+  <constructor id="wield::DispatcherBase::DispatcherBase&lt;StageEnum, Stage&gt;" name="DispatcherBase&lt;StageEnum, Stage&gt;" />
+  <destructor id="wield::DispatcherBase::~DispatcherBase&lt;StageEnum, Stage&gt;" name="~DispatcherBase&lt;StageEnum, Stage&gt;" />
+  <method id="wield::DispatcherBase::registerStage" name="registerStage">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::DispatcherBase::registerStage::stageName" name="stageName">
+      <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
+    </argument>
+    <argument id="wield::DispatcherBase::registerStage::stage" name="stage">
+      <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageType" qualifier="*" />
+    </argument>
+  </method>
+  <method id="wield::DispatcherBase::dispatch" name="dispatch">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="wield::DispatcherBase::dispatch::stageName" name="stageName">
+      <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
+    </argument>
+    <argument id="wield::DispatcherBase::dispatch::message" name="message">
+      <type name="typename StageType::MessageType" qualifier=" &amp;" />
+    </argument>
+  </method>
+  <method id="wield::DispatcherBase::operator[]" name="operator[]">
+    <return>
+      <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageType" qualifier=" &amp;" />
+    </return>
+    <argument id="wield::DispatcherBase::operator[]::stageName" name="stageName">
+      <type name="DispatcherBase&lt;StageEnum, Stage&gt;::StageEnumType" />
+    </argument>
+  </method>
+</classtemplate>
