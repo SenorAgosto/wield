@@ -1,4 +1,5 @@
 #pragma once
+#include <wield/DispatcherInterface.h>
 #include <wield/Exceptions.h>
 
 #include <cstddef>
@@ -14,7 +15,7 @@ namespace wield {
        stage in the system. Routing is done by StageEnum which defines the stage names.
     */
     template<typename StageEnum, class Stage>
-    class DispatcherBase
+    class DispatcherBase : public DispatcherInterface<StageEnum, Stage>
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
@@ -35,7 +36,7 @@ namespace wield {
            @stageName is the name this stage will be referenced as
            @stage is the pointer to the stage
         */
-        inline void registerStage(StageEnumType stageName, StageType* stage)
+        void registerStage(StageEnumType stageName, StageType* stage) override
         {
             if(nullptr != stages[static_cast<std::size_t>(stageName)])
             {

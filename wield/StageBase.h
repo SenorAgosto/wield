@@ -1,4 +1,5 @@
 #pragma once
+#include <wield/DispatcherInterface.h>
 #include <wield/MessageBase.h>
 
 namespace wield {
@@ -12,14 +13,14 @@ namespace wield {
        A stage is the basic unit of processing in a SEDA architecture. It consists of a queue, and a function
        to apply to messages in the queue. 
     */
-    template<typename StageEnum, class ProcessingFunctor, class QueueType, template<typename StageEnum2, typename Stage> class DispatcherType>
+    template<typename StageEnum, class ProcessingFunctor, class QueueType>
     class StageBase final
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
         using MessageType = MessageBase<ProcessingFunctor>;
 
-        StageBase(StageEnum stageName, DispatcherType<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
+        StageBase(StageEnum stageName, DispatcherInterface<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
             : processingFunctor_(processingFunctor)
             , queue_(queue)
             , stageName_(stageName)
