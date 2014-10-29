@@ -21,10 +21,12 @@ namespace wield {
         
         using Queue = typename ClientDefinedTraits::template QueueType<MessagePtr>;
         
+        // we keep this indirection in-case you want to replace the dispatcher implementation
+        // with your own.
         template<typename StageEnum, typename Stage>
         using DispatcherType = wield::DispatcherBase<StageEnum, Stage>;
         
-        using Stage = wield::StageBase<StageEnumType, ProcessingFunctor, Queue, DispatcherType>;
+        using Stage = wield::StageBase<StageEnumType, ProcessingFunctor, Queue>;
         using Dispatcher = DispatcherType<StageEnumType, Stage>;
         
         using SchedulingPolicy = typename ClientDefinedTraits::template SchedulingPolicy<Dispatcher>;
