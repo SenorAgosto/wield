@@ -21,8 +21,8 @@ if(WIN32)
 	
 	set(UNITTEST++_LIBRARIES "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib")
 else()
-	include_directories("/Volumes/proj/unittest++/")
-	set(UNITTEST++_LIBRARIES "/Volumes/proj/unittest++/libUnitTest++.a")
+	include_directories("/Volumes/austirg/homebrew/include/")
+	set(UNITTEST++_LIBRARIES "/Volumes/austirg/homebrew/lib/libUnitTest++.a")
 	#find_package(UnitTest++ REQUIRED)
 
 	include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/include")
