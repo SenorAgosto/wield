@@ -3,6 +3,10 @@
 
 namespace wield { namespace adapters { namespace polymorphic {
   
+    // <QueueAdaptor> allows you to instantiate stages with different queue types.
+    //
+    // So for example stage1 could use a disruptor and stage2 could use a non-locking
+    // linked list.
     template<class ProcessingFunctor, class QueueType>
     class QueueAdapter : public QueueInterface<ProcessingFunctor>
     {
