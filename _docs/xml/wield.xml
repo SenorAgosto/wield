@@ -8,6 +8,10 @@
     <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
     <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
   </classtemplate>
+  <classtemplate name="DispatcherInterface" ref="wield::DispatcherInterface#wield::DispatcherInterface">
+    <templatetypeparameter id="wield::DispatcherInterface::StageEnumType" name="StageEnumType" />
+    <templatetypeparameter id="wield::DispatcherInterface::StageType" name="StageType" />
+  </classtemplate>
   <class name="DuplicateStageRegistrationException" ref="wield::DuplicateStageRegistrationException#wield::DuplicateStageRegistrationException" />
   <classtemplate name="MessageBase" ref="wield::MessageBase#wield::MessageBase">
     <brief>/ @note [ARG]: strictly speaking, we don't need to parameterize</brief>
