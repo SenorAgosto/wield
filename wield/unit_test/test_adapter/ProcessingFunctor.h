@@ -30,27 +30,37 @@ namespace test_adapter {
             : messageBaseCalled_(false)
             , message1Called_(false)
             , message2Called_(false)
+            , messageBaseCallCount_(0)
+            , message1CallCount_(0)
+            , message2CallCount_(0)
         {
         }
 
         void operator() (Message&) override
         {
             messageBaseCalled_ = true;
+            messageBaseCallCount_++;
         }
 
         void operator()(TestMessage&) override
         { 
             message1Called_ = true;
+            message1CallCount_++;
         }
 
         void operator()(TestMessage2&) override
         { 
             message2Called_ = true;
+            message2CallCount_++;
         }
 
         bool messageBaseCalled_;
         bool message1Called_;
         bool message2Called_;
+        
+        std::size_t messageBaseCallCount_;
+        std::size_t message1CallCount_;
+        std::size_t message2CallCount_;
     };
 
 
