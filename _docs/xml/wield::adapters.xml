@@ -1,9 +1,29 @@
 <?xml version='1.0' encoding='utf-8'?>
 <namespace id="wield::adapters" name="adapters" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <functiontemplate id="CreateProcessorChain" name="CreateProcessorChain">
+    <brief>A helper to create ProcessingFunctorChain from list of processing functors.</brief>
+    <doc>auto processorChain = CreateProcessorChain&amp;lt;PrcoessingFunctorBaseClass&amp;gt;(&amp;fp, &amp;fp2, &amp;fp3);</doc>
+    <return>
+      <type name="ProcessingFunctorChain&lt;ProcessingFunctorType, NumberOfProcessingFunctors&gt;" ref="wield::adapters::ProcessingFunctorChain#wield::adapters::ProcessingFunctorChain" />
+    </return>
+    <argument id="CreateProcessorChain::args" name="args">
+      <type name="Args" />
+    </argument>
+    <templatetypeparameter id="CreateProcessorChain::ProcessingFunctor" name="ProcessingFunctor" />
+    <templatetypeparameter id="CreateProcessorChain::Args" name="Args" />
+  </functiontemplate>
   <namespace name="polymorphic" ref="wield::adapters::polymorphic#wield::adapters::polymorphic" />
   <classtemplate name="PassThroughStageQueue" ref="wield::adapters::PassThroughStageQueue#wield::adapters::PassThroughStageQueue">
     <brief>A pass-through stage is a stage that does not queue a message</brief>
     <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
+  </classtemplate>
+  <classtemplate name="ProcessingFunctorChain" ref="wield::adapters::ProcessingFunctorChain#wield::adapters::ProcessingFunctorChain">
+    <brief>
+      <ref ref="wield::adapters::ProcessingFunctorChain#wield::adapters::ProcessingFunctorChain">ProcessingFunctorChain</ref> is a pass-through queue used to chain multiple</brief>
+    <templatetypeparameter id="wield::adapters::ProcessingFunctorChain::ProcessingFunctorType" name="ProcessingFunctorType" />
+    <templatenontypeparameter default="std" id="wield::adapters::ProcessingFunctorChain::NumberOfProcessingFunctors" name="NumberOfProcessingFunctors">
+      <type name="size_t" />
+    </templatenontypeparameter>
   </classtemplate>
   <classtemplate name="QueueInterface" ref="wield::adapters::QueueInterface#wield::adapters::QueueInterface">
     <brief>An abstract interface for allowing</brief>

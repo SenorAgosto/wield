@@ -13,21 +13,21 @@ to apply to messages in the queue.
   <templatetypeparameter id="wield::StageBase::QueueType" name="QueueType">
     <brief>the type of queue this stage will get inputs from.</brief>
   </templatetypeparameter>
-  <constructor id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;">
-    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::stageName" name="stageName">
+  <constructor id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;" name="StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;">
+    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;::stageName" name="stageName">
       <type name="StageEnum" />
     </argument>
-    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::dispatcher" name="dispatcher">
-      <type name="StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::DispatcherType" qualifier=" &amp;" />
+    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;::dispatcher" name="dispatcher">
+      <type name="DispatcherInterface&lt;StageEnumType, StageType&gt;" qualifier=" &amp;" ref="wield::DispatcherInterface#wield::DispatcherInterface" />
     </argument>
-    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::queue" name="queue">
+    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;::queue" name="queue">
       <type name="QueueType" qualifier=" &amp;" />
     </argument>
-    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;::processingFunctor" name="processingFunctor">
+    <argument id="wield::StageBase::StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;::processingFunctor" name="processingFunctor">
       <type name="ProcessingFunctor" qualifier=" &amp;" />
     </argument>
   </constructor>
-  <destructor id="wield::StageBase::~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" name="~StageBase&lt;StageEnum, ProcessingFunctor, QueueType, DispatcherType&gt;" />
+  <destructor id="wield::StageBase::~StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;" name="~StageBase&lt;StageEnum, ProcessingFunctor, QueueType&gt;" />
   <method id="wield::StageBase::push" name="push">
     <brief>Insert a message onto the stage's queue</brief>
     <return>
@@ -35,7 +35,7 @@ to apply to messages in the queue.
     </return>
     <argument id="wield::StageBase::push::m" name="m">
       <doc>the message to insert</doc>
-      <type name="const typename MessageType::smartptr" qualifier=" const &amp;" />
+      <type name="MessageType" qualifier=" const &amp;" />
     </argument>
   </method>
   <method id="wield::StageBase::process" name="process">
@@ -51,7 +51,7 @@ to apply to messages in the queue.
   <method id="wield::StageBase::name" name="name">
     <brief>get the stage's name</brief>
     <return>
-      <type name="StageEnum" />
+      <type name="" />
     </return>
   </method>
 </classtemplate>

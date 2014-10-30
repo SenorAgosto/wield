@@ -5,6 +5,7 @@
     <templatetypeparameter id="wield::adapters::polymorphic::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
   </classtemplate>
   <classtemplate name="QueueAdapter" ref="wield::adapters::polymorphic::QueueAdapter#wield::adapters::polymorphic::QueueAdapter">
+    <brief>&amp;lt;QueueAdaptor&amp;gt; allows you to instantiate stages with different queue types.</brief>
     <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
     <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::QueueType" name="QueueType" />
   </classtemplate>

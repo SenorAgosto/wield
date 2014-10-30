@@ -8,6 +8,7 @@
           <templatetypeparameter id="wield::adapters::polymorphic::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
         </classtemplate>
         <classtemplate name="QueueAdapter" ref="wield::adapters::polymorphic::QueueAdapter#wield::adapters::polymorphic::QueueAdapter">
+          <brief>&amp;lt;QueueAdaptor&amp;gt; allows you to instantiate stages with different queue types.</brief>
           <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
           <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::QueueType" name="QueueType" />
         </classtemplate>
@@ -19,6 +20,14 @@
       <classtemplate name="PassThroughStageQueue" ref="wield::adapters::PassThroughStageQueue#wield::adapters::PassThroughStageQueue">
         <brief>A pass-through stage is a stage that does not queue a message</brief>
         <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
+      </classtemplate>
+      <classtemplate name="ProcessingFunctorChain" ref="wield::adapters::ProcessingFunctorChain#wield::adapters::ProcessingFunctorChain">
+        <brief>
+          <ref ref="wield::adapters::ProcessingFunctorChain#wield::adapters::ProcessingFunctorChain">ProcessingFunctorChain</ref> is a pass-through queue used to chain multiple</brief>
+        <templatetypeparameter id="wield::adapters::ProcessingFunctorChain::ProcessingFunctorType" name="ProcessingFunctorType" />
+        <templatenontypeparameter default="std" id="wield::adapters::ProcessingFunctorChain::NumberOfProcessingFunctors" name="NumberOfProcessingFunctors">
+          <type name="size_t" />
+        </templatenontypeparameter>
       </classtemplate>
       <classtemplate name="QueueInterface" ref="wield::adapters::QueueInterface#wield::adapters::QueueInterface">
         <brief>An abstract interface for allowing</brief>
@@ -43,6 +52,10 @@
       <brief> Dispatcher</brief>
       <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
       <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
+    </classtemplate>
+    <classtemplate name="DispatcherInterface" ref="wield::DispatcherInterface#wield::DispatcherInterface">
+      <templatetypeparameter id="wield::DispatcherInterface::StageEnumType" name="StageEnumType" />
+      <templatetypeparameter id="wield::DispatcherInterface::StageType" name="StageType" />
     </classtemplate>
     <class name="DuplicateStageRegistrationException" ref="wield::DuplicateStageRegistrationException#wield::DuplicateStageRegistrationException" />
     <classtemplate name="MessageBase" ref="wield::MessageBase#wield::MessageBase">
