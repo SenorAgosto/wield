@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <classtemplate abstract="true" id="wield::adapters::polymorphic::QueueAdapter" name="QueueAdapter" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>&amp;lt;QueueAdaptor&amp;gt; allows you to instantiate stages with different queue types.</brief>
+  <doc>So for example stage1 could use a disruptor and stage2 could use a non-locking
+linked list.</doc>
   <base access="public">
-    <type name="" />
+    <type name="QueueInterface&lt;ProcessingFunctor&gt;" />
   </base>
   <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::ProcessingFunctor" name="ProcessingFunctor" />
   <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::QueueType" name="QueueType" />
@@ -10,7 +13,7 @@
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::adapters::polymorphic::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;::args" name="args">
-      <type name="Args &amp;&amp;..." />
+      <type name="Args" />
     </argument>
     <templatetypeparameter id="wield::adapters::polymorphic::QueueAdapter::QueueAdapter&lt;ProcessingFunctor, QueueType&gt;::Args" name="Args" />
   </methodtemplate>

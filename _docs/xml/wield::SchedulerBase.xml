@@ -6,7 +6,7 @@
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::SchedulerBase::SchedulerBase&lt;SchedulingPolicy&gt;::arg" name="arg">
-      <type name="Args &amp;&amp;..." />
+      <type name="Args" />
     </argument>
     <templatetypeparameter id="wield::SchedulerBase::SchedulerBase&lt;SchedulingPolicy&gt;::Args" name="Args" />
   </methodtemplate>

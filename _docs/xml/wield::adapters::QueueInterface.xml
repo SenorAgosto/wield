@@ -10,7 +10,7 @@ implementations with this interface.</doc>
       <type builtin="yes" name="void" />
     </return>
     <argument id="wield::adapters::QueueInterface::push::message" name="message">
-      <type name="const MessagePtr" qualifier=" const &amp;" />
+      <type name="MessagePtr" qualifier=" const &amp;" />
     </argument>
   </method>
   <method abstract="yes" id="wield::adapters::QueueInterface::try_pop" name="try_pop" virtual="yes">

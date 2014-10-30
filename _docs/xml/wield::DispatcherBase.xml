@@ -6,6 +6,9 @@ and Stage type. The dispatcher knows about all the stages in the system and is
 passed to stages so they can get messages from their processing functor to another
 stage in the system. Routing is done by StageEnum which defines the stage names.
 </doc>
+  <base access="public">
+    <type name="DispatcherInterface&lt;StageEnumType, StageType&gt;" />
+  </base>
   <templatetypeparameter id="wield::DispatcherBase::StageEnum" name="StageEnum" />
   <templatetypeparameter id="wield::DispatcherBase::Stage" name="Stage" />
   <constructor id="wield::DispatcherBase::DispatcherBase&lt;StageEnum, Stage&gt;" name="DispatcherBase&lt;StageEnum, Stage&gt;" />
@@ -35,7 +38,7 @@ stage in the system. Routing is done by StageEnum which defines the stage names.
     </argument>
     <argument id="wield::DispatcherBase::dispatch::message" name="message">
       <doc>is the message to send</doc>
-      <type name="typename StageType::MessageType" qualifier=" &amp;" />
+      <type name="StageType" qualifier=" &amp;" />
     </argument>
   </method>
   <method id="wield::DispatcherBase::operator[]" name="operator[]">

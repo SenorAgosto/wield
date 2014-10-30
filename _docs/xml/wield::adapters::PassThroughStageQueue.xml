@@ -14,7 +14,7 @@ stage combination at compile time (without requiring client
 code to introduce virtual function calls for queue functionality)
 but that is a long way off I think.</doc>
   <base access="public">
-    <type name="" />
+    <type name="QueueInterface&lt;MessagePtr&gt;" />
   </base>
   <templatetypeparameter id="wield::adapters::PassThroughStageQueue::ProcessingFunctor" name="ProcessingFunctor" />
   <constructor id="wield::adapters::PassThroughStageQueue::PassThroughStageQueue&lt;ProcessingFunctor&gt;" name="PassThroughStageQueue&lt;ProcessingFunctor&gt;">
