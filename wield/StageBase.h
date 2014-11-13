@@ -13,13 +13,13 @@ namespace wield {
        A stage is the basic unit of processing in a SEDA architecture. It consists of a queue, and a function
        to apply to messages in the queue. 
     */
-    template<typename StageEnum, class ProcessingFunctor, class QueueType>
+    template<typename StageEnum, class ProcessingFunctor, class Message, class QueueType>
     class StageBase final
     {
     public:
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
-        using MessageType = MessageBase<ProcessingFunctor>;
-
+        using MessageType = Message;
+        
         StageBase(StageEnum stageName, DispatcherInterface<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
             : processingFunctor_(processingFunctor)
             , queue_(queue)
