@@ -26,7 +26,7 @@ namespace wield {
         template<typename StageEnum, typename Stage>
         using DispatcherType = wield::DispatcherBase<StageEnum, Stage>;
         
-        using Stage = wield::StageBase<StageEnumType, ProcessingFunctor, Queue>;
+        using Stage = wield::StageBase<StageEnumType, ProcessingFunctor, Message, Queue>;
         using Dispatcher = DispatcherType<StageEnumType, Stage>;
         
         using SchedulingPolicy = typename ClientDefinedTraits::template SchedulingPolicy<Dispatcher>;
