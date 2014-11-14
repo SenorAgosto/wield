@@ -24,11 +24,9 @@ namespace test_adapter {
             
             if(!queue_.empty())
             {
-                // front returns &, make a copy to increment ref count before pop().
-                MessagePtr m = queue_.front();
-                message = std::move(m);
-                
+                message = std::move(queue_.front());
                 queue_.pop();
+                
                 return true;
             }
             
