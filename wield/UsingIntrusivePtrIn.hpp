@@ -10,7 +10,7 @@ namespace wield {
     // <ReferenceCountBase> defaults to threadsafe.
     // We use virtual inheritance to ensure reuse of <UsingIntrusiveIn> within
     // a class hierarchy doesn't result in multiple refrence count members.
-    template<class Derived, class ReferenceCountBase = details::ThreadSafeReferenceCountBase, class DebugPolicy = details::NullIntrusivePtrDebugPolicy<Derived, ReferenceCountBase>>
+    template<class Derived, class ReferenceCountBase = details::ThreadSafeReferenceCountBase, template<class Derived2, class ReferenceCountBase2> class DebugPolicy = details::NullIntrusivePtrDebugPolicy>
     struct UsingIntrusivePtrIn : virtual protected ReferenceCountBase
     {
         using smartptr = boost::intrusive_ptr<Derived>;
@@ -42,11 +42,11 @@ namespace wield {
             }
         }
 
-        using DebugPolicyType = DebugPolicy;
-        static DebugPolicy debug;
+        using DebugPolicyType = DebugPolicy<Derived, ReferenceCountBase>;
+        static DebugPolicyType debug;
     };
 
     // initialize the static variable.
-    template<class Derived, class ReferenceCountBase, class DebugPolicy>
-    DebugPolicy UsingIntrusivePtrIn<Derived, ReferenceCountBase, DebugPolicy>::debug = DebugPolicy();
+    template<class Derived, class ReferenceCountBase, template<class Derived2, class ReferenceCountBase2> class DebugPolicy>
+    DebugPolicy<Derived, ReferenceCountBase> UsingIntrusivePtrIn<Derived, ReferenceCountBase, DebugPolicy>::debug = DebugPolicy<Derived, ReferenceCountBase>();
 }
