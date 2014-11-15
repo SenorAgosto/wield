@@ -43,6 +43,8 @@ namespace wield {
         }
 
         using DebugPolicyType = DebugPolicy<Derived, ReferenceCountBase>;
+        static DebugPolicyType& GetIntrusivePtrDebugPolicy() { return debug; }
+        
         static DebugPolicyType debug;
     };
 
