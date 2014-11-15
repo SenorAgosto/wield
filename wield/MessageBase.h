@@ -1,5 +1,5 @@
 #pragma once
-#include <wield/UsingIntrusiveIn.hpp>
+#include <wield/UsingIntrusivePtrIn.hpp>
 
 namespace wield {
 
@@ -15,7 +15,7 @@ namespace wield {
     // the scheduler of events via ProcessingFunctor - if that is how
     // client code decides to feed statistics or information into their scheduler.
     template<class ProcessingFunctor>
-    class MessageBase : public UsingIntrusiveIn<MessageBase<ProcessingFunctor>>
+    class MessageBase : public UsingIntrusivePtrIn<MessageBase<ProcessingFunctor>>
 	{
 	public:
         virtual ~MessageBase(){}
