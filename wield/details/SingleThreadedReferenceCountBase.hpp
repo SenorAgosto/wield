@@ -4,38 +4,38 @@
 namespace wield { namespace details {
     
     // single threaded base class, for use with <UsingIntrusivePtrIn> mixin.
-    struct ReferenceCountBase
+    struct SingleThreadedReferenceCountBase
     {
-        ReferenceCountBase()
+        SingleThreadedReferenceCountBase()
         : referenceCount_(0)
         {
         }
         
-        ReferenceCountBase(const ReferenceCountBase&)
+        SingleThreadedReferenceCountBase(const SingleThreadedReferenceCountBase&)
         : referenceCount_(0)
         {
         }
         
-        ReferenceCountBase(ReferenceCountBase&&)
+        SingleThreadedReferenceCountBase(SingleThreadedReferenceCountBase&&)
         :referenceCount_(0)
         {
         }
         
-        ReferenceCountBase& operator=(const ReferenceCountBase&)
+        SingleThreadedReferenceCountBase& operator=(const SingleThreadedReferenceCountBase&)
         {
             return *this;
         }
         
-        ReferenceCountBase& operator=(ReferenceCountBase&&)
+        SingleThreadedReferenceCountBase& operator=(SingleThreadedReferenceCountBase&&)
         {
             return *this;
         }
         
-        ~ReferenceCountBase()
+        ~SingleThreadedReferenceCountBase()
         {
         }
         
-        void swap(ReferenceCountBase&)
+        void swap(SingleThreadedReferenceCountBase&)
         {
         }
         
