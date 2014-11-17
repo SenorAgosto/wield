@@ -5,16 +5,16 @@ file( GLOB adapter_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/*.h ada
 file( GLOB details_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} details/*.h details/*.hpp)
 file( GLOB platform_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} platform/*)
 file( GLOB policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} policies/*.h policies/*.hpp)
-file( GLOB polymorphic_policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} policies/polymorphic/*.h policies/polymorphic/*.hpp)
+file( GLOB polymorphic_policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/polymorphic/*.h adapters/polymorphic/*.hpp)
 
 source_group("Source" FILES ${implementation_files})
 source_group("Interface" FILES ${interface_files})
 source_group("Interface\\Adapters" FILES ${adapter_headers})
+source_group("Interface\\Adapters\\Polymorphic" FILES ${polymorphic_policies_headers})
 source_group("Interface\\Details" FILES ${details_headers})
 source_group("Interface\\Logging" FILES ${logging_headers})
 source_group("Interface\\Platform" FILES ${platform_headers})
 source_group("Interface\\Policies" FILES ${policies_headers})
-source_group("Interface\\Policies\\Polymorphic" FILES ${polymorphic_policies_headers})
 
 if(WIN32)
 	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
