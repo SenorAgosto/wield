@@ -2,7 +2,7 @@
 #include <mutex>
 #include <queue>
 
-#include "Traits.h"
+#include "./Traits.h"
 
 namespace test_adapter {
     

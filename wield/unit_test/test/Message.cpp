@@ -1,5 +1,5 @@
-#include "Message.h"
-#include "ProcessingFunctor.h"
+#include "./Message.h"
+#include "./ProcessingFunctor.h"
 
 namespace test {
     

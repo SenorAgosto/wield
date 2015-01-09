@@ -4,8 +4,8 @@
 
 #include "../platform/ConcurrentQueue.h"
 
-#include "Scheduler.h"
-#include "Stages.h"
+#include "./Scheduler.h"
+#include "./Stages.h"
 
 namespace test {
 
