@@ -2,6 +2,7 @@
 #include <wield/DispatcherInterface.h>
 #include <wield/Exceptions.h>
 
+#include <array>
 #include <cstddef>
 #include <type_traits>
 
@@ -25,7 +26,10 @@ namespace wield {
         
         DispatcherBase()
         {
-            memset(stages, 0, sizeof(stages));
+            for(auto& stage : stages_)
+            {
+                stage = nullptr;
+            }
         }
 
         ~DispatcherBase()
@@ -38,12 +42,12 @@ namespace wield {
         */
         void registerStage(StageEnumType stageName, StageType* stage) override
         {
-            if(nullptr != stages[static_cast<std::size_t>(stageName)])
+            if(nullptr != stages_[static_cast<std::size_t>(stageName)])
             {
                 throw wield::DuplicateStageRegistrationException(); 
             }
 
-            stages[static_cast<std::size_t>(stageName)] = stage;
+            stages_[static_cast<std::size_t>(stageName)] = stage;
         }
 
         /* Send a message to a stage
@@ -52,7 +56,7 @@ namespace wield {
         */
         inline void dispatch(StageEnumType stageName, typename StageType::MessageType& message)
         {
-            stages[static_cast<std::size_t>(stageName)]->push( typename StageType::MessageType::smartptr(&message) );
+            stages_[static_cast<std::size_t>(stageName)]->push( typename StageType::MessageType::smartptr(&message) );
         }
 
         /* Stage lookup function
@@ -62,7 +66,7 @@ namespace wield {
         */
         inline StageType& operator[](StageEnumType stageName)
         {
-            return *stages[static_cast<std::size_t>(stageName)];
+            return *stages_[static_cast<std::size_t>(stageName)];
         }
 
     private:
@@ -70,6 +74,6 @@ namespace wield {
         DispatcherBase& operator=(const DispatcherBase&) = delete;
         
     private:
-        StageType* stages[static_cast<std::size_t>(StageEnum::NumberOfEntries)];
+    std::array<StageType*, static_cast<std::size_t>(StageEnum::NumberOfEntries)> stages_;
     };
 }
