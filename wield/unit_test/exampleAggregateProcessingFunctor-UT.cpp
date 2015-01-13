@@ -29,26 +29,26 @@ namespace {
         
         void operator()(Message& msg) override
         {
-            std::for_each(begin(processingFunctors_), end(processingFunctors_), [&msg](ProcessingFunctorInterface* func)
+            for(auto func : processingFunctors_)
             {
                 (*func)(msg);
-            });
+            }
         }
         
         void operator()(TestMessage& msg) override
         {
-            std::for_each(begin(processingFunctors_), end(processingFunctors_), [&msg](ProcessingFunctorInterface* func)
+            for(auto func : processingFunctors_)
             {
                 (*func)(msg);
-            });
+            }
         }
         
         void operator()(TestMessage2& msg) override
         {
-            std::for_each(begin(processingFunctors_), end(processingFunctors_), [&msg](ProcessingFunctorInterface* func)
+            for(auto func : processingFunctors_)
             {
                 (*func)(msg);
-            });
+            }
         }
         
     private:
