@@ -47,10 +47,10 @@ namespace wield { namespace adapters {
         void push(const MessagePtr& message) override
         {
             // process the message immediately with each of the ProcessingFunctors
-            std::for_each(begin(processingFunctors_), end(processingFunctors_), [&message](ProcessingFunctorType* func)
+            for(auto func : processingFunctors_)
             {
                 message->processWith(*func);
-            });
+            }
         }
 
         bool try_pop(MessagePtr& message) override { return false; }
