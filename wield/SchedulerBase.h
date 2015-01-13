@@ -42,10 +42,10 @@ namespace wield {
 
         inline void join(void)
         {
-            std::for_each(threads_.begin(), threads_.end(), [](std::thread& t)
+            for(auto& t : threads_)
             {
                 t.join();
-            });
+            }
         }
 
         inline void stop(void)
