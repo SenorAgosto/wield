@@ -1,4 +1,10 @@
+# Things To Try
 
+## Move Semantics
+
+Optimizing movement of reference count smart pointers through the stage graph. Currently, there is a problem because we will be inducing cache-line ping pong incrementing/decrementing the reference count on different cores. 
+
+I've tried a couple of different things. One thing I haven't tried yet. Switch the dispatcher to handle message* types instead of message&. This might help attempt #2 get off the ground.  
 
 ## SEDA scheduling ideas
 
