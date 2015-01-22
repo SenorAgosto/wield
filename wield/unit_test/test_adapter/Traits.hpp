@@ -23,7 +23,7 @@ namespace test_adapter {
         using ProcessingFunctor = ProcessingFunctorInterface;
         
         template<typename MessagePtrType>
-        using QueueType = wield::adapters::polymorphic::QueueInterface<ProcessingFunctor>;
+        using QueueType = wield::adapters::polymorphic::QueueInterface<MessagePtrType>;
 
         using PollingPolicy = wield::policies::ExhaustivePollingPolicy<StageEnumType>;
         
@@ -31,7 +31,8 @@ namespace test_adapter {
         using SchedulingPolicy = SchedulingPolicy<Dispatcher, PollingPolicy>;
         
         // an etra field because I happen to want it for convenience
-        using PassThroughStageQueue = wield::adapters::polymorphic::PassThroughStageQueue<ProcessingFunctor>;
+        template<typename MessagePtr>
+        using PassThroughStageQueue = wield::adapters::polymorphic::PassThroughStageQueue<ProcessingFunctor, MessagePtr>;
     };
     
     using Traits = wield::Traits<TestTraits>;

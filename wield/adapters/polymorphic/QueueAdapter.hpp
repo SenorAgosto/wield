@@ -7,12 +7,11 @@ namespace wield { namespace adapters { namespace polymorphic {
     //
     // So for example stage1 could use a disruptor and stage2 could use a non-locking
     // linked list.
-    template<class ProcessingFunctor, class QueueType>
-    class QueueAdapter : public QueueInterface<ProcessingFunctor>
+    template<class MessagePtr, class QueueType>
+    class QueueAdapter : public QueueInterface<MessagePtr>
     {
     public:
-        using MessagePtr = typename MessageBase<ProcessingFunctor>::smartptr;
-        
+
         template<typename... Args>
         QueueAdapter(Args&&... args)
             : queue_(std::forward<Args>(args)...)

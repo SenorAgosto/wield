@@ -17,12 +17,10 @@ namespace wield { namespace adapters { namespace polymorphic {
     // stage combination at compile time (without requiring client
     // code to introduce virtual function calls for queue functionality)
     // but that is a long way off I think.
-    template<class ProcessingFunctor>
-    class PassThroughStageQueue : public QueueInterface<ProcessingFunctor>
+    template<class ProcessingFunctor, class MessagePtr>
+    class PassThroughStageQueue : public QueueInterface<MessagePtr>
     {
     public:
-        using MessagePtr = typename MessageBase<ProcessingFunctor>::smartptr;
-        
         PassThroughStageQueue(ProcessingFunctor& pf)
             : processingFunctor_(pf)
         {

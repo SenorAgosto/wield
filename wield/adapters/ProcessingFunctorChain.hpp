@@ -25,13 +25,11 @@ namespace wield { namespace adapters {
     // different stage (unless it is the last in the chain) as doing so can
     // introduce race conditions into your application.
     //
-    template<class ProcessingFunctorType, std::size_t NumberOfProcessingFunctors>
+    template<class MessagePtr, class ProcessingFunctorType, std::size_t NumberOfProcessingFunctors>
     class ProcessingFunctorChain
-        : public polymorphic::QueueInterface<ProcessingFunctorType>
+        : public polymorphic::QueueInterface<MessagePtr>
     {
     public:
-        using MessagePtr = typename MessageBase<ProcessingFunctorType>::smartptr;
-        
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Wmissing-braces"
         template<typename... Args>
@@ -66,8 +64,8 @@ namespace wield { namespace adapters {
 
     // A helper to create ProcessingFunctorChain from list of processing functors.
     //     auto processorChain = CreateProcessorChain<PrcoessingFunctorBaseClass>(&fp, &fp2, &fp3);
-    template<class ProcessingFunctor, class ...Args>
-    ProcessingFunctorChain<ProcessingFunctor, sizeof...(Args)> CreateProcessorChain(Args... args)
+    template<class MessagePtr, class ProcessingFunctor, class ...Args>
+    ProcessingFunctorChain<MessagePtr, ProcessingFunctor, sizeof...(Args)> CreateProcessorChain(Args... args)
     {
         return {args...};
     }

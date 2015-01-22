@@ -41,7 +41,7 @@ namespace {
     
     // note: use queue adaptor, input stages have different implementations, regular
     // processing stages continue to use actual queues, etc.
-    struct EventSourceQueue : public wield::adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, EventSourceQueueImpl>
+    struct EventSourceQueue : public wield::adapters::polymorphic::QueueAdapter<MessagePtr, EventSourceQueueImpl>
     {
     };
     
