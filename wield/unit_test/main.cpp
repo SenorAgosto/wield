@@ -1,5 +1,5 @@
-#include "platform/MemoryLeakDetection.h"
-#include "platform/UnitTestSupport.h"
+#include "./platform/MemoryLeakDetection.hpp"
+#include "./platform/UnitTestSupport.hpp"
 
 int main()
 {

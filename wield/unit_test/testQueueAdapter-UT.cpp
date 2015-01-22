@@ -1,17 +1,17 @@
-#include "platform/UnitTestSupport.h"
+#include "./platform/UnitTestSupport.hpp"
 
 #include <mutex>
 #include <queue>
 
-#include <wield/adapters/polymorphic/QueueAdapter.h>
-#include <wield/MessageBase.h>
+#include <wield/adapters/polymorphic/QueueAdapter.hpp>
+#include <wield/MessageBase.hpp>
 
-#include "platform/ConcurrentQueue.h"
+#include "./platform/ConcurrentQueue.hpp"
 
-#include "test_adapter/Traits.h"
-#include "test_adapter/ProcessingFunctor.h"
-#include "test_adapter/Message.h"
-#include "test_adapter/SimpleConcurrentQueue.h"
+#include "./test_adapter/Traits.hpp"
+#include "./test_adapter/ProcessingFunctor.hpp"
+#include "./test_adapter/Message.hpp"
+#include "./test_adapter/SimpleConcurrentQueue.hpp"
 
 namespace {
    

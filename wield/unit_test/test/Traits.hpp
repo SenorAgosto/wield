@@ -1,11 +1,11 @@
 #pragma once
-#include <wield/policies/ExhaustivePollingPolicy.h>
-#include <wield/Traits.h>
+#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/Traits.hpp>
 
-#include "../platform/ConcurrentQueue.h"
+#include "../platform/ConcurrentQueue.hpp"
 
-#include "./Scheduler.h"
-#include "./Stages.h"
+#include "./Scheduler.hpp"
+#include "./Stages.hpp"
 
 namespace test {
 

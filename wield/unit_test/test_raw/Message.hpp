@@ -1,5 +1,5 @@
 #pragma once
-#include "./Traits.h"
+#include "./Traits.hpp"
 
 namespace test_raw {
     

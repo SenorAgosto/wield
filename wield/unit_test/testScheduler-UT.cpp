@@ -1,13 +1,13 @@
-#include "platform/UnitTestSupport.h"
-#include "platform/Regex.h"
+#include "./platform/UnitTestSupport.hpp"
+#include "./platform/Regex.hpp"
 
-#include "test/Traits.h"
-#include "test/Message.h"
-#include "test/ProcessingFunctor.h"
-#include "test/Scheduler.h"
+#include "./test/Traits.hpp"
+#include "./test/Message.hpp"
+#include "./test/ProcessingFunctor.hpp"
+#include "./test/Scheduler.hpp"
 
-#include <wield/logging/Log.h>
-#include <wield/logging/LoggingPolicy.h>
+#include <wield/logging/Log.hpp>
+#include <wield/logging/LoggingPolicy.hpp>
 #include <wield/platform/thread>
 
 #include <cstddef>

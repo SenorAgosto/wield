@@ -1,6 +1,6 @@
 #pragma once
-#include <wield/adapters/polymorphic/QueueInterface.h>
-#include <wield/MessageBase.h>
+#include <wield/adapters/polymorphic/QueueInterface.hpp>
+#include <wield/MessageBase.hpp>
 
 namespace wield { namespace adapters { namespace polymorphic {
   

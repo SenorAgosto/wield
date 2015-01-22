@@ -1,6 +1,6 @@
 #pragma once
-#include <wield/DispatcherInterface.h>
-#include <wield/MessageBase.h>
+#include <wield/DispatcherInterface.hpp>
+#include <wield/MessageBase.hpp>
 
 namespace wield {
 

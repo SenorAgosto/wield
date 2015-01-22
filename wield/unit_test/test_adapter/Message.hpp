@@ -1,10 +1,10 @@
 #pragma once
-#include "./Traits.h"
+#include <wield/MessageBase.hpp>
 
-namespace test {
+namespace test_adapter {
     
     class ProcessingFunctorInterface;
-    using Message = Traits::Message;
+    using Message = wield::MessageBase<ProcessingFunctorInterface>;
 
     class TestMessage : public Message
     {
@@ -23,5 +23,4 @@ namespace test {
     public:
         void processWith(ProcessingFunctorInterface& process) override;
     };
-
 }
