@@ -1,10 +1,10 @@
-#include "platform/UnitTestSupport.h"
+#include "./platform/UnitTestSupport.hpp"
 
-#include <wield/adapters/polymorphic/PassThroughStageQueue.h>
+#include <wield/adapters/polymorphic/PassThroughStageQueue.hpp>
 
-#include "test_adapter/Traits.h"
-#include "test_adapter/ProcessingFunctor.h"
-#include "test_adapter/Message.h"
+#include "./test_adapter/Traits.hpp"
+#include "./test_adapter/ProcessingFunctor.hpp"
+#include "./test_adapter/Message.hpp"
 
 namespace {
 

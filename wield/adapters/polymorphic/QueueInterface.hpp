@@ -1,5 +1,5 @@
 #pragma once 
-#include <wield/MessageBase.h>
+#include <wield/MessageBase.hpp>
 #include <cstddef>
 
 namespace wield { namespace adapters { namespace polymorphic {

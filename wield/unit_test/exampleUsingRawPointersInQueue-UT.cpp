@@ -1,10 +1,10 @@
-#include "./platform/UnitTestSupport.h"
+#include "./platform/UnitTestSupport.hpp"
 
-#include "./test_raw/Traits.h"
-#include "./test_raw/Message.h"
-#include "./test_raw/ProcessingFunctor.h"
-#include "./test_raw/Scheduler.h"
-#include "./test_raw/Stages.h"
+#include "./test_raw/Traits.hpp"
+#include "./test_raw/Message.hpp"
+#include "./test_raw/ProcessingFunctor.hpp"
+#include "./test_raw/Scheduler.hpp"
+#include "./test_raw/Stages.hpp"
 
 namespace {
 

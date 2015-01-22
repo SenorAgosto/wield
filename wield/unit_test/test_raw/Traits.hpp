@@ -1,15 +1,15 @@
 #pragma once
-#include <wield/DispatcherBase.h>
-#include <wield/StageBase.h>
-#include <wield/SchedulerBase.h>
+#include <wield/DispatcherBase.hpp>
+#include <wield/StageBase.hpp>
+#include <wield/SchedulerBase.hpp>
 
-#include <wield/policies/ExhaustivePollingPolicy.h>
+#include <wield/policies/ExhaustivePollingPolicy.hpp>
 
-#include "../platform/ConcurrentQueue.h"
+#include "../platform/ConcurrentQueue.hpp"
 
-#include "./Scheduler.h"
-#include "./Stages.h"
-#include "./TestRawPointerMessage.h"
+#include "./Scheduler.hpp"
+#include "./Stages.hpp"
+#include "./TestRawPointerMessage.hpp"
 
 namespace test_raw {
 

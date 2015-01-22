@@ -1,6 +1,6 @@
 #pragma once
 
-#include <wield/logging/Log.h>
+#include <wield/logging/Log.hpp>
 #include <wield/platform/thread>
 #include <wield/platform/list>
 

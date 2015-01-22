@@ -1,5 +1,5 @@
 #pragma once
-#include <wield/adapters/polymorphic/QueueInterface.h>
+#include <wield/adapters/polymorphic/QueueInterface.hpp>
 
 namespace wield { namespace adapters { namespace polymorphic {
   

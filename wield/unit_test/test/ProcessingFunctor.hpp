@@ -1,10 +1,10 @@
 #pragma once
-#include "Message.h"
-#include "Stages.h"
-
+#include <cstddef>
 #include <stdexcept>
 
-namespace test_adapter {
+#include "Traits.hpp"
+
+namespace test {
     
     class TestMessage;
     class TestMessage2;
@@ -12,13 +12,15 @@ namespace test_adapter {
     class ProcessingFunctorInterface
     {
     public:
+        using Message = Traits::Message;
+        
         ProcessingFunctorInterface()
         {
         }
 
         virtual ~ProcessingFunctorInterface(){}
         
-        virtual void operator()(Message& msg ) = 0;
+        virtual void operator()(Message& msg) = 0;
         virtual void operator()(TestMessage& msg) = 0;
         virtual void operator()(TestMessage2& msg) = 0;
     };
@@ -72,24 +74,30 @@ namespace test_adapter {
             : messageBaseCalled_(false)
             , message1Called_(false)
             , message2Called_(false)
+            , messageBaseCallCount_(0)
+            , message1CallCount_(0)
+            , message2CallCount_(0)
             , dispatcher_(dispatcher)
         {
         }
 
         void operator()(Message& msg) override
         {
+            messageBaseCallCount_++;
             messageBaseCalled_ = true;
             dispatcher_.dispatch(Stages::Stage2, msg);   //forward the message to stage2
         }
 
         void operator()(TestMessage& msg) override
-        { 
+        {
+            message1CallCount_++;
             message1Called_ = true;
             dispatcher_.dispatch(Stages::Stage2, msg);
         }
 
         void operator()(TestMessage2& msg) override
-        { 
+        {
+            message2CallCount_++;
             message2Called_ = true;
             dispatcher_.dispatch(Stages::Stage2, msg);
         }
@@ -98,11 +106,15 @@ namespace test_adapter {
         bool message1Called_;
         bool message2Called_;
 
+        std::size_t messageBaseCallCount_;
+        std::size_t message1CallCount_;
+        std::size_t message2CallCount_;
+        
     private:
         ProcessingFunctorWithDispatcher(const ProcessingFunctorWithDispatcher&) = delete;
         ProcessingFunctorWithDispatcher& operator=(const ProcessingFunctorWithDispatcher&) = delete;
 
-    private:
+    protected:
         Dispatcher& dispatcher_;
     };
 
@@ -117,4 +129,5 @@ namespace test_adapter {
         void operator()(TestMessage&) override { throw std::runtime_error("I'm broke."); }
         void operator()(TestMessage2&) override { throw std::runtime_error("I'm broke."); }
     };
+    
 }

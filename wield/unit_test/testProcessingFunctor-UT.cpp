@@ -1,8 +1,8 @@
-#include "platform/UnitTestSupport.h"
-#include <wield/MessageBase.h>
+#include "./platform/UnitTestSupport.hpp"
+#include <wield/MessageBase.hpp>
 
-#include "test/Message.h"
-#include "test/ProcessingFunctor.h"
+#include "./test/Message.hpp"
+#include "./test/ProcessingFunctor.hpp"
 
 namespace {
 

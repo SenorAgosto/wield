@@ -1,4 +1,4 @@
-#include "DefaultLoggingPolicy.h"
+#include "./DefaultLoggingPolicy.hpp"
 #include <iostream>
 
 namespace wield { namespace logging {

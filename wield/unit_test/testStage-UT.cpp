@@ -1,7 +1,8 @@
-#include "platform/UnitTestSupport.h"
-#include "test/Traits.h"
-#include "test/ProcessingFunctor.h"
-#include "test/Message.h"
+#include "./platform/UnitTestSupport.hpp"
+
+#include "./test/Traits.hpp"
+#include "./test/ProcessingFunctor.hpp"
+#include "./test/Message.hpp"
 
 namespace {
 

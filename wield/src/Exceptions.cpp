@@ -1,4 +1,4 @@
-#include <wield/Exceptions.h>
+#include <wield/Exceptions.hpp>
 
 namespace wield {
 

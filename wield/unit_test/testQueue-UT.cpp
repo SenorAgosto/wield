@@ -1,8 +1,8 @@
-#include "platform/UnitTestSupport.h"
+#include "./platform/UnitTestSupport.hpp"
 #include <cstddef>
 
-#include "test/Traits.h"
-#include "test/Message.h"
+#include "./test/Traits.hpp"
+#include "./test/Message.hpp"
 
 namespace {
 

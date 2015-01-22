@@ -1,8 +1,8 @@
 #pragma once
-#include <wield/DispatcherBase.h>
-#include <wield/MessageBase.h>
-#include <wield/SchedulerBase.h>
-#include <wield/StageBase.h>
+#include <wield/DispatcherBase.hpp>
+#include <wield/MessageBase.hpp>
+#include <wield/SchedulerBase.hpp>
+#include <wield/StageBase.hpp>
 
 namespace wield {
     

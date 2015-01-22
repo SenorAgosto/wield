@@ -1,11 +1,11 @@
 #pragma once
-#include <wield/adapters/polymorphic/PassThroughStageQueue.h>
-#include <wield/adapters/polymorphic/QueueInterface.h>
-#include <wield/policies/ExhaustivePollingPolicy.h>
-#include <wield/Traits.h>
+#include <wield/adapters/polymorphic/PassThroughStageQueue.hpp>
+#include <wield/adapters/polymorphic/QueueInterface.hpp>
+#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/Traits.hpp>
 
-#include "Scheduler.h"
-#include "Stages.h"
+#include "Scheduler.hpp"
+#include "Stages.hpp"
 
 namespace test_adapter {
 
