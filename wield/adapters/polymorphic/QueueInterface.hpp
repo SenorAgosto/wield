@@ -1,16 +1,14 @@
 #pragma once 
-#include <wield/MessageBase.hpp>
 #include <cstddef>
 
 namespace wield { namespace adapters { namespace polymorphic {
     
     // An abstract interface for adapting different
     // queue implementations to wield QueueBase interface.
-    template<class ProcessingFunctor>
+    template<class MessagePtr>
     class QueueInterface
     {
     public:
-        using MessagePtr = typename MessageBase<ProcessingFunctor>::smartptr;
         virtual ~QueueInterface(){}
         
         virtual void push(const MessagePtr& message) = 0;

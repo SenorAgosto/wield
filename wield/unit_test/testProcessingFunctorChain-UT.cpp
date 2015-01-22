@@ -30,7 +30,7 @@ namespace {
         
         // in practice, each processing functor would likely be different, here we'll call f() 3 times.
         // f -> f -> f
-        auto processorChain = wield::adapters::CreateProcessorChain<ProcessingFunctorInterface>(&f, &f, &f);
+        auto processorChain = wield::adapters::CreateProcessorChain<Message::smartptr, ProcessingFunctorInterface>(&f, &f, &f);
 
         // then use the processorChain as the queue argument to the stage.
         Stage s(Stages::Stage1, d, processorChain, f);  // f is a dummy.

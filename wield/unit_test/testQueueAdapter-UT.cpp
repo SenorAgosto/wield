@@ -26,7 +26,7 @@ namespace {
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
         
-        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>> queue;
+        adapters::polymorphic::QueueAdapter<Message::smartptr, Concurrency::concurrent_queue<Message::smartptr>> queue;
         queue.push(m);
         
         CHECK_EQUAL(1, queue.unsafe_size());
@@ -39,7 +39,7 @@ namespace {
         Message::smartptr m = new TestMessage();
         Message::smartptr m2 = nullptr;
         
-        adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue> queue;
+        adapters::polymorphic::QueueAdapter<Message::smartptr, SimpleConcurrentQueue> queue;
         queue.push(m);
         
         CHECK_EQUAL(1, queue.unsafe_size());
@@ -54,10 +54,10 @@ namespace {
         ProcessingFunctor f2;
         
         // construct concrete queues with different implementations.
-        using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, Concurrency::concurrent_queue<Message::smartptr>>;
+        using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<Message::smartptr, Concurrency::concurrent_queue<Message::smartptr>>;
         ConcreteQueue1 q1;
         
-        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<ProcessingFunctorInterface, SimpleConcurrentQueue>;
+        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<Message::smartptr, SimpleConcurrentQueue>;
         ConcreteQueue2 q2;
         
         Stage s(Stages::Stage1, d, q1, f);

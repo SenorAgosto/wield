@@ -12,7 +12,7 @@ namespace {
 
     using Dispatcher = Traits::Dispatcher;
 
-    using PassThroughStageQueue = Traits::ApplicationTraits::PassThroughStageQueue;
+    using PassThroughStageQueue = Traits::ApplicationTraits::PassThroughStageQueue<typename Traits::MessagePtr>;
     using Stage = Traits::Stage;
     
     TEST(verifyPassThroughStageQueueUsage)
