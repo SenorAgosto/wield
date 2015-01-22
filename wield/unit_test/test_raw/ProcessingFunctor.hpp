@@ -2,8 +2,8 @@
 #include <cstddef>
 #include <stdexcept>
 
-#include "./Stages.h"
-#include "./Traits.h"
+#include "./Stages.hpp"
+#include "./Traits.hpp"
 
 namespace test_raw {
     

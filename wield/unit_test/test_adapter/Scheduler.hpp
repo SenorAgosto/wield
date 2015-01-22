@@ -1,5 +1,5 @@
 #pragma once
-#include <wield/policies/ExhaustivePollingPolicy.h>
+#include <wield/policies/ExhaustivePollingPolicy.hpp>
 
 #include <cstddef>
 #include <limits>

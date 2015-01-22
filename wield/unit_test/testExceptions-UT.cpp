@@ -1,5 +1,5 @@
-#include "platform/UnitTestSupport.h"
-#include <wield/Exceptions.h>
+#include "./platform/UnitTestSupport.hpp"
+#include <wield/Exceptions.hpp>
 
 namespace {
 

@@ -1,6 +1,6 @@
 #pragma once
-#include <wield/DispatcherInterface.h>
-#include <wield/Exceptions.h>
+#include <wield/DispatcherInterface.hpp>
+#include <wield/Exceptions.hpp>
 
 #include <array>
 #include <cstddef>

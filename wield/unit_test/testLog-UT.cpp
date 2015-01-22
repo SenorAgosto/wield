@@ -1,7 +1,7 @@
-#include "platform/UnitTestSupport.h"
+#include "./platform/UnitTestSupport.hpp"
 
-#include <wield/logging/Log.h>
-#include <wield/logging/LoggingPolicy.h>
+#include <wield/logging/Log.hpp>
+#include <wield/logging/LoggingPolicy.hpp>
 
 namespace {
     

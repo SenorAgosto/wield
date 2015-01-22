@@ -1,6 +1,6 @@
 #pragma once
-#include <wield/adapters/QueueInterface.h>
-#include <wield/MessageBase.h>
+#include <wield/adapters/QueueInterface.hpp>
+#include <wield/MessageBase.hpp>
 
 namespace wield { namespace adapters {
   

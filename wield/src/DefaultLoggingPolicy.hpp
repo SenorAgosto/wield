@@ -1,4 +1,4 @@
-#include <wield/logging/LoggingPolicy.h>
+#include <wield/logging/LoggingPolicy.hpp>
 
 namespace wield { namespace logging {
 
