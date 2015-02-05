@@ -21,13 +21,7 @@ namespace {
         Dispatcher d;
         ProcessingFunctor dummyFunctor;
 
-        wield::adapters::polymorphic::MultipleInputQueueAdapter<
-              Traits
-            , Concurrency::concurrent_queue<MessagePtr>
-            , Stages
-            , Stages::Stage1
-            , Stages::Stage3>
-        q(d, dummyFunctor);
+        wield::adapters::polymorphic::MultipleInputQueueAdapter<Traits, Concurrency::concurrent_queue<MessagePtr>> q(d, dummyFunctor);
     }
 
     TEST(verifyMultipleInputsQueueAdapter)
@@ -36,13 +30,10 @@ namespace {
         ProcessingFunctor dummyFunctor;
 
         // queues for Stage1 & Stage2 are handled by Stage3.
-        wield::adapters::polymorphic::MultipleInputQueueAdapter<
-              Traits
-            , Concurrency::concurrent_queue<MessagePtr>
-            , Stages
-            , Stages::Stage1
-            , Stages::Stage3>
-        q(d, dummyFunctor);
+        wield::adapters::polymorphic::MultipleInputQueueAdapter<Traits, Concurrency::concurrent_queue<MessagePtr>> q(d, dummyFunctor);
+        q.addQueue(Stages::Stage1)
+         .addQueue(Stages::Stage2);
+
         CHECK_EQUAL(0, q.unsafe_size());
 
         ProcessingFunctor f;
@@ -68,13 +59,10 @@ namespace {
         ProcessingFunctor dummyFunctor;
 
         // queues for Stage1, Stage2, & Stage3 are handled by Stage4
-        wield::adapters::polymorphic::MultipleInputQueueAdapter<
-              Traits
-            , Concurrency::concurrent_queue<MessagePtr>
-            , Stages
-            , Stages::Stage1
-            , Stages::Stage4>
-        q(d, dummyFunctor);
+        wield::adapters::polymorphic::MultipleInputQueueAdapter<Traits, Concurrency::concurrent_queue<MessagePtr>> q(d, dummyFunctor);
+        q.addQueue(Stages::Stage1)
+         .addQueue(Stages::Stage2)
+         .addQueue(Stages::Stage3);
 
         ProcessingFunctor f;
         Stage stage(Stages::Stage4, d, q, f);

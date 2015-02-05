@@ -1,33 +1,21 @@
 #pragma once
-
-#include <wield/adapters/polymorphic/QueueAdapter.hpp>
-#include <wield/adapters/polymorphic/QueueInterface.hpp>
 #include <wield/DispatcherInterface.hpp>
 #include <wield/Exceptions.hpp>
+#include <wield/adapters/polymorphic/QueueAdapter.hpp>
 
-#include <wield/details/QueueCreator.hpp>
-#include <wield/details/DummyStageCreator.hpp>
-
-#include <vector>
+#include <cstddef>
+#include <deque>
 
 namespace wield { namespace adapters { namespace polymorphic {
 
     // This is a queue adapter that enables a single stage
-    // to read from multiple input queues.
+    // to read from multiple input queues. Accomplishing this
+    // requires the Concrete Concurrent Queue implementation
+    // be adapted using wield::adapters::polymorphic::QueueAdapter.
     //
     // If you're obsessed with Martin Thompson's advice, and
     // believe the Single Writer Principle to be the best
     // thing since sliced bread - this adapter is for you.
-    //
-    // This version assumes that only some of the stages in
-    // the stage graph need multiple inputs, and hence forces
-    // the QueueType to be:
-    //      wield::adapters::polymorphic::QueueInterface<MessagePtr>.
-    //
-    // See also: wield::adpaters::MultiInputQueueAdapter,
-    // which will mirror this implementation but assume all
-    // stages in the stage graph use multiple inputs... hence
-    // avoid virtual calls.
     //
     // This class creates dummy stages and queues for them,
     // registering the stages with the dispatcher. Messages will
@@ -37,37 +25,43 @@ namespace wield { namespace adapters { namespace polymorphic {
     // passed to. That stage is the one you should schedule
     // and it will check the input queues in a round-robin
     // fashion.
-    template<class Traits, class ConcreteQueue, class StageEnumType, StageEnumType Start, StageEnumType End>
+    template<class Traits, class ConcreteQueue>
     class MultipleInputQueueAdapter : public Traits::Queue
     {
     public:
-        using MessagePtr = typename Traits::MessagePtr;
-        using AdaptedQueue = QueueAdapter<MessagePtr, ConcreteQueue>;
-
+        using Message = typename Traits::Message;
+        using MessagePtr = typename Message::smartptr;
+        using AdaptedQueue = wield::adapters::polymorphic::QueueAdapter<MessagePtr, ConcreteQueue>;
         using ProcessingFunctor = typename Traits::ProcessingFunctor;
         using Stage = typename Traits::Stage;
+        using StageEnumType = typename Traits::StageEnumType;
 
-        static const std::size_t numberOfStages = static_cast<std::size_t>(End) - static_cast<std::size_t>(Start);
-
-        // We need the dispatcher so the dummy stages
-        // can be register with the desired labels.
-        // We need the dummy processingFunctor so
-        // dummy stages can be constructed.
         MultipleInputQueueAdapter(DispatcherInterface<StageEnumType, Stage>& dispatcher, ProcessingFunctor& dummyFunctor)
-            : which_(0)
+            : dispatcher_(dispatcher)
+            , dummyFunctor_(dummyFunctor)
+            , which_(0)
+            , numberOfQueues_(0)
         {
-            details::QueueCreator<AdaptedQueue, numberOfStages> queueCreator(queues_);
-            details::DummyStageCreator<Traits, StageEnumType, Start, End> stageCreator(dispatcher, dummyFunctor, queues_, dummyStages_);
         }
 
-        // Calling push is an error, we throw to aid in debugging.
-        void push(const MessagePtr& message) override
+        template<typename... Args>
+        MultipleInputQueueAdapter& addQueue(StageEnumType stageName, Args&&... args)
+        {
+            queues_.emplace_back(std::forward<Args>(args)...);
+            stages_.emplace_back(stageName, dispatcher_, queues_.back(), dummyFunctor_);
+            numberOfQueues_++;
+
+            return *this;
+        }
+
+        // this should never be called.
+        void push(const MessagePtr& )
         {
             throw IllegallyPushedMessageOntoQueueAdapter();
         }
 
         // Get a message, checking the queues in a round-robin fashion.
-        bool try_pop(MessagePtr& message) override
+        bool try_pop(MessagePtr& message)
         {
             bool hasMessage = false;
             std::size_t queuesPolled = 0;
@@ -82,7 +76,7 @@ namespace wield { namespace adapters { namespace polymorphic {
         }
 
         // Get the unsafe size of all contained queues.
-        std::size_t unsafe_size(void) const override
+        std::size_t unsafe_size(void) const
         {
             std::size_t total = 0;
             for(auto& queue : queues_)
@@ -95,27 +89,27 @@ namespace wield { namespace adapters { namespace polymorphic {
 
     private:
         // stopping condition, when we've polled all queues and they're all empty.
-        bool allQueuesPolled(const std::size_t queuesPolled)
+        inline bool allQueuesPolled(const std::size_t queuesPolled)
         {
-            return queuesPolled >= numberOfStages;
+            return queuesPolled >= numberOfQueues_;
         }
 
         // roll which queue we're polling (round robin).
-        void updateNextQueue()
+        inline void updateNextQueue()
         {
-            if(++which_ >= numberOfStages)
+            if(++which_ >= numberOfQueues_)
             {
                 which_ = 0;
             }
         }
 
     private:
-        // the adapted concrete queues which messages get dispatched to through the dummy stages.
         std::deque<AdaptedQueue> queues_;
-        std::deque<Stage> dummyStages_;
-
-        // the variable for determining which queue to poll next (round-robin).
+        std::deque<Stage> stages_;
         std::size_t which_;
-    };
+        std::size_t numberOfQueues_;
 
+        DispatcherInterface<StageEnumType, Stage>& dispatcher_;
+        ProcessingFunctor& dummyFunctor_;
+    };
 }}}
