@@ -7,7 +7,8 @@ namespace test_adapter {
         Stage1,
         Stage2,
         Stage3,
-
+        Stage4,
+        
         NumberOfEntries
     };
 }

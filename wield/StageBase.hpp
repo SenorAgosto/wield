@@ -28,6 +28,14 @@ namespace wield {
             dispatcher.registerStage(stageName, this);
         }
 
+        // make container friendly.
+        StageBase(StageBase&& stage)
+            : processingFunctor_(stage.processingFunctor_)
+            , queue_(stage.queue_)
+            , stageName_(stage.stageName_)
+        {
+        }
+
         ~StageBase()
         {
         }
