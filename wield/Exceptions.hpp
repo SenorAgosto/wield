@@ -8,4 +8,10 @@ namespace wield {
     public:
         DuplicateStageRegistrationException();
     };
+
+    class IllegallyPushedMessageOntoQueueAdapter final : public std::runtime_error
+    {
+    public:
+        IllegallyPushedMessageOntoQueueAdapter();
+    };
 }
