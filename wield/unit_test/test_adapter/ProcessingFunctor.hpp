@@ -1,6 +1,6 @@
 #pragma once
-#include "Message.hpp"
-#include "Stages.hpp"
+#include "./Message.hpp"
+#include "./Stages.hpp"
 
 #include <stdexcept>
 

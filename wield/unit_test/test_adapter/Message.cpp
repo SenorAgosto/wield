@@ -1,5 +1,5 @@
-#include "Message.hpp"
-#include "ProcessingFunctor.hpp"
+#include "./Message.hpp"
+#include "./ProcessingFunctor.hpp"
 
 namespace test_adapter {
     

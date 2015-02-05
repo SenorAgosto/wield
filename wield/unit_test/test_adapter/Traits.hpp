@@ -4,8 +4,8 @@
 #include <wield/policies/ExhaustivePollingPolicy.hpp>
 #include <wield/Traits.hpp>
 
-#include "Scheduler.hpp"
-#include "Stages.hpp"
+#include "./Scheduler.hpp"
+#include "./Stages.hpp"
 
 namespace test_adapter {
 
