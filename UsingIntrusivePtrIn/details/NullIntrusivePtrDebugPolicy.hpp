@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wield { namespace details {
+namespace UsingIntrusivePtrIn { namespace details {
     
     // NullIntrusivePtrDebugPolicy is used with <UsingIntrusivePtrIn> mixin.
     //
