@@ -2,23 +2,23 @@
 #include <atomic>
 #include <cstddef>
 
-namespace wield { namespace details {
+namespace UsingIntrusivePtrIn { namespace details {
   
     // multi-threaded base class, for use in <UsingIntrusivePtrIn> mixin.
     struct ThreadSafeReferenceCountBase
     {
         ThreadSafeReferenceCountBase()
-        : referenceCount_(0)
+            : referenceCount_(0)
         {
         }
         
         ThreadSafeReferenceCountBase(const ThreadSafeReferenceCountBase&)
-        : referenceCount_(0)
+            : referenceCount_(0)
         {
         }
         
         ThreadSafeReferenceCountBase(ThreadSafeReferenceCountBase&& base)
-        : referenceCount_(0)
+            : referenceCount_(0)
         {
         }
         
