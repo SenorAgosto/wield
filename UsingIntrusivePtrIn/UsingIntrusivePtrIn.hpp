@@ -1,10 +1,10 @@
 #pragma once
-#include <wield/details/NullIntrusivePtrDebugPolicy.hpp>
-#include <wield/details/ThreadSafeReferenceCountBase.hpp>
+#include <UsingIntrusivePtrIn/details/NullIntrusivePtrDebugPolicy.hpp>
+#include <UsingIntrusivePtrIn/details/ThreadSafeReferenceCountBase.hpp>
 
-#include <wield/platform/intrusive_ptr.hpp>
+#include <UsingIntrusivePtrIn/platform/intrusive_ptr.hpp>
 
-namespace wield {
+namespace UsingIntrusivePtrIn {
 
     // <Derived> must inherit from <UsingIntrusiveIn>
     // <ReferenceCountBase> defaults to threadsafe.
