@@ -129,5 +129,23 @@ namespace test {
         void operator()(TestMessage&) override { throw std::runtime_error("I'm broke."); }
         void operator()(TestMessage2&) override { throw std::runtime_error("I'm broke."); }
     };
-    
+
+    // This processing functor handles one specific message type,
+    // ignoring the remaining types, allowing the base class
+    // to handle them with default function implementations.
+    class PartialProcessingFunctor : public ProcessingFunctor
+    {
+    public:
+        PartialProcessingFunctor()
+            : hazah_(0)
+        {
+        }
+
+        void operator()(TestMessage2& message) override
+        {
+            hazah_++;
+        }
+
+        std::size_t hazah_;
+    };
 }
