@@ -45,4 +45,30 @@ namespace {
         CHECK(!tpf.message1Called_);
         CHECK(!tpf.message2Called_);
     }
+
+    TEST(verifyExtendedProcessingFunctorCanDeferMessageProcessingToBaseClass)
+    {
+        PartialProcessingFunctor ppf;
+
+        // TestMessage is not handled by PartialProcessingFunctor,
+        // it will work normally, incrementing counters.
+        Message::smartptr m = new TestMessage();
+        m->processWith(ppf);
+
+        CHECK(!ppf.messageBaseCalled_);
+        CHECK(ppf.message1Called_);
+        CHECK(!ppf.message2Called_);
+
+        // TestMessage2 is handled by PartialProcessingFunctor,
+        // it will prevent incrementing counters.
+        PartialProcessingFunctor ppf2;
+        m = new TestMessage2();
+        m->processWith(ppf2);
+
+        CHECK(!ppf2.messageBaseCalled_);
+        CHECK(!ppf2.message1Called_);
+        CHECK(!ppf2.message2Called_);
+
+        CHECK_EQUAL(1, ppf2.hazah_);
+    }
 }
