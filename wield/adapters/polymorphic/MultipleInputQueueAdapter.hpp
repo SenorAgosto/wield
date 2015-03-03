@@ -37,10 +37,10 @@ namespace wield { namespace adapters { namespace polymorphic {
         using StageEnumType = typename Traits::StageEnumType;
 
         MultipleInputQueueAdapter(DispatcherInterface<StageEnumType, Stage>& dispatcher, ProcessingFunctor& dummyFunctor)
-            : dispatcher_(dispatcher)
-            , dummyFunctor_(dummyFunctor)
-            , which_(0)
+            : which_(0)
             , numberOfQueues_(0)
+            , dispatcher_(dispatcher)
+            , dummyFunctor_(dummyFunctor)
         {
         }
 
