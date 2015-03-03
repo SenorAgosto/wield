@@ -74,7 +74,7 @@ namespace wield {
 
         inline bool done(void) const
         {
-            return done_.load(std::memory_order_acquire);
+            return done_.load(std::memory_order_relaxed);
         }
 
         inline void process(const std::size_t thread_id)
