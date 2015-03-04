@@ -11,7 +11,7 @@
 namespace wield {
 
     template<class SchedulingPolicy>
-    class SchedulerBase final
+    class SchedulerBase
     {
     public:
         
