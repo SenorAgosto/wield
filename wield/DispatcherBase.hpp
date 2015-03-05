@@ -9,7 +9,7 @@
 namespace wield {
 
     // A tag type to indicate the dispatcher should make a copy of the message.
-    struct clone_message {};
+    struct CloneMessageTagType {} static clone_message;
 
     /* Dispatcher
     
@@ -68,7 +68,7 @@ namespace wield {
            @clone a tag type for tag-dispatching this overloaded function
         */
         template<class ConcreteMessageType>
-        inline void dispatch(StageEnumType stageName, ConcreteMessageType& message, clone_message)
+        inline void dispatch(StageEnumType stageName, ConcreteMessageType& message, CloneMessageTagType)
         {
             stages_[static_cast<std::size_t>(stageName)]->push(
                 typename StageType::MessageType::smartptr(new ConcreteMessageType(message))
