@@ -1,3 +1,4 @@
+- add 'noexcept' to everything it is applicable to. 
 - input stages. Would it be possible to redefine bool process() ? 
   rather than pumping the queue have it generate events using a callback/functor.
   probably want to move guts of process() into process_impl() and then either use 
@@ -20,3 +21,5 @@
 Performance:
 - In SchedulerBase, compare whether using done_.load(std::memory_order_acquire)/done_.store(true, std::memory_order_release) is better or whether just doing done_ = true; and reading done_ is better.
 - Test different compiler options
+- Test whether the changes in OptimizePush branch are worth it. Using move semantics into queues to avoid cache-line ping-pong caused by incrementing/decrementing messages as they go into queues. 
+
