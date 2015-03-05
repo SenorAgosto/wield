@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <forward_list>
 #include <utility>
 
 namespace wield {
@@ -36,7 +37,7 @@ namespace wield {
             std::size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
             for(std::size_t t = 0; t < numberOfThreads; ++t)
             {
-                threads_.emplace_back(processLambda, t);
+                threads_.emplace_front(processLambda, t);
             }
         }
 
@@ -95,7 +96,7 @@ namespace wield {
         }
 
     private:
-        std::list<std::thread> threads_;
+        std::forward_list<std::thread> threads_;
         std::atomic_bool done_;
 
         SchedulingPolicy schedulingPolicy_;
