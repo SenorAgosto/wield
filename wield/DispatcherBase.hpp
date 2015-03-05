@@ -8,6 +8,9 @@
 
 namespace wield {
 
+    // A tag type to indicate the dispatcher should make a copy of the message.
+    struct clone_message {};
+
     /* Dispatcher
     
        This is the dispatcher class, parameterized on your applications StageEnum type
@@ -57,6 +60,19 @@ namespace wield {
         inline void dispatch(StageEnumType stageName, typename StageType::MessageType& message)
         {
             stages_[static_cast<std::size_t>(stageName)]->push( typename StageType::MessageType::smartptr(&message) );
+        }
+
+        /* Send a copy of a message to a stage
+           @stageName the stage to dispatch the message to.
+           @message the message te send
+           @clone a tag type for tag-dispatching this overloaded function
+        */
+        template<class ConcreteMessageType>
+        inline void dispatch(StageEnumType stageName, ConcreteMessageType& message, clone_message)
+        {
+            stages_[static_cast<std::size_t>(stageName)]->push(
+                typename StageType::MessageType::smartptr(new ConcreteMessageType(message))
+            );
         }
 
         /* Stage lookup function
