@@ -40,7 +40,7 @@ namespace {
         std::unique_ptr<TestMessage> m(new TestMessage());
 
         CHECK_EQUAL(0, q.unsafe_size());
-        d.dispatch(Stages::Stage1, *m, wield::clone_message());
+        d.dispatch(Stages::Stage1, *m, wield::clone_message);
         CHECK_EQUAL(1, q.unsafe_size());
 
         Message::smartptr m2;
