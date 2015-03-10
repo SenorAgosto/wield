@@ -1,3 +1,7 @@
+# Wield TODO
+
+- benchmark branches with 'push optimization' and 'cache-line padded reference count' to see what performance benefits of each is. Also benchmark the combination of the two.
+
 - add 'noexcept' to everything it is applicable to. 
 - input stages. Would it be possible to redefine bool process() ? 
   rather than pumping the queue have it generate events using a callback/functor.
