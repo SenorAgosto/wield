@@ -1,5 +1,7 @@
 # Wield TODO
 
+- improve robustness of processing threads in event of exceptions? Is there a UT that tries to throw and verify a log message (I think that might not be returning), otherwise just add a do {} while(!done); around what's already there.
+
 - benchmark branches with 'push optimization' and 'cache-line padded reference count' to see what performance benefits of each is. Also benchmark the combination of the two.
 
 - add 'noexcept' to everything it is applicable to. 
