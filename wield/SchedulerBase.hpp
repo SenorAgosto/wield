@@ -38,6 +38,8 @@ namespace wield {
             for(std::size_t t = 0; t < numberOfThreads; ++t)
             {
                 threads_.emplace_front(processLambda, t);
+
+                // ARG: TODO: forward the thread to an affinity policy.
             }
         }
 
