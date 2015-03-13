@@ -3,9 +3,12 @@
 
 namespace wield { namespace policies {
     
-    // NOTE: store behavior only on the PollingPolicy, but all data
-    // needed to the decision to keep polling or not on the PollingInformation
-    // type.
+    // NOTE: this polling policy implements exhaustive polling of queues. I.e.,
+    // a thread will stay at a stage until the queue is empty.
+    // The polling policy logic is on this class, and the data is stored
+    // on the PollingInformation class, which should be used as the
+    // SchedulingPolicy::PollingInformation implementation when using
+    // this polling policy.
     template<typename StageEnum>
     class ExhaustivePollingPolicy
     {
