@@ -1,6 +1,5 @@
 #pragma once
 #include <wield/platform/thread>
-#include <wield/policies/ExhaustivePollingPolicy.hpp>
 
 #include <cstddef>
 #include <limits>
