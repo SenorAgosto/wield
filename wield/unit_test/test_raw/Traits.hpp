@@ -3,7 +3,7 @@
 #include <wield/StageBase.hpp>
 #include <wield/SchedulerBase.hpp>
 
-#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 
 #include "../platform/ConcurrentQueue.hpp"
 
@@ -37,7 +37,7 @@ namespace test_raw {
         using Stage = wield::StageBase<StageEnumType, ProcessingFunctor, Message, Queue>;
         using Dispatcher = DispatcherType<StageEnumType, Stage>;
 
-        using PollingPolicy = wield::policies::ExhaustivePollingPolicy<StageEnumType>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
         
         using SchedulingPolicy = SchedulingPolicy<Dispatcher, PollingPolicy>;
 		using Scheduler = wield::SchedulerBase<SchedulingPolicy>;
