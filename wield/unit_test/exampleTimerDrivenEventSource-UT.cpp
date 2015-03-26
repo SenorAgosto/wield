@@ -11,6 +11,7 @@
 #include <wield/platform/thread>
 
 #include <cstddef>
+#include <thread>
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -59,7 +60,7 @@ namespace {
         ProcessingFunctor f;
         Stage s(Stages::Stage1, d, q, f);
 
-        Scheduler scheduler(d);
+        Scheduler scheduler(d, std::thread::hardware_concurrency());
 
         std::thread producer([&d, &scheduler]()
         {
