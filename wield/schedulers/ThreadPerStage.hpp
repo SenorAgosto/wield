@@ -9,8 +9,7 @@ namespace wield { namespace schedulers {
     // ground and get running without worrying
     // about performance tuning 'til later.
     template<class Traits, class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<typename Traits::StageEnumType>>
-    class ThreadPerStageSchedulingPolicy
-        : public PollingPolicy
+    class ThreadPerStage : public PollingPolicy
     {
     public:
         using Dispatcher = typename Traits::Dispatcher;
@@ -18,7 +17,7 @@ namespace wield { namespace schedulers {
         using StageEnumType = typename Traits::StageEnumType;
 
         template<typename... Args>
-        ThreadPerStageSchedulingPolicy(Dispatcher& dispatcher, Args&&... args)
+        ThreadPerStage(Dispatcher& dispatcher, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
             , dispatcher_(dispatcher)
         {
