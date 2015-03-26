@@ -1,14 +1,14 @@
 #pragma once 
-#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 
-namespace wield { namespace policies {
+namespace wield { namespace schedulers {
 
     // This class implements a thread-per-stage
     // scheduling policy. This is a convenience
     // policy which is useful to get off the
     // ground and get running without worrying
     // about performance tuning 'til later.
-    template<class Traits, class PollingPolicy = wield::policies::ExhaustivePollingPolicy<typename Traits::StageEnumType>>
+    template<class Traits, class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<typename Traits::StageEnumType>>
     class ThreadPerStageSchedulingPolicy
         : public PollingPolicy
     {
