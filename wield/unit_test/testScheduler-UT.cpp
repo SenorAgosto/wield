@@ -11,6 +11,7 @@
 #include <wield/platform/thread>
 
 #include <cstddef>
+#include <thread>
 
 namespace {
 
@@ -25,7 +26,7 @@ namespace {
     TEST(verifySchedulerInstantiation)
     {
         Dispatcher d;
-        Scheduler scheduler(d);
+        Scheduler scheduler(d, 1);
     }
 
     TEST(verifySchedulerCreatesThreads)
@@ -35,7 +36,7 @@ namespace {
         ProcessingFunctor f;
         Stage s(Stages::Stage1, d, q, f);
 
-        Scheduler scheduler(d);
+        Scheduler scheduler(d, std::thread::hardware_concurrency());
 
         Message::smartptr m = new TestMessage();
         std::thread producer([&d, m]()
