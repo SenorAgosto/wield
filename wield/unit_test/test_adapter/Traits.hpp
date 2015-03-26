@@ -1,7 +1,7 @@
 #pragma once
 #include <wield/adapters/polymorphic/PassThroughStageQueue.hpp>
 #include <wield/adapters/polymorphic/QueueInterface.hpp>
-#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 #include <wield/Traits.hpp>
 
 #include "./Scheduler.hpp"
@@ -25,7 +25,7 @@ namespace test_adapter {
         template<typename MessagePtrType>
         using QueueType = wield::adapters::polymorphic::QueueInterface<MessagePtrType>;
 
-        using PollingPolicy = wield::policies::ExhaustivePollingPolicy<StageEnumType>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
         
         template<typename Dispatcher>
         using SchedulingPolicy = SchedulingPolicy<Dispatcher, PollingPolicy>;

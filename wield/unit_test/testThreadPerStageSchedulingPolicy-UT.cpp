@@ -1,5 +1,5 @@
 #include "./platform/UnitTestSupport.hpp"
-#include <wield/policies/ThreadPerStageScheduler.hpp>
+#include <wield/schedulers/ThreadPerStageScheduler.hpp>
 
 #include "./test/Traits.hpp"
 #include "./test/ProcessingFunctor.hpp"
@@ -12,7 +12,7 @@ namespace {
         Dispatcher dispatcher;
 
         using SchedulingPolicy =
-            wield::policies::ThreadPerStageSchedulingPolicy<test::Traits>;
+            wield::schedulers::ThreadPerStageSchedulingPolicy<test::Traits>;
 
         SchedulingPolicy schedulingPolicy(dispatcher);
     }
@@ -23,7 +23,7 @@ namespace {
         Dispatcher dispatcher;
 
         using SchedulingPolicy =
-            wield::policies::ThreadPerStageSchedulingPolicy<test::Traits>;
+            wield::schedulers::ThreadPerStageSchedulingPolicy<test::Traits>;
 
         SchedulingPolicy schedulingPolicy(dispatcher);
 
@@ -40,7 +40,7 @@ namespace {
         using Queue = Traits::Queue;
 
         using SchedulingPolicy =
-            wield::policies::ThreadPerStageSchedulingPolicy<Traits>;
+            wield::schedulers::ThreadPerStageSchedulingPolicy<Traits>;
 
         Dispatcher dispatcher;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include <wield/policies/ExhaustivePollingPolicy.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 #include <wield/Traits.hpp>
 
 #include "../platform/ConcurrentQueue.hpp"
@@ -25,7 +25,7 @@ namespace test {
         template<typename MessagePtrType>
         using QueueType = Concurrency::concurrent_queue<MessagePtrType>;
 
-        using PollingPolicy = wield::policies::ExhaustivePollingPolicy<StageEnumType>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
         
         template<typename Dispatcher>
         using SchedulingPolicy = SchedulingPolicy<Dispatcher, PollingPolicy>;
