@@ -1,7 +1,7 @@
 #pragma once
 #include <cstddef>
 
-namespace wield { namespace policies {
+namespace wield { namespace polling_policies {
     
     // NOTE: this polling policy implements exhaustive polling of queues. I.e.,
     // a thread will stay at a stage until the queue is empty.
