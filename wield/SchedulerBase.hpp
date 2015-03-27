@@ -12,14 +12,60 @@
 namespace wield {
 
     template<class SchedulingPolicy>
-    class SchedulerBase
+    struct PolicyIsOwnedByScheduler
+    {
+        template<typename... Args>
+        PolicyIsOwnedByScheduler(Args&&... args)
+            : schedulingPolicy_(std::forward<Args>(args)...)
+        {
+        }
+
+        SchedulingPolicy schedulingPolicy_;
+    };
+
+    template<class SchedulingPolicy>
+    struct SchedulerHasReferenceToPolicy
+    {
+        template<typename... Args>
+        SchedulerHasReferenceToPolicy(SchedulingPolicy& policy, Args&&...)
+            : schedulingPolicy_(policy)
+        {
+        }
+
+        SchedulingPolicy& schedulingPolicy_;
+    };
+
+    template<class SchedulingPolicy, bool SchedulerOwnsPolicy>
+    struct PolicyHolder : public PolicyIsOwnedByScheduler<SchedulingPolicy>
+    {
+        template<typename... Args>
+        PolicyHolder(Args&&... args)
+            : PolicyIsOwnedByScheduler<SchedulingPolicy>(std::forward<Args>(args)...)
+        {
+        }
+    };
+
+    template<class SchedulingPolicy>
+    struct PolicyHolder<SchedulingPolicy, false>
+        : public SchedulerHasReferenceToPolicy<SchedulingPolicy>
+    {
+        template<typename... Args>
+        PolicyHolder(Args&&... args)
+            : SchedulerHasReferenceToPolicy<SchedulingPolicy>(std::forward<Args>(args)...)
+        {
+        }
+    };
+
+
+    template<class SchedulingPolicy, bool SchedulerOwnsPolicy = true>
+    class SchedulerBase : public PolicyHolder<SchedulingPolicy, SchedulerOwnsPolicy>
     {
     public:
         
         template<typename... Args>
-        SchedulerBase(Args&&... arg)
-            : done_(false)
-            , schedulingPolicy_(std::forward<Args>(arg)...)
+        SchedulerBase(Args&&... args)
+            : PolicyHolder<SchedulingPolicy, SchedulerOwnsPolicy>(std::forward<Args>(args)...)
+            , done_(false)
         {
         }
         
@@ -34,7 +80,7 @@ namespace wield {
                 tryProcess(thread_id);
             };
             
-            std::size_t numberOfThreads = schedulingPolicy_.numberOfThreads();
+            std::size_t numberOfThreads = this->schedulingPolicy_.numberOfThreads();
             for(std::size_t t = 0; t < numberOfThreads; ++t)
             {
                 threads_.emplace_front(processLambda, t);
@@ -82,25 +128,23 @@ namespace wield {
 
         inline void process(const std::size_t thread_id)
         {
-            typename SchedulingPolicy::StageType& stage = schedulingPolicy_.nextStage(thread_id);
+            typename SchedulingPolicy::StageType& stage = this->schedulingPolicy_.nextStage(thread_id);
             typename SchedulingPolicy::PollingInformation pollingInfo(thread_id, stage.name());
             
-            schedulingPolicy_.batchStart(pollingInfo);
+            this->schedulingPolicy_.batchStart(pollingInfo);
             
             do
             {
                 const bool messageProcessed = stage.process();
                 pollingInfo.incrementMessageCount(messageProcessed);
                 
-            } while(schedulingPolicy_.continueProcessing(pollingInfo));
+            } while(this->schedulingPolicy_.continueProcessing(pollingInfo));
             
-            schedulingPolicy_.batchEnd(pollingInfo);
+            this->schedulingPolicy_.batchEnd(pollingInfo);
         }
 
     private:
         std::forward_list<std::thread> threads_;
         std::atomic_bool done_;
-
-        SchedulingPolicy schedulingPolicy_;
     };
 }
