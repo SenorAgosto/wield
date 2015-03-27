@@ -1,5 +1,14 @@
 # Wield TODO
 
+- implement schedulers:
+
+    - Color-
+    - BDR
+    - SRPT
+    - MG1? 
+
+- add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
+
 - add a thread affinity policy to SchedulerBase, have it default to a null implementation.
 - improve robustness of processing threads in event of exceptions? Is there a UT that tries to throw and verify a log message (I think that might not be returning), otherwise just add a do {} while(!done); around what's already there.
 
