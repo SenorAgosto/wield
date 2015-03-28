@@ -3,11 +3,7 @@
 #include <wield/schedulers/utils/NumberOfThreads.hpp>
 #include <wield/schedulers/utils/ThreadAssignments.hpp>
 
-#include <algorithm>
-#include <array>
-#include <atomic>
 #include <cstdint>
-#include <thread>
 
 namespace wield { namespace schedulers { namespace color {
 
