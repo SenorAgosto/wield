@@ -8,6 +8,7 @@ file( GLOB policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} polling_policie
 file( GLOB polymorphic_policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/polymorphic/*.h adapters/polymorphic/*.hpp)
 file( GLOB schedulers_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/*.h schedulers/*.hpp)
 file( GLOB color_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/color/*.h schedulers/color/*.hpp)
+file( GLOB sched_utils_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/utils/*.h schedulers/utils/*.hpp)
 
 source_group("Source" FILES ${implementation_files})
 source_group("Interface" FILES ${interface_files})
@@ -19,6 +20,7 @@ source_group("Interface\\Platform" FILES ${platform_headers})
 source_group("Interface\\Polling Policies" FILES ${policies_headers})
 source_group("Interface\\Schedulers" FILES ${schedulers_headers})
 source_group("Interface\\Schedulers\\Color" FILES ${color_headers})
+source_group("Interface\\Schedulers\\Utils" FILES ${sched_utils_headers})
 
 if(WIN32)
 	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
@@ -36,5 +38,5 @@ else()
 	endif() 	
 endif()
 
-add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers} ${polymorphic_policies_headers} ${details_headers} ${schedulers_headers} ${color_headers})
+add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers} ${polymorphic_policies_headers} ${details_headers} ${schedulers_headers} ${color_headers} ${sched_utils_headers})
 add_subdirectory(unit_test)
