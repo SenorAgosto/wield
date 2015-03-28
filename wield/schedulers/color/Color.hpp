@@ -1,6 +1,9 @@
 #pragma once 
 #include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
+#include <wield/schedulers/utils/NumberOfThreads.hpp>
+#include <wield/schedulers/utils/ThreadAssignments.hpp>
 
+#include <algorithm>
 #include <array>
 #include <atomic>
 #include <cstdint>
@@ -12,9 +15,12 @@ namespace wield { namespace schedulers { namespace color {
     // scheduling algorithm. As events are dispatched
     // to a stage, that stage's name is enqueued in
     // a work queue. All threads in the system share
-    // the queue. When they are done.
+    // the queue.
     //
-    // Caveat: <Queue> type must be concurrent.
+    // Caveat: <Queue> type must be concurrent. This
+    // implementation of color uses a non-blocking
+    // queue and will burn cores. TODO: implement
+    // a back-off policy. 
     template<
           class StageEnum
         , class DispatcherType
@@ -28,47 +34,40 @@ namespace wield { namespace schedulers { namespace color {
         using Dispatcher = DispatcherType;
         using Stage = StageType;
         using StageEnumType = StageEnum;
-        using MaxConcurrencyContainer = std::array<std::size_t, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
+        using ThreadAssignments = utils::ThreadAssignments<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
+        using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
 
         template<typename... Args>
         Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
             , dispatcher_(dispatcher)
             , workQueue_(queue)
-            , maximumConcurrency_(maxConcurrency)
-            , numCores_(0)
+            , threadAssignments_(maxConcurrency)
         {
-            for(auto& t : threadsPerStage_)
-            {
-                t = 0;
-            }
-
-            for(auto& a : threadAssignment_)
-            {
-                a = StageEnumType::NumberOfEntries;
-            }
         }
 
         // number of threads the scheduler should create.
         inline std::size_t numberOfThreads() const
         {
-            numCores_ = std::thread::hardware_concurrency();
-            numCores_ = std::max(1, numCores_);
-
-            numCores_ = std::min(numCores_, StageEnumType::NumberOfEntries);
-            return numCores_;
+            const std::size_t numberOfStages = static_cast<std::size_t>(StageEnumType::NumberOfEntries);
+            return utils::numberOfThreads(numberOfStages);
         }
 
         // assign the next stage to visit.
         Stage& nextStage(std::size_t threadId)
         {
-            removeCurrentAssignment(threadId);
+            threadAssignments_.removeCurrentAssignment(threadId);
 
             auto next = StageEnumType::NumberOfEntries;
 
             do {
                 next = dequeNextStage();
-                tryAssign(threadId, next);
+                auto success = threadAssignments_.tryAssign(threadId, next);
+
+                if(!success)
+                {
+                    next = StageEnumType::NumberOfEntries;
+                }
 
             // TODO: implement Idle policy.
             } while(next == StageEnumType::NumberOfEntries);
@@ -77,46 +76,6 @@ namespace wield { namespace schedulers { namespace color {
         }
 
     private:
-        // remove this thread from the visitor count at its
-        // current stage.
-        inline void removeCurrentAssignment(std::size_t threadId)
-        {
-            const auto currentAssignment = threadAssignment_[threadId];
-
-            if(currentAssignment != StageEnumType::NumberOfEntries)
-            {
-                --threadsPerStage_[static_cast<std::size_t>(currentAssignment)];
-                threadAssignment_[threadId] = StageEnumType::NumberOfEntries;
-            }
-        }
-
-        // assign thread as a visitor to next stage if
-        // the stage has room for another.
-        //
-        // On successful assignment, the visitor count of next
-        // will be incremented.
-        //
-        // On failure, the visitor count of @next will be unchanged,
-        // and @next will be reset to StageEnumType::NumberOfEntries.
-        void tryAssign(std::size_t threadId, StageEnumType& next)
-        {
-            const std::size_t nextIndex = static_cast<std::size_t>(next);
-
-            const std::size_t maxVisitors = maximumConcurrency_[nextIndex];
-            std::size_t currentVisitors = threadsPerStage_[nextIndex];
-
-            if(currentVisitors < maxVisitors)
-            {
-                bool success = threadsPerStage_[nextIndex].compare_exchange_strong(currentVisitors, currentVisitors + 1);
-                if(success)
-                {
-                    threadAssignment_[threadId] = next;
-                    return;
-                }
-            }
-
-            next = StageEnumType::NumberOfEntries;
-        }
 
         // get the next stage from the work queue.
         inline StageEnumType dequeNextStage()
@@ -127,42 +86,10 @@ namespace wield { namespace schedulers { namespace color {
             return next;
         }
 
-        // iterate through the assignment array
-        // return the first stage without
-        // a thread assigned.
-        StageEnumType findNextAvailableStage() const
-        {
-            std::size_t index = 0;
-
-            for(auto workerCount : threadsPerStage_)
-            {
-                // change this to use a relaxed load
-                // instead of strict memory barrier.
-                if((index < numCores_) && (workerCount < maximumConcurrency_[index]))
-                {
-                    return static_cast<StageEnumType>(index);
-                }
-
-                index++;
-            }
-
-            return StageEnumType::NumberOfEntries;
-        }
-
     private:
         Dispatcher& dispatcher_;
         Queue& workQueue_;
 
-        std::array<std::atomic_size_t, static_cast<std::size_t>(StageEnumType::NumberOfEntries)> threadsPerStage_;
-        MaxConcurrencyContainer maximumConcurrency_;
-
-        std::array<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)> threadAssignment_;
-
-
-        // save the number of cores, it saves us from
-        // needing to traverse all of the assignments_
-        // array in the event we have fewer threads
-        // than stages.
-        mutable std::size_t numCores_;
+        ThreadAssignments threadAssignments_;
     };
 }}}
