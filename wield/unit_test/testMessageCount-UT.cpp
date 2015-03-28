@@ -41,6 +41,25 @@ namespace {
         CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage1));
     }
 
+    TEST_FIXTURE(MessageCountFixture, verifyHighWaterStageIsFirstStageWhenThereIsNoWork)
+    {
+        using namespace test;
+
+        Stages stage = stats.highwaterStage();
+        CHECK_EQUAL(Stages::Stage1, stage);
+    }
+
+    TEST_FIXTURE(MessageCountFixture, verifyHighWaterStage)
+    {
+        using namespace test;
+
+        stats.increment(Stages::Stage1, 10);
+        stats.increment(Stages::Stage2, 100);
+        stats.increment(Stages::Stage3, 200);
+
+        CHECK_EQUAL(Stages::Stage3, stats.highwaterStage());
+    }
+
     TEST_FIXTURE(MessageCountFixture, verifyReset)
     {
         using namespace test;
