@@ -4,7 +4,6 @@
 #include "./test_color/Message.hpp"
 #include "./test_color/Traits.hpp"
 
-#include <wield/schedulers/color/Color.hpp>
 #include <wield/schedulers/color/Dispatcher.hpp>
 
 #include <array>
