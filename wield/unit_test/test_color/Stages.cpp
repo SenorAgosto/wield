@@ -26,7 +26,7 @@ namespace test_color {
         } static const lookup;
     }
 
-    std::ostream& operator<<(std::ostream& os, test_color::Stages s)
+    std::ostream& operator<<(std::ostream& os, Stages s)
     {
         os << test_color::lookup[s];
         return os;
