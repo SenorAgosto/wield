@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
 
 namespace test {
         
@@ -11,4 +12,6 @@ namespace test {
 
         NumberOfEntries
     };
+
+    std::ostream& operator<<(std::ostream& os, Stages stage);
 }
