@@ -28,6 +28,9 @@ namespace wield { namespace schedulers { namespace utils {
         // return the current estimated queue depth for @stage
         std::size_t estimatedDepth(const StageEnumType stage);
 
+        // return the stage with the most estimated work.
+        StageEnumType highwaterStage();
+
         // reset all counters to 0.
         void reset();
 
@@ -70,6 +73,25 @@ namespace wield { namespace schedulers { namespace utils {
         auto currentValue = current_[stageIndex];
 
         return (previousValue < currentValue) ? currentValue - previousValue : 0;
+    }
+
+    template<class StageEnumType>
+    StageEnumType MessageCount<StageEnumType>::highwaterStage()
+    {
+        StageEnumType stage = static_cast<StageEnumType>(0);
+        std::size_t highwaterMark = 0;
+
+        for(std::size_t i = 0, end = current_.size(); i < end; ++i)
+        {
+            const std::size_t stageDepth = estimatedDepth(static_cast<StageEnumType>(i));
+            if(stageDepth > highwaterMark)
+            {
+                stage = static_cast<StageEnumType>(i);
+                highwaterMark = stageDepth;
+            }
+        }
+
+        return stage;
     }
 
     template<class StageEnumType>
