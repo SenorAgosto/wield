@@ -37,6 +37,15 @@ namespace wield { namespace schedulers { namespace color {
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
 
+
+        template<typename... Args>
+        Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
+            : PollingPolicy(std::forward<Args>(args)...)
+            , dispatcher_(dispatcher)
+            , workQueue_(queue)
+        {
+        }
+
         template<typename... Args>
         Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
