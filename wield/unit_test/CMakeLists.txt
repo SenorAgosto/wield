@@ -5,11 +5,13 @@ file(GLOB test_application_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test/*.h t
 file(GLOB test_adapter_app_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test_adapter/*.h test_adapter/*.hpp test_adapter/*.c test_adapter/*.cpp)
 file(GLOB test_raw_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test_raw/*.h test_raw/*.hpp test_raw/*.c test_raw/*.cpp)
 file(GLOB test_color_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test_color/*.h test_color/*.hpp test_color/*.c test_color/*.cpp)
+file(GLOB test_color_minus_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} test_color_minus/*.h test_color_minus/*.hpp test_color_minus/*.c test_color_minus/*.cpp)
 
 source_group("Platform" FILES ${platform_files})
 source_group("Source" FILES ${interface_files} ${implementation_files})
 source_group("Test" FILES ${test_application_files})
 source_group("TestColor" FILES ${test_color_files})
+source_group("TestColorMinus" FILES ${test_color_minus_files})
 source_group("TestWithAdapter" FILES ${test_adapter_app_files})
 source_group("TestRawPointer" FILES ${test_raw_files})
 
@@ -36,7 +38,7 @@ else()
 	#find_package(tbb 4.2 REQUIRED)
 endif()
 
-add_executable( wield-UT ${implementation_files} ${interface_files} ${platform_files} ${test_application_files} ${test_adapter_app_files} ${test_raw_files} ${test_color_files})
+add_executable( wield-UT ${implementation_files} ${interface_files} ${platform_files} ${test_application_files} ${test_adapter_app_files} ${test_raw_files} ${test_color_files} ${test_color_minus_files})
 
 target_link_libraries( wield-UT
 					   wield 
