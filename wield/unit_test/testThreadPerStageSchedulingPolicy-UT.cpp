@@ -1,6 +1,7 @@
 #include "./platform/UnitTestSupport.hpp"
 #include <wield/schedulers/ThreadPerStage.hpp>
 
+#include "./test/Stages.hpp"
 #include "./test/Traits.hpp"
 #include "./test/ProcessingFunctor.hpp"
 
@@ -9,10 +10,12 @@ namespace {
     TEST(verifyInstantiationOfThreadPerStageScheduler)
     {
         using Dispatcher = test::Traits::Dispatcher;
+        using Stage = test::Traits::Stage;
+
         Dispatcher dispatcher;
 
         using SchedulingPolicy =
-            wield::schedulers::ThreadPerStage<test::Traits>;
+            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage>;
 
         SchedulingPolicy schedulingPolicy(dispatcher);
     }
@@ -20,10 +23,12 @@ namespace {
     TEST(verifyNumberOfThreadsIsCorrect)
     {
         using Dispatcher = test::Traits::Dispatcher;
+        using Stage = test::Traits::Stage;
+
         Dispatcher dispatcher;
 
         using SchedulingPolicy =
-            wield::schedulers::ThreadPerStage<test::Traits>;
+            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage>;
 
         SchedulingPolicy schedulingPolicy(dispatcher);
 
@@ -40,7 +45,7 @@ namespace {
         using Queue = Traits::Queue;
 
         using SchedulingPolicy =
-            wield::schedulers::ThreadPerStage<Traits>;
+            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage>;
 
         Dispatcher dispatcher;
 
