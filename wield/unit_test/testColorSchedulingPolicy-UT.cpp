@@ -29,6 +29,25 @@ namespace {
         SchedulingPolicy color(d, q, concurrency);
     }
 
+    TEST(verifySchedulerBaseCanBeInstantiatedWithColor)
+    {
+        using namespace wield::schedulers::color;
+
+        using Dispatcher = typename test_color::Traits::Dispatcher;
+        using Stages = typename test_color::Traits::StageEnumType;
+        using Stage = typename test_color::Traits::Stage;
+        using ColorQueue = Concurrency::concurrent_queue<Stages>;
+        using SchedulingPolicy = typename test_color::Traits::SchedulingPolicy;
+        using Scheduler = typename test_color::Traits::Scheduler;
+        using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
+
+        ColorQueue q;
+        Dispatcher d(q);
+        MaxConcurrencyContainer concurrency = {{1}};
+        
+        Scheduler scheduler(d, q, concurrency);
+    }
+
     TEST(verifyColorAssignsFirstNextStageRequestToStage1)
     {
         using namespace wield::schedulers::color;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <wield/details/SchedulingPolicyHolder.hpp>
 #include <wield/logging/Log.hpp>
 #include <wield/platform/thread>
 #include <wield/platform/list>
@@ -11,60 +12,14 @@
 
 namespace wield {
 
-    template<class SchedulingPolicy>
-    struct PolicyIsOwnedByScheduler
-    {
-        template<typename... Args>
-        PolicyIsOwnedByScheduler(Args&&... args)
-            : schedulingPolicy_(std::forward<Args>(args)...)
-        {
-        }
-
-        SchedulingPolicy schedulingPolicy_;
-    };
-
-    template<class SchedulingPolicy>
-    struct SchedulerHasReferenceToPolicy
-    {
-        template<typename... Args>
-        SchedulerHasReferenceToPolicy(SchedulingPolicy& policy, Args&&...)
-            : schedulingPolicy_(policy)
-        {
-        }
-
-        SchedulingPolicy& schedulingPolicy_;
-    };
-
-    template<class SchedulingPolicy, bool SchedulerOwnsPolicy>
-    struct PolicyHolder : public PolicyIsOwnedByScheduler<SchedulingPolicy>
-    {
-        template<typename... Args>
-        PolicyHolder(Args&&... args)
-            : PolicyIsOwnedByScheduler<SchedulingPolicy>(std::forward<Args>(args)...)
-        {
-        }
-    };
-
-    template<class SchedulingPolicy>
-    struct PolicyHolder<SchedulingPolicy, false>
-        : public SchedulerHasReferenceToPolicy<SchedulingPolicy>
-    {
-        template<typename... Args>
-        PolicyHolder(Args&&... args)
-            : SchedulerHasReferenceToPolicy<SchedulingPolicy>(std::forward<Args>(args)...)
-        {
-        }
-    };
-
-
-    template<class SchedulingPolicy, bool SchedulerOwnsPolicy = true>
-    class SchedulerBase : public PolicyHolder<SchedulingPolicy, SchedulerOwnsPolicy>
+    template<class SchedulingPolicy, class SchedulingPolicyOwnershipProperty = details::PolicyIsInternalToScheduler>
+    class SchedulerBase : public details::SchedulerPolicyHolder<SchedulingPolicy, SchedulingPolicyOwnershipProperty>
     {
     public:
         
         template<typename... Args>
         SchedulerBase(Args&&... args)
-            : PolicyHolder<SchedulingPolicy, SchedulerOwnsPolicy>(std::forward<Args>(args)...)
+            : details::SchedulerPolicyHolder<SchedulingPolicy, SchedulingPolicyOwnershipProperty>(std::forward<Args>(args)...)
             , done_(false)
         {
         }
