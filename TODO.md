@@ -2,10 +2,11 @@
 
 - implement schedulers:
 
-    - Color-
     - BDR
     - SRPT
     - MG1? 
+
+- show I can use different schedulers for different subgraphs of the stage graph.
 
 - add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
 
