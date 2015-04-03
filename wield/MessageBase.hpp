@@ -1,5 +1,6 @@
 #pragma once
 #include <UsingIntrusivePtrIn/UsingIntrusivePtrIn.hpp>
+#include <UsingIntrusivePtrIn/Handle.hpp>
 
 namespace wield {
 
@@ -18,6 +19,8 @@ namespace wield {
     class MessageBase : public UsingIntrusivePtrIn::UsingIntrusivePtrIn<MessageBase<ProcessingFunctor>>
 	{
 	public:
+        using smartptr = UsingIntrusivePtrIn::Handle<MessageBase>;
+
         virtual ~MessageBase(){}
 		virtual void processWith(ProcessingFunctor& process) = 0;
     };
