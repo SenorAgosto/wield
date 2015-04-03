@@ -20,7 +20,7 @@ namespace wield { namespace schedulers { namespace color {
     template<
           class StageEnum
         , class DispatcherType
-        , class StageType
+        , class Stage
         , class Queue
         , class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnum>>
     class Color : public PollingPolicy
@@ -28,7 +28,7 @@ namespace wield { namespace schedulers { namespace color {
     public:
 
         using Dispatcher = DispatcherType;
-        using Stage = StageType;
+        using StageType = Stage;
         using StageEnumType = StageEnum;
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
@@ -59,7 +59,7 @@ namespace wield { namespace schedulers { namespace color {
         }
 
         // assign the next stage to visit.
-        Stage& nextStage(std::size_t threadId)
+        StageType& nextStage(std::size_t threadId)
         {
             threadAssignments_.removeCurrentAssignment(threadId);
 
