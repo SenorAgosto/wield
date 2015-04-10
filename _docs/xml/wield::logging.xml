@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<namespace id="wield::logging" name="logging" xmlns="http://jessevdk.github.com/cldoc/1.0">
-  <class name="DefaultLoggingPolicy" ref="wield::logging::DefaultLoggingPolicy#wield::logging::DefaultLoggingPolicy" />
-  <class name="Log" ref="wield::logging::Log#wield::logging::Log" />
-  <class name="LoggingPolicy" ref="wield::logging::LoggingPolicy#wield::logging::LoggingPolicy">
-    <brief> A logging interface</brief>
-  </class>
-</namespace>
