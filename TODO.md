@@ -1,5 +1,7 @@
 # Wield TODO
 
+- unit test demonstrating scheduling a subset of the stages, e.g., the ThreadPerStageScheduler normally expects a StageEnumType with all stages in it, if we pass it a enum with half of the actual stages what happens? 
+
 - implement schedulers:
 
     - BDR
