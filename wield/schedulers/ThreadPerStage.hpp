@@ -1,5 +1,4 @@
 #pragma once 
-#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 
 namespace wield { namespace schedulers {
 
@@ -8,7 +7,7 @@ namespace wield { namespace schedulers {
     // policy which is useful to get off the
     // ground and get running without worrying
     // about performance tuning 'til later.
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnum>>
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
     class ThreadPerStage : public PollingPolicy
     {
     public:
