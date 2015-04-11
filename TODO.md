@@ -8,6 +8,8 @@
     - BDR
     - SRPT
     - MG1? 
+    - Multithreaded Round-Robin
+    - Multithreaded Random
 
 - show I can use different schedulers for different subgraphs of the stage graph.
 
