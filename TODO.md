@@ -1,6 +1,7 @@
 # Wield TODO
 
 - unit test demonstrating scheduling a subset of the stages, e.g., the ThreadPerStageScheduler normally expects a StageEnumType with all stages in it, if we pass it a enum with half of the actual stages what happens? 
+  - Going to need a translating Dispatcher to accomplish this. Because many of the scheduling policy assume enum values start at 0. 
 
 - implement schedulers:
 
