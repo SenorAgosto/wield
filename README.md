@@ -6,11 +6,11 @@ A small toolkit for creating stage-based applications in c++.
 
 - c++11
 - [UsingIntrusivePtrIn](https://github.com/paxos1977/UsingIntrusivePtrIn)
+- [boost](http://boost.org). Uses intrusive_ptr in production code by default. Uses filesystem, bind, and asio in example code.
 
 Used for unit testing on all platforms:
 
 - [UnitTest++](https://github.com/unittest-cpp/unittest-cpp). Unit test framework.
-- [boost](http://boost.org). Uses filesystem, bind, and asio in example code.
 
 Non-windows Platforms:
 
