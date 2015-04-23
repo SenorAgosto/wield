@@ -46,7 +46,8 @@ target_link_libraries( wield-UT
 					   ${Boost_LIBRARIES}
 					   ${TBB_LIBRARIES}
 					 )
-					 
+					
+if(WIN32) 
 add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND @echo off)
@@ -61,7 +62,6 @@ add_custom_command(TARGET wield-UT
 				   POST_BUILD
 				   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/configs/ ${CMAKE_CURRENT_BINARY_DIR}/configs/ )
 
-if(WIN32)
 	#setup VLD DLL in prebuild step.
 	add_custom_command(TARGET wield-UT
 					   POST_BUILD
