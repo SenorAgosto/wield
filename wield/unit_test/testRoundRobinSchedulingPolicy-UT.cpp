@@ -1,6 +1,6 @@
 #include "./platform/UnitTestSupport.hpp"
 #include <wield/schedulers/RoundRobin.hpp>
-#include <wield/polling_policies/ExhaustivePolling.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 
 #include "./test/Stages.hpp"
 #include "./test/Traits.hpp"
