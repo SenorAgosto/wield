@@ -38,8 +38,16 @@ namespace wield { namespace schedulers {
         {
             std::size_t stageIndex = static_cast<std::size_t>(previousStage_) + 1;
 
-            return (stageIndex >= static_cast<std::size_t>(StageEnumType::NumberOfEntries)) ?
-                static_cast<StageEnumType>(0) : static_cast<StageEnumType>(stageIndex);
+            if(stageIndex >= static_cast<std::size_t>(StageEnumType::NumberOfEntries))
+            {
+                previousStage_ = static_cast<StageEnumType>(0);
+            }
+            else
+            {
+                previousStage_ = static_cast<StageEnumType>(stageIndex);
+            }
+
+            return previousStage_;
         }
 
     private:
