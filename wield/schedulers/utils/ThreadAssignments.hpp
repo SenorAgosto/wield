@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <array>
+#include <atomic>
 #include <cstddef>
 
 namespace wield { namespace schedulers { namespace utils {
@@ -77,15 +78,15 @@ namespace wield { namespace schedulers { namespace utils {
     template<class StageEnumType, std::size_t NumberOfThreads>
     void ThreadAssignments<StageEnumType, NumberOfThreads>::init()
     {
-        for(auto& t : threadsPerStage_)
-        {
-            t = 0;
-        }
+		for(auto& t : threadsPerStage_)
+		{
+			t = 0;
+		}
 
-        for(auto& a : threadAssignment_)
-        {
-            a = StageEnumType::NumberOfEntries;
-        }
+		for(auto& a : threadAssignment_)
+		{
+			a = StageEnumType::NumberOfEntries;
+		}
     }
 
     template<class StageEnumType, std::size_t NumberOfThreads>
