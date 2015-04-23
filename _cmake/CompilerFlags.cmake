@@ -21,9 +21,15 @@ else()
 	# currently assumes we are building on MacOSX using clang++.
 	add_definitions(
 			-std=c++11		# use c++11 features
-			-stdlib=libc++  # use the good runtime
 			#-Weverything 	# Turn on all warnings 
 			#-Werror			# warnings as errors
 	)
-	
+
+    if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")	
+        message("YO YO YO")
+        add_definitions(
+			-stdlib=libc++  # use the good runtime
+        )
+    endif()
+
 endif()
