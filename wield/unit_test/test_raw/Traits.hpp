@@ -39,7 +39,7 @@ namespace test_raw {
 
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
         
-        using SchedulingPolicy = SchedulingPolicy<Dispatcher, PollingPolicy>;
+        using SchedulingPolicy = details::SchedulingPolicy<Dispatcher, PollingPolicy>;
 		using Scheduler = wield::SchedulerBase<SchedulingPolicy>;
         
         static_assert(std::is_same<Message, TestRawPointerMessage<ProcessingFunctor>>::value, "Message type is not the expected type.");
