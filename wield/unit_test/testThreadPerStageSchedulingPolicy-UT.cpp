@@ -1,5 +1,7 @@
 #include "./platform/UnitTestSupport.hpp"
+
 #include <wield/schedulers/ThreadPerStage.hpp>
+#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
 
 #include "./test/Stages.hpp"
 #include "./test/Traits.hpp"
@@ -17,7 +19,7 @@ namespace {
         using Dispatcher = test::Traits::Dispatcher;
         using Stage = test::Traits::Stage;
         using SchedulingPolicy =
-            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage>;
+            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage, wield::polling_policies::ExhaustivePollingPolicy<test::Stages>>;
 
         Dispatcher dispatcher;
         SchedulingPolicy schedulingPolicy;
