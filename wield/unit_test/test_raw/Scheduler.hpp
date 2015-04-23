@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <limits>
 
-namespace test_raw {
+namespace test_raw { namespace details {
     
     template<typename Dispatcher, typename PollingPolicy>
     class SchedulingPolicy : public PollingPolicy
@@ -38,4 +38,4 @@ namespace test_raw {
         Dispatcher& dispatcher_;
         std::size_t numberOfThreads_;
     };
-}
+}}
