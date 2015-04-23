@@ -27,7 +27,7 @@ namespace wield { namespace schedulers {
             return static_cast<std::size_t>(StageEnumType::NumberOfEntries);
         }
 
-        inline StageType& nextStage(std::size_t threadId)
+        inline StageType& nextStage(const std::size_t threadId)
         {
             // we control the number of threads, so we know
             // we can send them to the stages of the same
