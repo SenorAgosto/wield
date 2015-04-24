@@ -35,22 +35,22 @@ namespace {
         // then use the processorChain as the queue argument to the stage.
         Stage s(Stages::Stage1, d, processorChain, f);  // f is a dummy.
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(0, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         Message::smartptr m = new TestMessage;
         s.push(m);  // as a pass-through stage, processed on the push.
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(3, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(3U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         m = new TestMessage2;
         s.push(m);
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(3, f.message1CallCount_);
-        CHECK_EQUAL(3, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(3U, f.message1CallCount_);
+        CHECK_EQUAL(3U, f.message2CallCount_);
     }
 }

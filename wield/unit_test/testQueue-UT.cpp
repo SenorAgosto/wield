@@ -37,7 +37,7 @@ namespace {
             q.push(m);
         }
 
-        CHECK_EQUAL(10, q.unsafe_size() );
+        CHECK_EQUAL(10U, q.unsafe_size() );
         for(std::size_t i = 0; i < 10; ++i)
         {
             CHECK(q.try_pop(m));

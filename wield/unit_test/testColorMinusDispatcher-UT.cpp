@@ -50,8 +50,8 @@ namespace {
         dispatcher.dispatch(Stages::Stage2, *m);
         dispatcher.dispatch(Stages::Stage1, *m);
 
-        CHECK_EQUAL(3, stats.estimatedDepth(Stages::Stage1));
-        CHECK_EQUAL(1, stats.estimatedDepth(Stages::Stage2));
-        CHECK_EQUAL(1, stats.estimatedDepth(Stages::Stage3));
+        CHECK_EQUAL(3U, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage2));
+        CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage3));
     }
 }
