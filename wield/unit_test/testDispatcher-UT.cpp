@@ -22,9 +22,9 @@ namespace {
         Stage s(Stages::Stage1, d, q, f);
         Message::smartptr m = new TestMessage();
 
-        CHECK_EQUAL(0, q.unsafe_size());
+        CHECK_EQUAL(0U, q.unsafe_size());
         d.dispatch(Stages::Stage1, *m);
-        CHECK_EQUAL(1, q.unsafe_size());
+        CHECK_EQUAL(1U, q.unsafe_size());
     }
 
     TEST(verifyDispatcherDispatchByCloning)
@@ -39,9 +39,9 @@ namespace {
         // simulate that here by creating concrete type on heap.
         std::unique_ptr<TestMessage> m(new TestMessage());
 
-        CHECK_EQUAL(0, q.unsafe_size());
+        CHECK_EQUAL(0U, q.unsafe_size());
         d.dispatch(Stages::Stage1, *m, wield::clone_message);
-        CHECK_EQUAL(1, q.unsafe_size());
+        CHECK_EQUAL(1U, q.unsafe_size());
 
         Message::smartptr m2;
         q.try_pop(m2);

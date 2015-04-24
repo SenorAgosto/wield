@@ -47,27 +47,27 @@ namespace {
         ProcessingFunctor f2;
         Stage s2(Stages::Stage2, d, q2, f2);
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(0, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
-        CHECK_EQUAL(0, f2.messageBaseCallCount_);
-        CHECK_EQUAL(0, f2.message1CallCount_);
-        CHECK_EQUAL(0, f2.message2CallCount_);
+        CHECK_EQUAL(0U, f2.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f2.message1CallCount_);
+        CHECK_EQUAL(0U, f2.message2CallCount_);
         
         // when stage s is sent a TestMessage, it sends a TestMessage2 to s2.
         Message::smartptr m = new TestMessage();
         s.push(m);
         s.process();
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(1, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(1U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
 
         s2.process();
         
-        CHECK_EQUAL(0, f2.messageBaseCallCount_);
-        CHECK_EQUAL(0, f2.message1CallCount_);
-        CHECK_EQUAL(1, f2.message2CallCount_);
+        CHECK_EQUAL(0U, f2.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f2.message1CallCount_);
+        CHECK_EQUAL(1U, f2.message2CallCount_);
     }
 }

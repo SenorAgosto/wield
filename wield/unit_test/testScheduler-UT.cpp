@@ -89,7 +89,7 @@ namespace {
         Message::smartptr m = new TestMessage();
         d.dispatch(Stages::Stage1, *m);
 
-        CHECK_EQUAL(1, q.unsafe_size());
+        CHECK_EQUAL(1U, q.unsafe_size());
         
         scheduler.start();
         scheduler.join();
