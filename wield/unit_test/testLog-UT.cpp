@@ -5,13 +5,6 @@
 
 namespace {
     
-    TEST(verifyLogCanBeInstantiated)
-    {
-        wield::logging::Log::Info("testing 1 2 3");
-        wield::logging::Log::Warning("testing 1 2 3");
-        wield::logging::Log::Error("testing 1 2 3");
-    }
-    
     class NullLoggingPolicy : public wield::logging::LoggingPolicy
     {
     public:
