@@ -23,6 +23,16 @@ else()
 			-std=c++11		# use c++11 features
 	)
 
+    if(${CMAKE_CXX_COMPILER_ID} MATCHES "GNU")
+        add_definitions(
+            -Wall
+
+            -Wno-unknown-pragmas
+            -Wno-unused-local-typedefs
+            -Wno-unused-variable
+        )
+    endif() 
+
     if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")	
         add_definitions(
 			-stdlib=libc++  # use the good runtime
