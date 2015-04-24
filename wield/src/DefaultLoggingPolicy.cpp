@@ -18,3 +18,4 @@ namespace wield { namespace logging {
         std::cerr << "[Error]" << error << std::endl;
     }
 }}
+
