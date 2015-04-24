@@ -32,3 +32,4 @@ namespace wield { namespace logging {
         loggingPolicy_.swap(policy);
     }
 }}
+
