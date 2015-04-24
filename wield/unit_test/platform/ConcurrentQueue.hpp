@@ -9,7 +9,10 @@
     #include <concurrent_queue.h>
     #pragma warning(pop)
 #else
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wmissing-noreturn"
     // Use Intel Thread Build Blocks concurrent_queue
     #include <tbb/concurrent_queue.h>
     namespace Concurrency = tbb::strict_ppl;
+    #pragma clang diagnostic pop 
 #endif
