@@ -14,9 +14,9 @@ namespace {
     {
         using namespace test;
 
-        CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage1));
-        CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage2));
-        CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage3));
+        CHECK_EQUAL(0U, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(0U, stats.estimatedDepth(Stages::Stage2));
+        CHECK_EQUAL(0U, stats.estimatedDepth(Stages::Stage3));
     }
 
     TEST_FIXTURE(MessageCountFixture, verifyIncrement)
@@ -24,10 +24,10 @@ namespace {
         using namespace test;
 
         stats.increment(Stages::Stage1);
-        CHECK_EQUAL(1, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage1));
 
         stats.increment(Stages::Stage2, 5);
-        CHECK_EQUAL(5, stats.estimatedDepth(Stages::Stage2));
+        CHECK_EQUAL(5U, stats.estimatedDepth(Stages::Stage2));
     }
 
     TEST_FIXTURE(MessageCountFixture, verifyUpdatePrevious)
@@ -35,10 +35,10 @@ namespace {
         using namespace test;
 
         stats.increment(Stages::Stage1);
-        CHECK_EQUAL(1, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage1));
 
         stats.updatePrevious(Stages::Stage1);
-        CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(0U, stats.estimatedDepth(Stages::Stage1));
     }
 
     TEST_FIXTURE(MessageCountFixture, verifyHighWaterStageIsFirstStageWhenThereIsNoWork)
@@ -65,10 +65,10 @@ namespace {
         using namespace test;
 
         stats.increment(Stages::Stage1, 10);
-        CHECK_EQUAL(10, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(10U, stats.estimatedDepth(Stages::Stage1));
 
         stats.reset();
 
-        CHECK_EQUAL(0, stats.estimatedDepth(Stages::Stage1));
+        CHECK_EQUAL(0U, stats.estimatedDepth(Stages::Stage1));
     }
 }

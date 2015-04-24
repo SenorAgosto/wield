@@ -49,7 +49,7 @@ namespace {
         dispatcher.dispatch(Stages::Stage2, *m);
         dispatcher.dispatch(Stages::Stage1, *m);
 
-        CHECK_EQUAL(5, q.unsafe_size());
+        CHECK_EQUAL(5U, q.unsafe_size());
 
         std::array<Stages, 5> stages = {{Stages::NumberOfEntries}};
         for(auto& s : stages)

@@ -29,7 +29,7 @@ namespace {
         adapters::polymorphic::QueueAdapter<Message::smartptr, Concurrency::concurrent_queue<Message::smartptr>> queue;
         queue.push(m);
         
-        CHECK_EQUAL(1, queue.unsafe_size());
+        CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
         CHECK(m2 != nullptr);
     }
@@ -42,7 +42,7 @@ namespace {
         adapters::polymorphic::QueueAdapter<Message::smartptr, SimpleConcurrentQueue> queue;
         queue.push(m);
         
-        CHECK_EQUAL(1, queue.unsafe_size());
+        CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
     }
     

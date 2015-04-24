@@ -69,6 +69,6 @@ namespace {
         CHECK(!ppf2.message1Called_);
         CHECK(!ppf2.message2Called_);
 
-        CHECK_EQUAL(1, ppf2.hazah_);
+        CHECK_EQUAL(1U, ppf2.hazah_);
     }
 }

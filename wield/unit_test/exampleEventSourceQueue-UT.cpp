@@ -58,21 +58,21 @@ namespace {
         
         Stage s(Stages::Stage1, d, q, f);
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(0, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         s.process();
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(1, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(1U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         s.process();
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(2, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(2U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
     }
 }
 

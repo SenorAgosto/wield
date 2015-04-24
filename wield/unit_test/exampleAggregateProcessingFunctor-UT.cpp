@@ -81,25 +81,25 @@ namespace {
         
         Stage s(Stages::Stage1, d, q, aggregateFunctor);
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(0, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(0U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         Message::smartptr m = new TestMessage;
         s.push(m);
         s.process();
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(3, f.message1CallCount_);
-        CHECK_EQUAL(0, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(3U, f.message1CallCount_);
+        CHECK_EQUAL(0U, f.message2CallCount_);
         
         m = new TestMessage2;
         s.push(m);
         s.process();
         
-        CHECK_EQUAL(0, f.messageBaseCallCount_);
-        CHECK_EQUAL(3, f.message1CallCount_);
-        CHECK_EQUAL(3, f.message2CallCount_);
+        CHECK_EQUAL(0U, f.messageBaseCallCount_);
+        CHECK_EQUAL(3U, f.message1CallCount_);
+        CHECK_EQUAL(3U, f.message2CallCount_);
     }
 }
 

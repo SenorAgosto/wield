@@ -34,7 +34,7 @@ namespace {
         q.addQueue(Stages::Stage1)
          .addQueue(Stages::Stage2);
 
-        CHECK_EQUAL(0, q.unsafe_size());
+        CHECK_EQUAL(0U, q.unsafe_size());
 
         ProcessingFunctor f;
         Stage stage(Stages::Stage3, d, q, f);
@@ -44,13 +44,13 @@ namespace {
         d.dispatch(Stages::Stage1, *m);
         d.dispatch(Stages::Stage2, *m);
 
-        CHECK_EQUAL(2, q.unsafe_size());
+        CHECK_EQUAL(2U, q.unsafe_size());
 
         stage.process();    // process the first message from Stage1 queue
         stage.process();    // process the second message from Stage2 queue
         stage.process();    // this shouldn't do anything...
 
-        CHECK_EQUAL(2, f.message1CallCount_);
+        CHECK_EQUAL(2U, f.message1CallCount_);
     }
 
     TEST(verifyAllQueuesArePolled)
@@ -72,6 +72,6 @@ namespace {
         d.dispatch(Stages::Stage3, *m);
 
         stage.process();
-        CHECK_EQUAL(1, f.message1CallCount_);
+        CHECK_EQUAL(1U, f.message1CallCount_);
     }
 }

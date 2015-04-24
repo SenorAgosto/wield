@@ -89,6 +89,6 @@ namespace {
         scheduler.join();
 
         // verify there were 4 recieved test messages.
-        CHECK_EQUAL(4, f.message1CallCount_);
+        CHECK_EQUAL(4U, f.message1CallCount_);
     }
 }
