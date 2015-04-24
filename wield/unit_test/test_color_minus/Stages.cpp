@@ -17,7 +17,6 @@ namespace test_color_minus {
                 case Stages::Stage2:          return "Stages::Stage2";
                 case Stages::Stage3:          return "Stages::Stage3";
                 case Stages::NumberOfEntries: return "Stages::NumberOfEntries";
-                default: break;
                 };
 
                 return "Unknown Value";
