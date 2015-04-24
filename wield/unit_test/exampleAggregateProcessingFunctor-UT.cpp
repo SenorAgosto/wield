@@ -102,3 +102,4 @@ namespace {
         CHECK_EQUAL(3, f.message2CallCount_);
     }
 }
+

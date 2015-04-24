@@ -75,3 +75,4 @@ namespace {
         CHECK_EQUAL(0, f.message2CallCount_);
     }
 }
+
