@@ -23,3 +23,4 @@ namespace wield { namespace logging {
         static LoggingPolicyType loggingPolicy_;
     };
 }}
+
