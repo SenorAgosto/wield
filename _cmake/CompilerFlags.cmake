@@ -26,6 +26,7 @@ else()
     if(${CMAKE_CXX_COMPILER_ID} MATCHES "GNU")
         add_definitions(
             -Wall
+            -Wextra 
 
             -Wno-unknown-pragmas
             -Wno-unused-local-typedefs
