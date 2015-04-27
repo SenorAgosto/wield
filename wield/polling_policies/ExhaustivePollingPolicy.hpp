@@ -25,8 +25,8 @@ namespace wield { namespace polling_policies {
             return pollingInfo.hadMessage();
         }
         
-        inline void batchStart(PollingInformation& pollingInfo){}
-        inline void batchEnd(PollingInformation& pollingInfo){}
+        inline void batchStart(PollingInformation&){}
+        inline void batchEnd(PollingInformation&){}
     };
 
     template<typename StageEnum>

@@ -18,7 +18,7 @@ namespace {
     
     struct EventSourceQueueImpl
     {
-        void push(const MessagePtr& message)
+        void push(const MessagePtr&)
         {
             // here we do nothing. You *could* have source queues
             // implement actual queues also so they could recieve

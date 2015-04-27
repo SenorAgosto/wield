@@ -18,9 +18,9 @@ namespace test_adapter {
 
         virtual ~ProcessingFunctorInterface(){}
         
-        virtual void operator()(Message& msg ) = 0;
-        virtual void operator()(TestMessage& msg) = 0;
-        virtual void operator()(TestMessage2& msg) = 0;
+        virtual void operator()(Message&) = 0;
+        virtual void operator()(TestMessage&) = 0;
+        virtual void operator()(TestMessage2&) = 0;
     };
 
     class ProcessingFunctor : public ProcessingFunctorInterface
