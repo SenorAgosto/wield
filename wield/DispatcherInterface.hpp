@@ -6,6 +6,7 @@ namespace wield {
     class DispatcherInterface
     {
     public:
+        virtual DispatcherInterface(){}
         virtual void registerStage(StageEnumType stageName, StageType* stage) = 0;
     };
 }
