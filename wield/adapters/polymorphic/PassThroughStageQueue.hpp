@@ -35,7 +35,7 @@ namespace wield { namespace adapters { namespace polymorphic {
             message->processWith(processingFunctor_);
         }
         
-        bool try_pop(MessagePtr& message) override { return false; }
+        bool try_pop(MessagePtr&) override { return false; }
         std::size_t unsafe_size(void) const override { return 0; }
 
     private:

@@ -26,7 +26,7 @@ namespace {
         
         // When we get a TestMessage, create a TestMessage2 and dispatch it
         // to stage2.
-        void operator()(TestMessage& m) override
+        void operator()(TestMessage&) override
         {
             message1CallCount_++;
             

@@ -8,9 +8,9 @@ namespace {
     class NullLoggingPolicy : public wield::logging::LoggingPolicy
     {
     public:
-        void Info(const std::string& info) const override {}
-        void Warning(const std::string& warning) const override {}
-        void Error(const std::string& error) const override {}
+        void Info(const std::string& /*info*/) const override {}
+        void Warning(const std::string& /*warning*/) const override {}
+        void Error(const std::string& /*error*/) const override {}
     };
     
     TEST(verifyLogPolicyCanBeChanged)

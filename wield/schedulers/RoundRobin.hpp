@@ -28,7 +28,7 @@ namespace wield { namespace schedulers {
             return 1;
         }
 
-        inline StageType& nextStage(const std::size_t threadId)
+        inline StageType& nextStage(const std::size_t /*threadId*/)
         {
             return dispatcher_[incrementStage()];
         }
