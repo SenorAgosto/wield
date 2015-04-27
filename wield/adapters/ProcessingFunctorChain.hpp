@@ -30,15 +30,12 @@ namespace wield { namespace adapters {
         : public polymorphic::QueueInterface<MessagePtr>
     {
     public:
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Wmissing-braces"
         template<typename... Args>
         ProcessingFunctorChain(Args... args)
-            : processingFunctors_ {args...}
+            : processingFunctors_ {{args...}}
         {
         }
-        #pragma clang diagnostic pop
-        
+
         // called in the same thread as the stage invoking dispatch to
         // the stage owning this queue (the previous stage in the
         // stage graph).
