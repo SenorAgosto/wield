@@ -36,7 +36,7 @@ namespace {
 
     // a timer callback
     void createMessage(
-          const boost::system::error_code& error
+          const boost::system::error_code& 
         , boost::asio::deadline_timer& timer
         , Dispatcher& dispatcher
         , Scheduler& scheduler

@@ -21,16 +21,16 @@ namespace test_raw {
 
         virtual ~ProcessingFunctorInterface(){}
         
-        virtual void operator()(Message& msg) = 0;
-        virtual void operator()(TestMessage& msg) = 0;
-        virtual void operator()(TestMessage2& msg) = 0;
+        virtual void operator()(Message&) = 0;
+        virtual void operator()(TestMessage&) = 0;
+        virtual void operator()(TestMessage2&) = 0;
     };
 
 	class ProcessingFunctor : public ProcessingFunctorInterface
 	{
-        void operator()(Message& msg) override {}
-        void operator()(TestMessage& msg) override {}
-        void operator()(TestMessage2& msg) override {}
+        void operator()(Message&) override {}
+        void operator()(TestMessage&) override {}
+        void operator()(TestMessage2&) override {}
 	};
 
     // An example of a trivial garbage collection stage for freeing

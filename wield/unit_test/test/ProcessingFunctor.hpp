@@ -141,7 +141,7 @@ namespace test {
         {
         }
 
-        void operator()(TestMessage2& message) override
+        void operator()(TestMessage2&) override
         {
             hazah_++;
         }
