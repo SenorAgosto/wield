@@ -30,6 +30,8 @@ namespace {
         bool try_pop(MessagePtr& message)
         {
             message = new TestMessage();
+            message->incrementReferenceCount();
+
             return true;
         }
         
