@@ -62,7 +62,8 @@ namespace {
         Stage s2(Stages::Stage2, d, q2, f2);
 
         Message::smartptr m = new TestMessage();
-        s.push(m.get());
+        d.dispatch(Stages::Stage1, *m);
+        
         s.process();    // this should pass the message on to Stage2.
         s2.process();
 
