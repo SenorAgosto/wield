@@ -24,7 +24,7 @@ namespace test_color_minus {
         using ProcessingFunctor = ProcessingFunctorInterface;
 
 		using Message = wield::MessageBase<ProcessingFunctor>;
-		using MessagePtr = typename Message::smartptr;
+		using MessagePtr = typename Message::ptr;
 
         using Queue = Concurrency::concurrent_queue<MessagePtr>;
 
