@@ -46,6 +46,10 @@ namespace wield { namespace adapters {
             {
                 message->processWith(*func);
             }
+
+            // the dispatcher increments the reference count before push'ing
+            // we have to decrement it here to ensure memory is cleaned up.
+            message->decrementReferenceCount();
         }
 
         bool try_pop(MessagePtr&) override { return false; }
