@@ -38,5 +38,5 @@ namespace wield {
 
     // inform boost::intrusive_ptr constructor
     // not to increment the reference count.
-    static const bool no_increment = true;
+    static const bool no_increment = false;
 }
