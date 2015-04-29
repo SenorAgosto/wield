@@ -17,7 +17,7 @@ namespace wield {
         using ProcessingFunctor = typename ClientDefinedTraits::ProcessingFunctor;
         
         using Message = MessageBase<ProcessingFunctor>;
-        using MessagePtr = typename Message::smartptr;
+        using MessagePtr = typename Message::ptr;
         
         using Queue = typename ClientDefinedTraits::template QueueType<MessagePtr>;
         

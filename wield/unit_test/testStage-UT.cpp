@@ -30,7 +30,7 @@ namespace {
         Message::smartptr m = new TestMessage();
         
         Stage s(Stages::Stage1, d, q, f);
-        s.push(m);
+        s.push(m.get());
 
         CHECK(s.process());
         CHECK(f.message1Called_);
@@ -41,11 +41,13 @@ namespace {
         Dispatcher d;
         Queue q;
         ProcessingFunctor f;
+        
         Message::smartptr m = new TestMessage();
+        Message::smartptr m2 = new TestMessage();
 
         Stage s(Stages::Stage1, d, q, f);
-        s.push(m);
-        s.push(m);
+        s.push(m.get());
+        s.push(m2.get());
         
         CHECK(s.process());
         CHECK(s.process());

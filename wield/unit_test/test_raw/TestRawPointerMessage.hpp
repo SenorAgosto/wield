@@ -10,8 +10,16 @@ namespace test_raw {
     {
     public:
         using smartptr = TestRawPointerMessage*;
-
+        using ptr = TestRawPointerMessage*;
+        
         virtual ~TestRawPointerMessage(){}
         virtual void processWith(ProcessingFunctor& process) = 0;
+
+        void incrementReferenceCount();
     };
+
+    template<class ProcessingFunctor>
+    void TestRawPointerMessage<ProcessingFunctor>::incrementReferenceCount()
+    {
+    }
 }

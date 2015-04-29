@@ -30,7 +30,7 @@ namespace wield { namespace adapters { namespace polymorphic {
     {
     public:
         using Message = typename Traits::Message;
-        using MessagePtr = typename Message::smartptr;
+        using MessagePtr = typename Message::ptr;
         using AdaptedQueue = wield::adapters::polymorphic::QueueAdapter<MessagePtr, ConcreteQueue>;
         using ProcessingFunctor = typename Traits::ProcessingFunctor;
         using Stage = typename Traits::Stage;
