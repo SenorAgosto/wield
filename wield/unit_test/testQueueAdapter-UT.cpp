@@ -32,6 +32,7 @@ namespace {
         CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
         CHECK(m2 != nullptr);
+        CHECK_EQUAL(m2, m.get());
     }
     
     TEST(verifyCanInstantiateQueueAdapterWithOurQueueImplementation)
@@ -44,6 +45,7 @@ namespace {
         
         CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
+        CHECK_EQUAL(m2, m.get());
     }
     
     TEST(verifyCanDispatcheBetweenStagesUsingQueueAdapterAsQueueTypeForStage)
