@@ -41,8 +41,8 @@ namespace {
         // Note: DO NOT scheduling pass-through stages is a pointless waste of time.
         // It probably wouldn't hurt anything as attempting to pump them for messages
         // will fail. Just take note.
-        s.push(m.get());
-        
+        d.dispatch(Stages::Stage1, *m);
+
         CHECK(!f.messageBaseCalled_);
         CHECK(f.message1Called_);
         CHECK(!f.message2Called_);

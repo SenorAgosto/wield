@@ -63,6 +63,11 @@ namespace {
         CHECK_EQUAL(&stage1, & color.nextStage(0));
         CHECK_EQUAL(&stage2, & color.nextStage(1));
         CHECK_EQUAL(&stage3, & color.nextStage(2));
+
+        // cleanup the memory in the queues...
+        stage1.process();
+        stage2.process();
+        stage3.process();
     }
 
     TEST(verifyColorMinusAssignsStageWithMostWork)
@@ -99,5 +104,10 @@ namespace {
 
         CHECK_EQUAL(&stage3, & color.nextStage(0));
         CHECK_EQUAL(&stage1, & color.nextStage(1));
+
+        // cleanup the memory in the queues...
+        stage3.process();
+        stage3.process();
+        stage3.process();
     }
 }
