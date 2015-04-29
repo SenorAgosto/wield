@@ -33,6 +33,10 @@ namespace wield { namespace adapters { namespace polymorphic {
         {
             // process the message immediately.
             message->processWith(processingFunctor_);
+
+            // the dispatcher increments the reference count before push'ing
+            // we have to decrement it here to ensure memory is cleaned up.
+            message->decrementReferenceCount();
         }
         
         bool try_pop(MessagePtr&) override { return false; }
