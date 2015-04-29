@@ -59,7 +59,11 @@ namespace wield {
         */
         inline void dispatch(StageEnumType stageName, typename StageType::MessageType& message)
         {
-            stages_[static_cast<std::size_t>(stageName)]->push( typename StageType::MessageType::smartptr(&message) );
+            // increment the reference count so the message isn't deleted while
+            // in the queue.
+            message.incrementReferenceCount();
+
+            stages_[static_cast<std::size_t>(stageName)]->push(&message);
         }
 
         /* Send a copy of a message to a stage
@@ -70,9 +74,10 @@ namespace wield {
         template<class ConcreteMessageType>
         inline void dispatch(StageEnumType stageName, ConcreteMessageType& message, CloneMessageTagType)
         {
-            stages_[static_cast<std::size_t>(stageName)]->push(
-                typename StageType::MessageType::smartptr(new ConcreteMessageType(message))
-            );
+            typename StageType::MessageType::ptr clone = new ConcreteMessageType(message);
+            clone->incrementReferenceCount();
+
+            stages_[static_cast<std::size_t>(stageName)]->push(clone);
         }
 
         /* Stage lookup function

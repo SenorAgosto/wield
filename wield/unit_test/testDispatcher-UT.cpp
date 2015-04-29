@@ -43,7 +43,7 @@ namespace {
         d.dispatch(Stages::Stage1, *m, wield::clone_message);
         CHECK_EQUAL(1U, q.unsafe_size());
 
-        Message::smartptr m2;
+        Message::ptr m2;
         q.try_pop(m2);
 
         CHECK(m2);
@@ -62,7 +62,7 @@ namespace {
         Stage s2(Stages::Stage2, d, q2, f2);
 
         Message::smartptr m = new TestMessage();
-        s.push(m);
+        s.push(m.get());
         s.process();    // this should pass the message on to Stage2.
         s2.process();
 
