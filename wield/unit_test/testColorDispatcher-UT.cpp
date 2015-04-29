@@ -62,5 +62,12 @@ namespace {
         CHECK_EQUAL(Stages::Stage3, stages[2]);
         CHECK_EQUAL(Stages::Stage2, stages[3]);
         CHECK_EQUAL(Stages::Stage1, stages[4]);
+
+        // cleanup memory in queues
+        stage1.process();
+        stage1.process();
+        stage3.process();
+        stage2.process();
+        stage1.process();
     }
 }
