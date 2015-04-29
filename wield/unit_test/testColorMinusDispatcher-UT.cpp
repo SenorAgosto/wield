@@ -53,5 +53,12 @@ namespace {
         CHECK_EQUAL(3U, stats.estimatedDepth(Stages::Stage1));
         CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage2));
         CHECK_EQUAL(1U, stats.estimatedDepth(Stages::Stage3));
+
+        // cleanup memory in the queues...
+        stage1.process();
+        stage1.process();
+        stage3.process();
+        stage2.process();
+        stage1.process();
     }
 }

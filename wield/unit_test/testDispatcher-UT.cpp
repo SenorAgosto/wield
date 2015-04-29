@@ -25,6 +25,9 @@ namespace {
         CHECK_EQUAL(0U, q.unsafe_size());
         d.dispatch(Stages::Stage1, *m);
         CHECK_EQUAL(1U, q.unsafe_size());
+
+        // cleanup memory from queue
+        s.process();
     }
 
     TEST(verifyDispatcherDispatchByCloning)
@@ -48,6 +51,8 @@ namespace {
 
         CHECK(m2);
         CHECK(m.get() != m2);    // verify we cloned.
+
+        delete m2;
     }
 
     TEST(verifyDispatchingCanGetAMessageFromOneStageToAnother)
