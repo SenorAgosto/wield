@@ -26,6 +26,7 @@ namespace wield {
 		virtual void processWith(ProcessingFunctor& process) = 0;
 
         inline void incrementReferenceCount();
+        inline void decrementReferenceCount();
     };
 
 
@@ -35,6 +36,11 @@ namespace wield {
         intrusive_ptr_add_ref(this);
     }
 
+    template<class ProcessingFunctor>
+    void MessageBase<ProcessingFunctor>::decrementReferenceCount()
+    {
+        intrusive_ptr_release(this);
+    }
 
     // inform boost::intrusive_ptr constructor
     // not to increment the reference count.
