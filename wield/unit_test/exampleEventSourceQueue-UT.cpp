@@ -14,7 +14,7 @@ namespace {
     using Queue = Traits::Queue;
     using Stage = Traits::Stage;
     using Message = Traits::Message;
-    using MessagePtr = typename Message::smartptr;
+    using MessagePtr = typename Message::ptr;
     
     struct EventSourceQueueImpl
     {

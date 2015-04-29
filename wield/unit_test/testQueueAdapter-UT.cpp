@@ -24,10 +24,10 @@ namespace {
     TEST(verifyCanInstantiateQueueAdapterWithConcurrentQueue)
     {
         Message::smartptr m = new TestMessage();
-        Message::smartptr m2 = nullptr;
+        Message::ptr m2 = nullptr;
         
-        adapters::polymorphic::QueueAdapter<Message::smartptr, Concurrency::concurrent_queue<Message::smartptr>> queue;
-        queue.push(m);
+        adapters::polymorphic::QueueAdapter<Message::ptr, Concurrency::concurrent_queue<Message::ptr>> queue;
+        queue.push(m.get());
         
         CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
@@ -37,10 +37,10 @@ namespace {
     TEST(verifyCanInstantiateQueueAdapterWithOurQueueImplementation)
     {
         Message::smartptr m = new TestMessage();
-        Message::smartptr m2 = nullptr;
+        Message::ptr m2 = nullptr;
         
-        adapters::polymorphic::QueueAdapter<Message::smartptr, SimpleConcurrentQueue> queue;
-        queue.push(m);
+        adapters::polymorphic::QueueAdapter<Message::ptr, SimpleConcurrentQueue> queue;
+        queue.push(m.get());
         
         CHECK_EQUAL(1U, queue.unsafe_size());
         CHECK(queue.try_pop(m2));
@@ -54,17 +54,17 @@ namespace {
         ProcessingFunctor f2;
         
         // construct concrete queues with different implementations.
-        using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<Message::smartptr, Concurrency::concurrent_queue<Message::smartptr>>;
+        using ConcreteQueue1 = adapters::polymorphic::QueueAdapter<Message::ptr, Concurrency::concurrent_queue<Message::ptr>>;
         ConcreteQueue1 q1;
         
-        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<Message::smartptr, SimpleConcurrentQueue>;
+        using ConcreteQueue2 = adapters::polymorphic::QueueAdapter<Message::ptr, SimpleConcurrentQueue>;
         ConcreteQueue2 q2;
         
         Stage s(Stages::Stage1, d, q1, f);
         Stage s2(Stages::Stage2, d, q2, f2);
         
         Message::smartptr m = new TestMessage();
-        s.push(m);
+        s.push(m.get());
         s.process();    // this should pass the message on to Stage2.
         s2.process();
         

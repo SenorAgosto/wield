@@ -57,7 +57,7 @@ namespace {
         
         // when stage s is sent a TestMessage, it sends a TestMessage2 to s2.
         Message::smartptr m = new TestMessage();
-        s.push(m);
+        s.push(m.get());
         s.process();
         
         CHECK_EQUAL(0U, f.messageBaseCallCount_);

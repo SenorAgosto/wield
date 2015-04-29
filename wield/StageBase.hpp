@@ -2,6 +2,8 @@
 #include <wield/DispatcherInterface.hpp>
 #include <wield/MessageBase.hpp>
 
+#include <wield/details/SmartPtrCreator.hpp>
+
 namespace wield {
 
     /* Stage
@@ -42,7 +44,7 @@ namespace wield {
 
         // Insert a message onto the stage's queue
         // @m the message to insert
-        void push(const typename MessageType::smartptr& m)
+        void push(const typename MessageType::ptr& m)
         {
             queue_.push(m);
         }
@@ -55,10 +57,12 @@ namespace wield {
         */
         bool process(void)
         {
-            typename MessageType::smartptr m;
-            if( queue_.try_pop(m) )
+            typename MessageType::ptr m;
+            if(queue_.try_pop(m))
             {
-                m->processWith(processingFunctor_);
+                typename MessageType::smartptr message(details::create_smartptr<MessageType>(m, no_increment));
+
+                message->processWith(processingFunctor_);
                 return true;
             }
 
