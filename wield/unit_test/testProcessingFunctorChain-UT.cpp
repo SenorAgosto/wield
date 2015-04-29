@@ -40,14 +40,14 @@ namespace {
         CHECK_EQUAL(0U, f.message2CallCount_);
         
         Message::smartptr m = new TestMessage;
-        s.push(m.get());  // as a pass-through stage, processed on the push.
+        d.dispatch(Stages::Stage1, *m); // as a pass-through stage, processed on the push.
         
         CHECK_EQUAL(0U, f.messageBaseCallCount_);
         CHECK_EQUAL(3U, f.message1CallCount_);
         CHECK_EQUAL(0U, f.message2CallCount_);
         
         m = new TestMessage2;
-        s.push(m.get());
+        d.dispatch(Stages::Stage1, *m);
         
         CHECK_EQUAL(0U, f.messageBaseCallCount_);
         CHECK_EQUAL(3U, f.message1CallCount_);

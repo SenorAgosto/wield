@@ -86,7 +86,7 @@ namespace {
         CHECK_EQUAL(0U, f.message2CallCount_);
         
         Message::smartptr m = new TestMessage;
-        s.push(m.get());
+        d.dispatch(Stages::Stage1, *m);
         s.process();
         
         CHECK_EQUAL(0U, f.messageBaseCallCount_);
@@ -94,7 +94,7 @@ namespace {
         CHECK_EQUAL(0U, f.message2CallCount_);
         
         m = new TestMessage2;
-        s.push(m.get());
+        d.dispatch(Stages::Stage1, *m);
         s.process();
         
         CHECK_EQUAL(0U, f.messageBaseCallCount_);
