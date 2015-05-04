@@ -24,3 +24,4 @@ namespace test_adapter {
         void processWith(ProcessingFunctorInterface& process) override;
     };
 }
+
