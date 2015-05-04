@@ -31,3 +31,4 @@ namespace test_color_minus {
         return os;
     }
 }
+
