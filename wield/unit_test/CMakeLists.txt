@@ -31,11 +31,11 @@ else()
 	set(UNITTEST++_LIBRARIES "/Volumes/austirg/homebrew/lib/libUnitTest++.a")
 	#find_package(UnitTest++ REQUIRED)
 
-	include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/include")
-	set(TBB_LIBRARIES "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbb.dylib" "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbbmalloc.dylib")
+	#include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/include")
+	#set(TBB_LIBRARIES "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbb.dylib" "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbbmalloc.dylib")
 
 	#link_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib")
-	#find_package(tbb 4.2 REQUIRED)
+	find_package(tbb 4.2 REQUIRED)
 endif()
 
 add_executable( wield-UT ${implementation_files} ${interface_files} ${platform_files} ${test_application_files} ${test_adapter_app_files} ${test_raw_files} ${test_color_files} ${test_color_minus_files})
