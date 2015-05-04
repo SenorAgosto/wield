@@ -21,3 +21,4 @@ namespace test_adapter {
         process(*this);
     }
 }
+
