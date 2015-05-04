@@ -45,6 +45,7 @@ else()
             # Disabled Warnings
             -Wno-c++98-compat
             -Wno-global-constructors
+            -Wno-exit-time-destructors
             -Wno-padded
             -Wno-undef
             -Wno-c++98-compat-pedantic
