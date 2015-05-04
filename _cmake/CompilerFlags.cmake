@@ -43,6 +43,7 @@ else()
             -Werror
 
             # Disabled Warnings
+            -Wno-unknown-pragmas
             -Wno-c++98-compat
             -Wno-global-constructors
             -Wno-exit-time-destructors
