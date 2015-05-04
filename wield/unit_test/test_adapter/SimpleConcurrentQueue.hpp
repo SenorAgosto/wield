@@ -44,3 +44,4 @@ namespace test_adapter {
         std::queue<MessagePtr> queue_;
     };
 }
+
