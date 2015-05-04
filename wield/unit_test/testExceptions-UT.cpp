@@ -9,3 +9,4 @@ namespace {
         CHECK_EQUAL("DispatherBase::registerStage() duplicate registration of stage.", e.what());
     }
 }
+
