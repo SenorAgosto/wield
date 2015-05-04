@@ -23,3 +23,4 @@ namespace wield { namespace logging {
         virtual void Error(const std::string& error) const = 0;
     };
 }}
+
