@@ -52,3 +52,4 @@ namespace {
         CHECK(!f2.message2Called_);
     }
 }
+
