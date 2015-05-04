@@ -11,6 +11,7 @@
 #else
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wmissing-noreturn"
+    #pragma clang diagnostic ignored "-Wsign-conversion"
     // Use Intel Thread Build Blocks concurrent_queue
     #include <tbb/concurrent_queue.h>
     namespace Concurrency = tbb::strict_ppl;
