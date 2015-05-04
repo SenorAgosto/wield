@@ -72,3 +72,4 @@ namespace {
         CHECK_EQUAL(1U, ppf2.hazah_);
     }
 }
+
