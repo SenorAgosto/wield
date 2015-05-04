@@ -26,7 +26,7 @@ namespace {
     TEST(verifySchedulerInstantiation)
     {
         Dispatcher d;
-        Scheduler scheduler(d, 1);
+        Scheduler scheduler(d, 1U);
     }
 
     TEST(verifySchedulerCreatesThreads)
