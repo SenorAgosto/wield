@@ -11,3 +11,4 @@ namespace wield { namespace schedulers { namespace utils {
     // @numberOfStages is the number of stages in the stage graph.
     std::size_t numberOfThreads(const std::size_t numberOfStages);
 }}}
+
