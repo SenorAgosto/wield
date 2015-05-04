@@ -17,3 +17,4 @@ namespace wield { namespace adapters { namespace polymorphic {
     };
 
 }}}
+
