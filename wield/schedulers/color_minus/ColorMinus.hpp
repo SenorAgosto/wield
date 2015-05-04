@@ -38,9 +38,10 @@ namespace wield { namespace schedulers { namespace color_minus {
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
 
         template<typename... Args>
-        ColorMinus(Dispatcher& dispatcher, MessageCount& messageCounts, Args&&... args)
+        ColorMinus(Dispatcher& dispatcher, MessageCount& stats, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
             , dispatcher_(dispatcher)
+            , stats_(stats)
         {
         }
 
