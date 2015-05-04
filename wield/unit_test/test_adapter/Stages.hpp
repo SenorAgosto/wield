@@ -12,3 +12,4 @@ namespace test_adapter {
         NumberOfEntries
     };
 }
+
