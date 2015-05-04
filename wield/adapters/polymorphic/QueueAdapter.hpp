@@ -41,3 +41,4 @@ namespace wield { namespace adapters { namespace polymorphic {
         QueueType queue_;
     };
 }}}
+
