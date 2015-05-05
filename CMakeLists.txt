@@ -8,4 +8,3 @@ include_directories(${CMAKE_SOURCE_DIR}/../UsingIntrusivePtrIn)
 include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(wield)
-add_subdirectory(_acceptance_tests)
