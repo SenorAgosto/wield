@@ -40,4 +40,6 @@ else()
 endif()
 
 add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers} ${polymorphic_policies_headers} ${details_headers} ${schedulers_headers} ${color_headers} ${color_minus_headers})
-add_subdirectory(unit_test)
+
+add_subdirectory(tests/unit_test)
+add_subdirectory(tests/acceptance_test)
