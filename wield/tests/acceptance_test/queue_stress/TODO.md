@@ -1,5 +1,7 @@
 # TODO
 
 - trouble shoot concurrent_queue use, it seems to be giving me messages twice.
-    - see if switching to raw* type corrects the issue
+    - switching to raw * did not correct the issue, try using Valgrind DRD on the application to uncover issues. 
+
+    
 
