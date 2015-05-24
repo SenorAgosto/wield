@@ -27,14 +27,9 @@ if(WIN32)
 	
 	set(UNITTEST++_LIBRARIES "\\lib\\x64\\vc110\\UnitTestxx\\1.4\\lib\\debug\\UnitTest++.lib")
 else()
-	include_directories("/Volumes/austirg/homebrew/include/")
-	set(UNITTEST++_LIBRARIES "/Volumes/austirg/homebrew/lib/libUnitTest++.a")
-	#find_package(UnitTest++ REQUIRED)
+	find_package(UnitTest++ REQUIRED)
+    include_directories(${UNITTEST++_INCLUDE_DIRS})
 
-	#include_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/include")
-	#set(TBB_LIBRARIES "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbb.dylib" "/Volumes/austirg/homebrew/Cellar/tbb/4.3-20140724/lib/libtbbmalloc.dylib")
-
-	#link_directories("/Volumes/austirg/homebrew/Cellar/tbb/4.2/lib")
 	find_package(tbb 4.2 REQUIRED)
 endif()
 
