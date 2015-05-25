@@ -95,6 +95,6 @@ namespace wield {
         DispatcherBase& operator=(const DispatcherBase&) = delete;
         
     private:
-    std::array<StageType*, static_cast<std::size_t>(StageEnum::NumberOfEntries)> stages_;
+        std::array<StageType*, static_cast<std::size_t>(StageEnum::NumberOfEntries)> stages_;
     };
 }
