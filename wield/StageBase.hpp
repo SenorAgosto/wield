@@ -57,7 +57,7 @@ namespace wield {
         */
         bool process(void)
         {
-            typename MessageType::ptr m;
+            typename MessageType::ptr m = nullptr;
             if(queue_.try_pop(m))
             {
                 typename MessageType::smartptr message(details::create_smartptr<MessageType>(m, no_increment));
