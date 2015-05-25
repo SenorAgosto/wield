@@ -4,6 +4,7 @@
 #include <queue_stress/Stages.hpp>
 
 #include <queue_stress/message/TestMessage.hpp>
+#include <queue_stress/details/SequenceArbiter.hpp>
 
 #include <iostream>
 #include <limits>
@@ -15,37 +16,28 @@ namespace queue_stress { namespace stage {
     {
     public:
         ForwardingProcessingFunctor(Dispatcher& dispatcher, Stages next)
-            : dispatcher_(dispatcher)
+            : arbiter_(errorPolicy_)
+            , dispatcher_(dispatcher)
             , next_(next)
-            , previousSequenceNumber_(std::numeric_limits<std::size_t>::max())
         {
         }
 
         void operator()(message::TestMessage& message) override
         {
-            auto nextExpectedSequenceNumber = previousSequenceNumber_ + 1;
-            auto sequenceNumber = message.sequenceNumber();
-
-            if(sequenceNumber != nextExpectedSequenceNumber)
+            if(!arbiter_.validate(0, message.sequenceNumber()))
             {
-                std::cerr 
-                    << "There's a problem with sequence numbers. Expected ("
-                    << nextExpectedSequenceNumber 
-                    << "), got (" 
-                    << sequenceNumber 
-                    << ")"
-                    << std::endl;
+                std::cerr << "Error: arbiter rejected sequence number: " << message.sequenceNumber() << std::endl;
             }
 
-            previousSequenceNumber_ = sequenceNumber;
             dispatcher_.dispatch(next_, message);
         }
 
     private:
+        details::ArbiterErrorReportingPolicy errorPolicy_;
+        details::SequenceArbiter arbiter_;
+
         Dispatcher& dispatcher_;
         Stages next_;
-
-        std::size_t previousSequenceNumber_;
     };
 }}
 
