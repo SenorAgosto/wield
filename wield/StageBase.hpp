@@ -22,7 +22,7 @@ namespace wield {
         static_assert(std::is_enum<StageEnum>::value, "StageEnum parameter is not an enum type.");
         using MessageType = Message;
         
-        StageBase(StageEnum stageName, DispatcherInterface<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
+        StageBase(const StageEnum stageName, DispatcherInterface<StageEnum, StageBase>& dispatcher, QueueType& queue, ProcessingFunctor& processingFunctor)
             : processingFunctor_(processingFunctor)
             , queue_(queue)
             , stageName_(stageName)
@@ -83,6 +83,6 @@ namespace wield {
         ProcessingFunctor& processingFunctor_;
         QueueType& queue_;
 
-        StageEnum stageName_;
+        const StageEnum stageName_;
     };
 }
