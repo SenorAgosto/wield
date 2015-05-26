@@ -5,7 +5,7 @@ namespace queue_stress { namespace details {
 
     void ArbiterErrorReportingPolicy::FirstSequenceNumberOutOfSequence(const std::size_t line, const std::size_t sequence)
     {
-        std::cerr << "First sequence number out of order." << std::endl;
+        std::cerr << "First sequence number out of order: (" << line << "): " << sequence << std::endl;
     }
 
     void ArbiterErrorReportingPolicy::DuplicateOnLine(const std::size_t line, const std::size_t sequence)
@@ -20,7 +20,7 @@ namespace queue_stress { namespace details {
 
     void ArbiterErrorReportingPolicy::GapFill(const std::size_t start, const std::size_t length)
     {
-        std::cerr << "Gap Fill: " << start << std::endl;
+        std::cerr << "Gap Fill: " << start << ", length: " << length << std::endl;
     }
 
     void ArbiterErrorReportingPolicy::LinePositionOverrun(const std::size_t /*slowLine*/, const std::size_t /*overrunByLine*/)
