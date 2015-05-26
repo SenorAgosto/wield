@@ -12,7 +12,7 @@ namespace queue_stress {
 
     struct AppTraits 
     {
-	using StageEnumType = Stages;
+        using StageEnumType = Stages;
         using ProcessingFunctor = ProcessingFunctorBase;
 
         template<class MessagePtrType>
