@@ -1,6 +1,7 @@
 #include <atomic>
 #include <chrono>
 #include <thread>
+#include <boost/timer/timer.hpp>
 
 #include <queue_stress/Traits.hpp>
 
@@ -38,19 +39,24 @@ int main()
     stage::StatsProcessingFunctor stats;
     Stage s4(Stages::Stage4, dispatcher, q4, stats);
 
-    Scheduler scheduler(dispatcher);
-
-    std::atomic<bool> done(false);
     std::size_t sequenceNumber = 0;
 
+    Scheduler scheduler(dispatcher);
     scheduler.start();
 
-    while(!done)
+    boost::timer::cpu_timer timer;
+    while(sequenceNumber < 100000000)
     {
         tryCreateMessage(dispatcher, sequenceNumber++);
     }
 
+    timer.stop();
+    scheduler.stop();
+
     scheduler.join();
+
+    std::cout << "100 Million messages processed in " << timer.format(16, "%w") << " seconds" << std::endl;
+
     return 0;
 }
 
