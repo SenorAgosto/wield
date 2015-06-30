@@ -71,6 +71,6 @@ void tryCreateMessage(queue_stress::Traits::Dispatcher& dispatcher, const std::s
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 }
