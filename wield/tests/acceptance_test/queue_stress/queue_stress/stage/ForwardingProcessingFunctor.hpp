@@ -24,12 +24,14 @@ namespace queue_stress { namespace stage {
 
         void operator()(message::TestMessage& message) override
         {
-            if(!arbiter_.validate(0, message.sequenceNumber()))
+            if(arbiter_.validate(0, message.sequenceNumber()))
+            {
+                dispatcher_.dispatch(next_, message);
+            }
+            else
             {
                 std::cerr << "Error: arbiter rejected sequence number: " << message.sequenceNumber() << std::endl;
             }
-
-            dispatcher_.dispatch(next_, message);
         }
 
     private:
@@ -37,7 +39,7 @@ namespace queue_stress { namespace stage {
         details::SequenceArbiter arbiter_;
 
         Dispatcher& dispatcher_;
-        Stages next_;
+        const Stages next_;
     };
 }}
 

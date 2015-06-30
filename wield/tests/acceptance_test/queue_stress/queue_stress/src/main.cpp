@@ -21,7 +21,7 @@ int main()
     using Queue = Traits::Queue;
 
     Dispatcher dispatcher;
-/*
+
     Queue q1;
     stage::ForwardingProcessingFunctor f1(dispatcher, Stages::Stage2);
     Stage s1(Stages::Stage1, dispatcher, q1, f1);
@@ -29,26 +29,20 @@ int main()
     Queue q2;
     stage::ForwardingProcessingFunctor f2(dispatcher, Stages::Stage3);
     Stage s2(Stages::Stage2, dispatcher, q2, f2);
-*/
+
     Queue q3;
-    stage::ForwardingProcessingFunctor f3(dispatcher, Stages::Stage2);
-    Stage s3(Stages::Stage1, dispatcher, q3, f3);
+    stage::ForwardingProcessingFunctor f3(dispatcher, Stages::Stage4);
+    Stage s3(Stages::Stage3, dispatcher, q3, f3);
 
     Queue q4;
     stage::StatsProcessingFunctor stats;
-    Stage s4(Stages::Stage2, dispatcher, q4, stats);
+    Stage s4(Stages::Stage4, dispatcher, q4, stats);
 
     Scheduler scheduler(dispatcher);
 
     std::atomic<bool> done(false);
-/*    std::thread t( [&scheduler, &done]() {
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-        scheduler.stop();
-        done = true;
-    });
-*/
     std::size_t sequenceNumber = 0;
-    
+
     scheduler.start();
 
     while(!done)
