@@ -7,8 +7,8 @@ namespace queue_stress {
     {
         Stage1,
         Stage2,
-//        Stage3,
-//        Stage4,
+        Stage3,
+        Stage4,
   
         NumberOfEntries
     };

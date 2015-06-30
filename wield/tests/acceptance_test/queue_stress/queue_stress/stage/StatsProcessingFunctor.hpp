@@ -14,17 +14,15 @@ namespace queue_stress { namespace stage {
     public:
         StatsProcessingFunctor()
             : count_(0)
-            , lastCount_(0)
             , lastTime_(std::chrono::high_resolution_clock::now())
         {
         }
 
-        void operator()(message::TestMessage& message) override
+        void operator()(message::TestMessage&) override
         {
-            if(count_++ % 10000 == 0)
+            if(count_++ % ReportInterval == 0)
             {
-//                report_stats();
-                std::cout << "Yo! (" << message.sequenceNumber() << ")\n";
+                report_stats();
             }
         }
 
@@ -32,29 +30,20 @@ namespace queue_stress { namespace stage {
 
         void report_stats() 
         {
-            std::size_t messages = count_ - lastCount_;
-            lastCount_ = count_;
-
             TimePoint now = std::chrono::high_resolution_clock::now();
 
             std::chrono::high_resolution_clock::duration duration = now - lastTime_;
             lastTime_ = now;
 
-            // normalize the duration into seconds...
-            auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
+            double milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+            auto messageRate = (static_cast<double>(ReportInterval) / milliseconds) * 1000;
 
-            if(seconds > 0)
-            {
-                // normalize to messages/sec.
-                auto messagesPerSecond = messages / static_cast<std::size_t>(seconds);
-                std::cout << messagesPerSecond << "Messages/s\n";
-            }
+            std::cout << messageRate << " msg/s\n";
         }
 
     private:
-
+        static const std::size_t ReportInterval = 1000000;
         std::size_t count_;
-        std::size_t lastCount_;
 
         TimePoint lastTime_;
     };
