@@ -38,7 +38,7 @@ namespace queue_stress { namespace stage {
             double milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
             auto messageRate = (static_cast<double>(ReportInterval) / milliseconds) * 1000;
 
-            std::cout << messageRate << " msg/s\n";
+            std::cout << messageRate << " msg/s" << std::endl;
         }
 
     private:
