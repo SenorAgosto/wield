@@ -46,6 +46,7 @@ else()
             -Wno-unknown-pragmas
             -Wno-c++98-compat
             -Wno-global-constructors
+            -Wno-extra-semi
             -Wno-exit-time-destructors
             -Wno-padded
             -Wno-undef
