@@ -8,8 +8,6 @@
 #include <wield/schedulers/color/Dispatcher.hpp>
 
 #include "../platform/ConcurrentQueue.hpp"
-
-#include "./Scheduler.hpp"
 #include "./Stages.hpp"
 
 namespace test_color {
