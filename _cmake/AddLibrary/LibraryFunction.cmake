@@ -1,13 +1,12 @@
 function(MAKE_LIBRARY LIB_NAME)
 	set(library_name "${LIB_NAME}")
 	
-	cmake_parse_arguments(PARSED_ARGS "" "NAME" "DEPENDENCIES;LINK_LIBS;UNITTEST_LIBS" ${ARGN})
+	cmake_parse_arguments(PARSED_ARGS "" "NAME" "DEPENDENCIES;UNITTEST_LIBS" ${ARGN})
 	set(dependencies ${PARSED_ARGS_DEPENDENCIES})
-	set(link_libs ${PARSED_ARGS_LINK_LIBS})
 	set(unit_test_dependencies ${PARSED_ARGS_UNITTEST_LIBS})
 
 	message("Adding Library '${library_name}'")
-
+	
 	add_source(
 		${CMAKE_CURRENT_SOURCE_DIR} 
 		source_files 
@@ -18,7 +17,6 @@ function(MAKE_LIBRARY LIB_NAME)
 		add_dependencies(${library_name} ${dependencies})
 	endif()
 
-
 	# build a testing library that holds mocks and test dummies
 	set(testing_lib "") 
 	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/testing/")
@@ -26,14 +24,9 @@ function(MAKE_LIBRARY LIB_NAME)
 		message("Adding Library '${testing_lib}'")
 
 		add_source("${CMAKE_CURRENT_SOURCE_DIR}/testing/" testing_source)
-		add_library(
-			${testing_lib} 
-			${testing_source})
+		add_library(${testing_lib} ${testing_source})
 
 		add_dependencies(${testing_lib} ${library_name})
-		target_link_libraries(
-			${testing_lib}
-			${link_libs})
 	endif()
 
 
@@ -56,7 +49,6 @@ function(MAKE_LIBRARY LIB_NAME)
 			 ${library_name}
 			 ${testing_lib}
 			 ${dependencies}
-			 ${link_libs}
 			 ${unit_test_dependencies}
 		)
 
