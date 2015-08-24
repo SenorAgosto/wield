@@ -1,45 +1,12 @@
-file( GLOB interface_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.hpp)
-file( GLOB logging_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} logging/*.h logging/*.hpp)
-file( GLOB implementation_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.h src/*.hpp src/*.c src/*.cpp)
-file( GLOB adapter_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/*.h adapters/*.hpp)
-file( GLOB details_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} details/*.h details/*.hpp)
-file( GLOB platform_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} platform/*)
-file( GLOB policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} polling_policies/*.h polling_policies/*.hpp)
-file( GLOB polymorphic_policies_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} adapters/polymorphic/*.h adapters/polymorphic/*.hpp)
-file( GLOB schedulers_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/*.h schedulers/*.hpp)
-file( GLOB sched_utils_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/utils/*.h schedulers/utils/*.hpp)
-file( GLOB color_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/color/*.h schedulers/color/*.hpp)
-file( GLOB color_minus_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} schedulers/color_minus/*.h schedulers/color_minus/*.hpp)
+# On windows, we're using VLD for memory leak detection
+include(${PROJECT_SOURCE_DIR}/_cmake/post_build/VLD_setup.cmake)
+message("Boost: ${Boost_LIBRARIES}")
+MAKE_LIBRARY(wield
+	LINK_LIBS
+		${Boost_LIBRARIES}		# boost::intrusive_ptr
+	UNITTEST_LIBS 
+		${UNITTEST++_LIBRARIES}
+		${TBB_LIBRARIES} 		# only defined on Unix
+)
 
-source_group("Source" FILES ${implementation_files})
-source_group("Interface" FILES ${interface_files})
-source_group("Interface\\Adapters" FILES ${adapter_headers})
-source_group("Interface\\Adapters\\Polymorphic" FILES ${polymorphic_policies_headers})
-source_group("Interface\\Details" FILES ${details_headers})
-source_group("Interface\\Logging" FILES ${logging_headers})
-source_group("Interface\\Platform" FILES ${platform_headers})
-source_group("Interface\\Polling Policies" FILES ${policies_headers})
-source_group("Interface\\Schedulers" FILES ${schedulers_headers})
-source_group("Interface\\Schedulers\\Color" FILES ${color_headers})
-source_group("Interface\\Schedulers\\Color-" FILES ${color_minus_headers})
-
-if(WIN32)
-	include_directories("\\lib\\x64\\vc110\\Boost\\1.52.0\\include")
-else()
-	set(Boost_USE_STATIC_LIBS OFF)
-	set(Boost_USE_MULTITHREADED ON)
-	set(Boost_USE_STATIC_RUNTIME OFF)
-
-	find_package(Boost COMPONENTS filesystem system REQUIRED) 
-	
-	if(Boost_FOUND)
-		include_directories(${Boost_INCLUDE_DIR})
-		#link_directories(${Boost_LIBRARY_DIR})
-		add_definitions("-DHAS_BOOST")
-	endif() 	
-endif()
-
-add_library( wield ${implementation_files} ${interface_files} ${logging_headers} ${platform_headers} ${adapter_headers} ${policies_headers} ${polymorphic_policies_headers} ${details_headers} ${schedulers_headers} ${color_headers} ${color_minus_headers})
-
-add_subdirectory(tests/unit_test)
-add_subdirectory(tests/acceptance_test)
+include(${PROJECT_SOURCE_DIR}/_cmake/post_build/VLD_detect.cmake)
