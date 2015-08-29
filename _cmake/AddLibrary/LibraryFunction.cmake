@@ -29,7 +29,6 @@ function(MAKE_LIBRARY LIB_NAME)
 		add_dependencies(${testing_lib} ${library_name})
 	endif()
 
-
 	# build a unit test executable
 	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/unit_test/")
 		set(executable_name "${library_name}-UT")
@@ -71,4 +70,5 @@ function(MAKE_LIBRARY LIB_NAME)
 		endforeach(evaluate_test)
 	endif()
 
+	install(TARGETS ${library_name} DESTINATION lib)
 endfunction()
