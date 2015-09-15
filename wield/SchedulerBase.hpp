@@ -2,8 +2,8 @@
 
 #include <wield/details/SchedulingPolicyHolder.hpp>
 #include <wield/logging/Log.hpp>
-#include <wield/platform/thread>
-#include <wield/platform/list>
+#include <wield/platform/thread.hpp>
+#include <wield/platform/list.hpp>
 
 #include <algorithm>
 #include <atomic>
