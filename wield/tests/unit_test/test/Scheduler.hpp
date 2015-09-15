@@ -1,5 +1,5 @@
 #pragma once
-#include <wield/platform/thread>
+#include <wield/platform/thread.hpp>
 
 #include <cstddef>
 #include <limits>

@@ -8,7 +8,7 @@
 
 #include <wield/logging/Log.hpp>
 #include <wield/logging/LoggingPolicy.hpp>
-#include <wield/platform/thread>
+#include <wield/platform/thread.hpp>
 
 #include <cstddef>
 #include <thread>
