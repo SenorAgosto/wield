@@ -1,5 +1,7 @@
 # Wield TODO
 
+- update color/color- scheduler to allow a stage to "complete", i.e change it's maximum concurrency value to 0? Then have the scheduler stop once there are no more scheduleable stages.
+
 - unit test demonstrating scheduling a subset of the stages, e.g., the ThreadPerStageScheduler normally expects a StageEnumType with all stages in it, if we pass it a enum with half of the actual stages what happens? 
   - Going to need a translating Dispatcher to accomplish this. Because many of the scheduling policy assume enum values start at 0. 
 
