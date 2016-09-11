@@ -10,7 +10,7 @@
 namespace wield { namespace schedulers { namespace color_minus {
 
     // This scheduling policy implements the Color-
-    // scheduling algorithm; Color minus the queue.
+    // scheduling algorithm (Color minus the queue).
     //
     // As events are enqueued with a stage, a
     // monotonically increasing counter is incremented.
@@ -34,9 +34,10 @@ namespace wield { namespace schedulers { namespace color_minus {
         using StageType = Stage;
         using StageEnumType = StageEnum;
 
-        using ThreadAssignments = utils::ThreadAssignments<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
+        using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
 
+        // This constructor assumes a maximum concurrency of 1 thread per stage.
         template<typename... Args>
         ColorMinus(Dispatcher& dispatcher, MessageCount& stats, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
@@ -45,6 +46,19 @@ namespace wield { namespace schedulers { namespace color_minus {
         {
         }
 
+        // This constructor assumes a maximum concurrency of 1 thread per stage,
+		// the maximum number of threads running is determined by @maxNumberOfThreads
+        template<typename... Args>
+        ColorMinus(Dispatcher& dispatcher, MessageCount& stats, const std::size_t maxNumberOfThreads, Args&&... args)
+            : PollingPolicy(std::forward<Args>(args)...)
+            , dispatcher_(dispatcher)
+            , stats_(stats)
+            , threadAssignments_(maxNumberOfThreads)
+        {
+        }
+
+        // This constructor takes a concurrency map describing the maximum allowed concurrency
+		// at each stage, and this is used to determine the maximum number of threads to run. 
         template<typename... Args>
         ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
@@ -54,11 +68,22 @@ namespace wield { namespace schedulers { namespace color_minus {
         {
         }
 
+        // This constructor takes a concurrency map describing the maximum allowed concurrency
+		// at each stage.
+		// @maxNumberOfThreads determines the maximum number of threads to run.
+        template<typename... Args>
+        ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+            : PollingPolicy(std::forward<Args>(args)...)
+            , dispatcher_(dispatcher)
+            , stats_(stats)
+            , threadAssignments_(maxConcurrency, maxNumberOfThreads)
+        {
+        }
+
         // number of threads the scheduler should create.
         inline std::size_t numberOfThreads() const
         {
-            static const std::size_t numberOfStages = static_cast<std::size_t>(StageEnumType::NumberOfEntries);
-            return utils::numberOfThreads(numberOfStages);
+            return utils::numberOfThreads(threadAssignments_.size());
         }
 
         // assign the next stage to visit.
