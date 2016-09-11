@@ -1,5 +1,8 @@
 #pragma once 
+
+#include <array>
 #include <cstddef>
+#include <numeric>
 
 namespace wield { namespace schedulers { namespace utils {
 
@@ -10,5 +13,15 @@ namespace wield { namespace schedulers { namespace utils {
     //
     // @numberOfStages is the number of stages in the stage graph.
     std::size_t numberOfThreads(const std::size_t numberOfStages);
+    
+    // This function counts the maximum concurrency possible on the
+    // stage graph and passes this figure to numberOfThreads instead
+    // of the stage count - therefore returning the smaller of hardware
+    // cores and the maximum concurrency value.
+    template<std::size_t NumberOfStages>
+    std::size_t numberOfThreads(const std::array<std::size_t, NumberOfStages>& concurrencyMap)
+    {
+        return numberOfThreads(std::accumulate(begin(concurrencyMap), end(concurrencyMap), 0));
+    }
 }}}
 
