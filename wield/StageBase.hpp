@@ -38,10 +38,6 @@ namespace wield {
         {
         }
 
-        ~StageBase()
-        {
-        }
-
         // Insert a message onto the stage's queue
         // @m the message to insert
         void push(const typename MessageType::ptr& m)
