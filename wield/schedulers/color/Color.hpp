@@ -37,79 +37,27 @@ namespace wield { namespace schedulers { namespace color {
         // the concurrency map is set to one-thread per stage, and the max
         // number of threads is set to the number of stages.
         template<typename... Args>
-        Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
-            : PollingPolicy(std::forward<Args>(args)...)
-            , dispatcher_(dispatcher)
-            , workQueue_(queue)
-        {
-        }
+        Color(Dispatcher& dispatcher, Queue& queue, Args&&... args);
 
         template<typename... Args>
-        Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args)
-            : PollingPolicy(std::forward<Args>(args)...)
-            , dispatcher_(dispatcher)
-            , workQueue_(queue)
-            , threadAssignments_(maxNumberOfThreads)
-        {
-        }
+        Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args);
 
         // the number of threads will be determined by the maximum allowed by the concurrency map.
         template<typename... Args>
-        Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
-            : PollingPolicy(std::forward<Args>(args)...)
-            , dispatcher_(dispatcher)
-            , workQueue_(queue)
-            , threadAssignments_(maxConcurrency)
-        {
-        }
+        Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args);
 
         template<typename... Args>
-        Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
-            : PollingPolicy(std::forward<Args>(args)...)
-            , dispatcher_(dispatcher)
-            , workQueue_(queue)
-            , threadAssignments_(maxConcurrency, maxNumberOfThreads)
-        {
-        }
+        Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args);
 
         // number of threads the scheduler should create.
-        inline std::size_t numberOfThreads() const
-        {
-            return utils::numberOfThreads(threadAssignments_.size());
-        }
+        std::size_t numberOfThreads() const;
 
         // assign the next stage to visit.
-        StageType& nextStage(std::size_t threadId)
-        {
-            threadAssignments_.removeCurrentAssignment(threadId);
-
-            auto next = StageEnumType::NumberOfEntries;
-
-            do {
-                next = dequeNextStage();
-                auto success = threadAssignments_.tryAssign(threadId, next);
-
-                if(!success)
-                {
-                    next = StageEnumType::NumberOfEntries;
-                }
-
-            // TODO: implement Idle policy.
-            } while(next == StageEnumType::NumberOfEntries);
-
-            return dispatcher_[next];
-        }
+        StageType& nextStage(std::size_t threadId);
 
     private:
-
         // get the next stage from the work queue.
-        inline StageEnumType dequeNextStage()
-        {
-            StageEnumType next = StageEnumType::NumberOfEntries;
-            workQueue_.try_pop(next);
-
-            return next;
-        }
+        StageEnumType dequeNextStage();
 
     private:
         Dispatcher& dispatcher_;
@@ -117,4 +65,84 @@ namespace wield { namespace schedulers { namespace color {
 
         ThreadAssignments threadAssignments_;
     };
+    
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<typename... Args>
+    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , workQueue_(queue)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<typename... Args>
+    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , workQueue_(queue)
+        , threadAssignments_(maxNumberOfThreads)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<typename... Args>
+    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , workQueue_(queue)
+        , threadAssignments_(maxConcurrency)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<typename... Args>
+    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , workQueue_(queue)
+        , threadAssignments_(maxConcurrency, maxNumberOfThreads)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    inline
+    std::size_t Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::numberOfThreads() const
+    {
+        return utils::numberOfThreads(threadAssignments_.size());
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    Stage& Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::nextStage(std::size_t threadId)
+    {
+        threadAssignments_.removeCurrentAssignment(threadId);
+
+        auto next = StageEnumType::NumberOfEntries;
+
+        do {
+            next = dequeNextStage();
+            auto success = threadAssignments_.tryAssign(threadId, next);
+
+            if(!success)
+            {
+                next = StageEnumType::NumberOfEntries;
+            }
+
+        // TODO: implement Idle policy.
+        } while(next == StageEnumType::NumberOfEntries);
+
+        return dispatcher_[next];
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    inline
+    StageEnum Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::dequeNextStage()
+    {
+        StageEnumType next = StageEnumType::NumberOfEntries;
+        workQueue_.try_pop(next);
+
+        return next;
+    }
+
 }}}
