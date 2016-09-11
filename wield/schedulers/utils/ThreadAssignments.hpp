@@ -3,10 +3,12 @@
 #include <array>
 #include <atomic>
 #include <cstddef>
+#include <numeric>
+#include <vector>
 
 namespace wield { namespace schedulers { namespace utils {
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
+    template<class StageEnumType>
     class ThreadAssignments
     {
     public:
@@ -14,10 +16,14 @@ namespace wield { namespace schedulers { namespace utils {
         using MaxConcurrencyContainer = std::array<std::size_t, NumberOfStages>;
 
         // sets maximum concurrency for every stage to 1.
-        ThreadAssignments();
-        ThreadAssignments(const MaxConcurrencyContainer& concurrency);
-        ThreadAssignments(MaxConcurrencyContainer&& concurrency);
-
+        ThreadAssignments(const std::size_t numThreads = static_cast<std::size_t>(StageEnumType::NumberOfEntries));
+        
+        ThreadAssignments(const MaxConcurrencyContainer& concurrency); // number of threads determined by concurrency map @concurrency.
+        ThreadAssignments(const MaxConcurrencyContainer& concurrency, const std::size_t numThreads);
+        
+        ThreadAssignments(MaxConcurrencyContainer&& concurrency); // number of threads determined by concurrency map @concurrency.
+        ThreadAssignments(MaxConcurrencyContainer&& concurrency, const std::size_t numThreads);
+        
         // return the current assignment for a thread.
         StageEnumType currentAssignment(const std::size_t threadId);
 
@@ -35,6 +41,9 @@ namespace wield { namespace schedulers { namespace utils {
         // @return true on success, false on failure.
         bool tryAssign(const std::size_t threadId, const StageEnumType next);
 
+        // return the maximum number of threads we can support
+        std::size_t size() const { return threadAssignment_.size(); }
+        
     private:
         ThreadAssignments(const ThreadAssignments&) = delete;
         ThreadAssignments& operator=(const ThreadAssignments&) = delete;
@@ -43,14 +52,15 @@ namespace wield { namespace schedulers { namespace utils {
         void init();
 
     private:
-        std::array<StageEnumType, NumberOfThreads> threadAssignment_;
+        std::vector<StageEnumType> threadAssignment_;
         std::array<std::atomic_size_t, NumberOfStages> threadsPerStage_;
         MaxConcurrencyContainer maximumConcurrency_;
     };
 
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    ThreadAssignments<StageEnumType, NumberOfThreads>::ThreadAssignments()
+    template<class StageEnumType>
+    ThreadAssignments<StageEnumType>::ThreadAssignments(const std::size_t numberOfThreads)
+        : threadAssignment_(numberOfThreads, StageEnumType::NumberOfEntries)
     {
         // assign every element in maximumConcurrency to 1.
         for(auto& max : maximumConcurrency_)
@@ -61,42 +71,55 @@ namespace wield { namespace schedulers { namespace utils {
         init();
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    ThreadAssignments<StageEnumType, NumberOfThreads>::ThreadAssignments(const MaxConcurrencyContainer& concurrency)
-        : maximumConcurrency_(concurrency)
+    template<class StageEnumType>
+    ThreadAssignments<StageEnumType>::ThreadAssignments(const MaxConcurrencyContainer& concurrency)
+        : threadAssignment_(std::accumulate(begin(concurrency), end(concurrency), 0), StageEnumType::NumberOfEntries)
+        , maximumConcurrency_(concurrency)
+    {
+        init();
+    }
+    
+    template<class StageEnumType>
+    ThreadAssignments<StageEnumType>::ThreadAssignments(const MaxConcurrencyContainer& concurrency, const std::size_t numberOfThreads)
+        : threadAssignment_(numberOfThreads, StageEnumType::NumberOfEntries)
+        , maximumConcurrency_(concurrency)
     {
         init();
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    ThreadAssignments<StageEnumType, NumberOfThreads>::ThreadAssignments(MaxConcurrencyContainer&& concurrency)
-        : maximumConcurrency_(std::move(concurrency))
+    template<class StageEnumType>
+    ThreadAssignments<StageEnumType>::ThreadAssignments(MaxConcurrencyContainer&& concurrency)
+        : threadAssignment_(std::accumulate(begin(concurrency), end(concurrency), 0), StageEnumType::NumberOfEntries)
+        , maximumConcurrency_(std::move(concurrency))
     {
         init();
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    void ThreadAssignments<StageEnumType, NumberOfThreads>::init()
+    template<class StageEnumType>
+    ThreadAssignments<StageEnumType>::ThreadAssignments(MaxConcurrencyContainer&& concurrency, const std::size_t numberOfThreads)
+        : threadAssignment_(numberOfThreads, StageEnumType::NumberOfEntries)
+        , maximumConcurrency_(std::move(concurrency))
+    {
+        init();
+    }
+
+    template<class StageEnumType>
+    void ThreadAssignments<StageEnumType>::init()
     {
 		for(auto& t : threadsPerStage_)
 		{
 			t = 0;
 		}
-
-		for(auto& a : threadAssignment_)
-		{
-			a = StageEnumType::NumberOfEntries;
-		}
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    StageEnumType ThreadAssignments<StageEnumType, NumberOfThreads>::currentAssignment(const std::size_t threadId)
+    template<class StageEnumType>
+    StageEnumType ThreadAssignments<StageEnumType>::currentAssignment(const std::size_t threadId)
     {
         return threadAssignment_[threadId];
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    void ThreadAssignments<StageEnumType, NumberOfThreads>::removeCurrentAssignment(const std::size_t threadId)
+    template<class StageEnumType>
+    void ThreadAssignments<StageEnumType>::removeCurrentAssignment(const std::size_t threadId)
     {
         const auto currentAssignment = threadAssignment_[threadId];
 
@@ -107,8 +130,8 @@ namespace wield { namespace schedulers { namespace utils {
         }
     }
 
-    template<class StageEnumType, std::size_t NumberOfThreads>
-    bool ThreadAssignments<StageEnumType, NumberOfThreads>::tryAssign(const std::size_t threadId, StageEnumType next)
+    template<class StageEnumType>
+    bool ThreadAssignments<StageEnumType>::tryAssign(const std::size_t threadId, StageEnumType next)
     {
         const std::size_t nextIndex = static_cast<std::size_t>(next);
 

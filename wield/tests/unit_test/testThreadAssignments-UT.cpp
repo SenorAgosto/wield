@@ -6,9 +6,20 @@
 
 namespace {
 
+    TEST(verifyThreadAssignmentDefaultConstructor)
+    {
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
+        Assignments assignments;
+    }
+    
     struct ThreadAssignmentFixture
     {
-        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages, 2>;
+        ThreadAssignmentFixture()
+            : assignments(2)
+        {
+        }
+        
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
         Assignments assignments;
     };
 
@@ -57,7 +68,20 @@ namespace {
     TEST(verifyInstantiationUsingMaximumConcurrencyConstructor)
     {
         using namespace test;
-        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages, 3>;
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
+
+        Assignments::MaxConcurrencyContainer maximumConcurrency = {{2, 2, 2 }};
+        Assignments assignments(maximumConcurrency, 3);
+
+        CHECK(assignments.tryAssign(0, Stages::Stage1));
+        CHECK(assignments.tryAssign(1, Stages::Stage1));
+        CHECK(!assignments.tryAssign(2, Stages::Stage1));
+    }
+
+    TEST(verifyInstantiationUsingMaximumConcurrencyConstructorAndDefaultNumberOfThreads)
+    {
+        using namespace test;
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
 
         Assignments::MaxConcurrencyContainer maximumConcurrency = {{2, 2, 2 }};
         Assignments assignments(maximumConcurrency);
@@ -70,7 +94,19 @@ namespace {
     TEST(verifyInstantiationUsingMaximumConcurrencyMoveConstructor)
     {
         using namespace test;
-        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages, 3>;
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
+
+        Assignments assignments(Assignments::MaxConcurrencyContainer{{2, 2, 2}}, 3);
+
+        CHECK(assignments.tryAssign(0, Stages::Stage1));
+        CHECK(assignments.tryAssign(1, Stages::Stage1));
+        CHECK(!assignments.tryAssign(2, Stages::Stage1));
+    }
+    
+    TEST(verifyInstantiationUsingMaximumConcurrencyMoveConstructorAndDefaultNumberOfThreads)
+    {
+        using namespace test;
+        using Assignments = wield::schedulers::utils::ThreadAssignments<test::Stages>;
 
         Assignments assignments(Assignments::MaxConcurrencyContainer{{2, 2, 2}});
 
