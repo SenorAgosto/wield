@@ -30,10 +30,12 @@ namespace wield { namespace schedulers { namespace color {
         using Dispatcher = DispatcherType;
         using StageType = Stage;
         using StageEnumType = StageEnum;
-        using ThreadAssignments = utils::ThreadAssignments<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries)>;
+        using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
 
-
+        
+        // the concurrency map is set to one-thread per stage, and the max
+        // number of threads is set to the number of stages.
         template<typename... Args>
         Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
@@ -43,6 +45,16 @@ namespace wield { namespace schedulers { namespace color {
         }
 
         template<typename... Args>
+        Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args)
+            : PollingPolicy(std::forward<Args>(args)...)
+            , dispatcher_(dispatcher)
+            , workQueue_(queue)
+            , threadAssignments_(maxNumberOfThreads)
+        {
+        }
+
+        // the number of threads will be determined by the maximum allowed by the concurrency map.
+        template<typename... Args>
         Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
             : PollingPolicy(std::forward<Args>(args)...)
             , dispatcher_(dispatcher)
@@ -51,11 +63,19 @@ namespace wield { namespace schedulers { namespace color {
         {
         }
 
+        template<typename... Args>
+        Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+            : PollingPolicy(std::forward<Args>(args)...)
+            , dispatcher_(dispatcher)
+            , workQueue_(queue)
+            , threadAssignments_(maxConcurrency, maxNumberOfThreads)
+        {
+        }
+
         // number of threads the scheduler should create.
         inline std::size_t numberOfThreads() const
         {
-            const std::size_t numberOfStages = static_cast<std::size_t>(StageEnumType::NumberOfEntries);
-            return utils::numberOfThreads(numberOfStages);
+            return utils::numberOfThreads(threadAssignments_.size());
         }
 
         // assign the next stage to visit.
