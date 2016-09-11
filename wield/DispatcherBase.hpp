@@ -35,10 +35,6 @@ namespace wield {
             }
         }
 
-        ~DispatcherBase()
-        {
-        }
-
         /* Register a <Stage> with the Dispatcher
            @stageName is the name this stage will be referenced as
            @stage is the pointer to the stage
