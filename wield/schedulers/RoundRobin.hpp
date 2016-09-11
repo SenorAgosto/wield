@@ -16,42 +16,62 @@ namespace wield { namespace schedulers {
         using StageEnumType = StageEnum;
 
         template<typename... Args>
-        RoundRobin(Dispatcher& dispatcher, Args&&... args)
-            : PollingPolicy(std::forward<Args>(args)...)
-            , dispatcher_(dispatcher)
-            , previousStage_(StageEnumType::NumberOfEntries)
-        {
-        }
+        RoundRobin(Dispatcher& dispatcher, Args&&... args);
 
-        inline std::size_t numberOfThreads() const
-        {
-            return 1;
-        }
+        // @return number of threads to create and schedule
+        std::size_t numberOfThreads() const;
 
-        inline StageType& nextStage(const std::size_t /*threadId*/)
-        {
-            return dispatcher_[incrementStage()];
-        }
+        // @return next stage to visit
+        StageType& nextStage(const std::size_t /*threadId*/);
 
     private:
-        StageEnumType incrementStage()
-        {
-            std::size_t stageIndex = static_cast<std::size_t>(previousStage_) + 1;
-
-            if(stageIndex >= static_cast<std::size_t>(StageEnumType::NumberOfEntries))
-            {
-                previousStage_ = static_cast<StageEnumType>(0);
-            }
-            else
-            {
-                previousStage_ = static_cast<StageEnumType>(stageIndex);
-            }
-
-            return previousStage_;
-        }
-
+        // calculate the next stage to visit
+        StageEnumType incrementStage();
+        
     private:
         Dispatcher& dispatcher_;
         StageEnumType previousStage_;
     };
+    
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<typename... Args>
+    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , previousStage_(StageEnumType::NumberOfEntries)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    inline
+    std::size_t RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::numberOfThreads() const
+    {
+        return 1;
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    inline
+    Stage& RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(const std::size_t /*threadId*/)
+    {
+        return dispatcher_[incrementStage()];
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    StageEnum RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::incrementStage()
+    {
+        std::size_t stageIndex = static_cast<std::size_t>(previousStage_) + 1;
+
+        if(stageIndex >= static_cast<std::size_t>(StageEnumType::NumberOfEntries))
+        {
+            previousStage_ = static_cast<StageEnumType>(0);
+        }
+        else
+        {
+            previousStage_ = static_cast<StageEnumType>(stageIndex);
+        }
+
+        return previousStage_;
+    }
+
 }}
