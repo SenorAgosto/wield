@@ -36,72 +36,26 @@ namespace wield { namespace adapters { namespace polymorphic {
         using Stage = typename Traits::Stage;
         using StageEnumType = typename Traits::StageEnumType;
 
-        MultipleInputQueueAdapter(DispatcherInterface<StageEnumType, Stage>& dispatcher, ProcessingFunctor& dummyFunctor)
-            : which_(0)
-            , numberOfQueues_(0)
-            , dispatcher_(dispatcher)
-            , dummyFunctor_(dummyFunctor)
-        {
-        }
+        MultipleInputQueueAdapter(DispatcherInterface<StageEnumType, Stage>& dispatcher, ProcessingFunctor& dummyFunctor);
 
         template<typename... Args>
-        MultipleInputQueueAdapter& addQueue(StageEnumType stageName, Args&&... args)
-        {
-            queues_.emplace_back(std::forward<Args>(args)...);
-            stages_.emplace_back(stageName, dispatcher_, queues_.back(), dummyFunctor_);
-            numberOfQueues_++;
-
-            return *this;
-        }
+        MultipleInputQueueAdapter& addQueue(const StageEnumType stageName, Args&&... args);
 
         // this should never be called.
-        void push(const MessagePtr& )
-        {
-            throw IllegallyPushedMessageOntoQueueAdapter();
-        }
+        void push(const MessagePtr& );
 
         // Get a message, checking the queues in a round-robin fashion.
-        bool try_pop(MessagePtr& message)
-        {
-            bool hasMessage = false;
-            std::size_t queuesPolled = 0;
-
-            while(!hasMessage && !allQueuesPolled(queuesPolled++))
-            {
-                hasMessage = queues_[which_].try_pop(message);
-                updateNextQueue();
-            }
-
-            return hasMessage;
-        }
-
+        bool try_pop(MessagePtr& message);
+        
         // Get the unsafe size of all contained queues.
-        std::size_t unsafe_size(void) const
-        {
-            std::size_t total = 0;
-            for(auto& queue : queues_)
-            {
-                total += queue.unsafe_size();
-            }
-
-            return total;
-        }
+        std::size_t unsafe_size(void) const;
 
     private:
         // stopping condition, when we've polled all queues and they're all empty.
-        inline bool allQueuesPolled(const std::size_t queuesPolled)
-        {
-            return queuesPolled >= numberOfQueues_;
-        }
+        bool allQueuesPolled(const std::size_t queuesPolled);
 
         // roll which queue we're polling (round robin).
-        inline void updateNextQueue()
-        {
-            if(++which_ >= numberOfQueues_)
-            {
-                which_ = 0;
-            }
-        }
+        void updateNextQueue();
 
     private:
         std::deque<AdaptedQueue> queues_;
@@ -112,4 +66,76 @@ namespace wield { namespace adapters { namespace polymorphic {
         DispatcherInterface<StageEnumType, Stage>& dispatcher_;
         ProcessingFunctor& dummyFunctor_;
     };
+    
+    
+    template<class Traits, class ConcreteQueue>
+    MultipleInputQueueAdapter<Traits, ConcreteQueue>::MultipleInputQueueAdapter(DispatcherInterface<StageEnumType, Stage>& dispatcher, ProcessingFunctor& dummyFunctor)
+        : which_(0)
+        , numberOfQueues_(0)
+        , dispatcher_(dispatcher)
+        , dummyFunctor_(dummyFunctor)
+    {
+    }
+
+    template<class Traits, class ConcreteQueue>
+    template<typename... Args>
+    MultipleInputQueueAdapter<Traits, ConcreteQueue>& MultipleInputQueueAdapter<Traits, ConcreteQueue>::addQueue(const StageEnumType stageName, Args&&... args)
+    {
+        queues_.emplace_back(std::forward<Args>(args)...);
+        stages_.emplace_back(stageName, dispatcher_, queues_.back(), dummyFunctor_);
+        numberOfQueues_++;
+
+        return *this;
+    }
+
+    template<class Traits, class ConcreteQueue>
+    void MultipleInputQueueAdapter<Traits, ConcreteQueue>::push(const MessagePtr& )
+    {
+        throw IllegallyPushedMessageOntoQueueAdapter();
+    }
+
+    template<class Traits, class ConcreteQueue>
+    bool MultipleInputQueueAdapter<Traits, ConcreteQueue>::try_pop(MessagePtr& message)
+    {
+        bool hasMessage = false;
+        std::size_t queuesPolled = 0;
+
+        while(!hasMessage && !allQueuesPolled(queuesPolled++))
+        {
+            hasMessage = queues_[which_].try_pop(message);
+            updateNextQueue();
+        }
+
+        return hasMessage;
+    }
+
+    template<class Traits, class ConcreteQueue>
+    std::size_t MultipleInputQueueAdapter<Traits, ConcreteQueue>::unsafe_size(void) const
+    {
+        std::size_t total = 0;
+        for(auto& queue : queues_)
+        {
+            total += queue.unsafe_size();
+        }
+
+        return total;
+    }
+
+    template<class Traits, class ConcreteQueue>
+    inline
+    bool MultipleInputQueueAdapter<Traits, ConcreteQueue>::allQueuesPolled(const std::size_t queuesPolled)
+    {
+        return queuesPolled >= numberOfQueues_;
+    }
+
+    template<class Traits, class ConcreteQueue>
+    inline
+    void MultipleInputQueueAdapter<Traits, ConcreteQueue>::updateNextQueue()
+    {
+        if(++which_ >= numberOfQueues_)
+        {
+            which_ = 0;
+        }
+    }
+    
 }}}

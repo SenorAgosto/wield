@@ -13,25 +13,12 @@ namespace wield { namespace adapters { namespace polymorphic {
     public:
 
         template<typename... Args>
-        QueueAdapter(Args&&... args)
-            : queue_(std::forward<Args>(args)...)
-        {
-        }
+        QueueAdapter(Args&&... args);
         
-        void push(const MessagePtr& message) override
-        {
-            queue_.push(message);
-        }
-    
-        bool try_pop(MessagePtr& message) override
-        {
-            return queue_.try_pop(message);
-        }
+        void push(const MessagePtr& message) override;
+        bool try_pop(MessagePtr& message) override;
         
-        std::size_t unsafe_size(void) const override
-        {
-            return queue_.unsafe_size();
-        }
+        std::size_t unsafe_size(void) const override;
 
     private:
         QueueAdapter(const QueueAdapter&) = delete;
@@ -40,5 +27,34 @@ namespace wield { namespace adapters { namespace polymorphic {
     private:
         QueueType queue_;
     };
+    
+
+    template<class MessagePtr, class QueueType>
+    template<typename... Args>
+    QueueAdapter<MessagePtr, QueueType>::QueueAdapter(Args&&... args)
+        : queue_(std::forward<Args>(args)...)
+    {
+    }
+
+    template<class MessagePtr, class QueueType>
+    inline
+    void QueueAdapter<MessagePtr, QueueType>::push(const MessagePtr& message)
+    {
+        queue_.push(message);
+    }
+
+    template<class MessagePtr, class QueueType>
+    inline
+    bool QueueAdapter<MessagePtr, QueueType>::try_pop(MessagePtr& message)
+    {
+        return queue_.try_pop(message);
+    }
+
+    template<class MessagePtr, class QueueType>
+    inline
+    std::size_t QueueAdapter<MessagePtr, QueueType>::unsafe_size(void) const
+    {
+        return queue_.unsafe_size();
+    }
 }}}
 

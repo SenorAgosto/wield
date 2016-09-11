@@ -31,26 +31,12 @@ namespace wield { namespace adapters {
     {
     public:
         template<typename... Args>
-        ProcessingFunctorChain(Args... args)
-            : processingFunctors_ {{args...}}
-        {
-        }
+        ProcessingFunctorChain(Args... args);
 
         // called in the same thread as the stage invoking dispatch to
         // the stage owning this queue (the previous stage in the
         // stage graph).
-        void push(const MessagePtr& message) override
-        {
-            // process the message immediately with each of the ProcessingFunctors
-            for(auto func : processingFunctors_)
-            {
-                message->processWith(*func);
-            }
-
-            // the dispatcher increments the reference count before push'ing
-            // we have to decrement it here to ensure memory is cleaned up.
-            message->decrementReferenceCount();
-        }
+        void push(const MessagePtr& message) override;
 
         bool try_pop(MessagePtr&) override { return false; }
         std::size_t unsafe_size(void) const override { return 0; }
@@ -70,4 +56,27 @@ namespace wield { namespace adapters {
     {
         return {args...};
     }
+    
+
+    template<class MessagePtr, class ProcessingFunctorType, std::size_t NumberOfProcessingFunctors>
+    template<typename... Args>
+    ProcessingFunctorChain<MessagePtr, ProcessingFunctorType, NumberOfProcessingFunctors>::ProcessingFunctorChain(Args... args)
+        : processingFunctors_ {{args...}}
+    {
+    }
+
+    template<class MessagePtr, class ProcessingFunctorType, std::size_t NumberOfProcessingFunctors>
+    void ProcessingFunctorChain<MessagePtr, ProcessingFunctorType, NumberOfProcessingFunctors>::push(const MessagePtr& message)
+    {
+        // process the message immediately with each of the ProcessingFunctors
+        for(auto func : processingFunctors_)
+        {
+            message->processWith(*func);
+        }
+
+        // the dispatcher increments the reference count before push'ing
+        // we have to decrement it here to ensure memory is cleaned up.
+        message->decrementReferenceCount();
+    }
+    
 }}

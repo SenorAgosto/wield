@@ -17,17 +17,15 @@ namespace wield { namespace polling_policies {
         class PollingInformation;           // or you could make PollingInformation a
                                             // template parameter and do 'using PollingInformation = PollingInfo'
         
-        inline bool continueProcessing(PollingInformation& pollingInfo)
-        {
-            // ExhaustivePollingPolicy is implementing exhaustive polling
-            // of the stage queue, the only thing we need to track was whether
-            // or not the queue was empty on our previous check.
-            return pollingInfo.hadMessage();
-        }
+        // ExhaustivePollingPolicy implements exhaustive polling of the stage queue,
+        // the only thing we need to track is whether or not the queue was empty on our previous check.
+        inline
+        bool continueProcessing(PollingInformation& pollingInfo) { return pollingInfo.hadMessage(); }
         
         inline void batchStart(PollingInformation&){}
         inline void batchEnd(PollingInformation&){}
     };
+
 
     template<typename StageEnum>
     class ExhaustivePollingPolicy<StageEnum>::PollingInformation
@@ -39,13 +37,12 @@ namespace wield { namespace polling_policies {
         {
         }
         
-        inline void incrementMessageCount(bool hadMessage)
-        {
-            hadMessage_ = hadMessage;
-        }
+        inline
+        void incrementMessageCount(bool hadMessage) { hadMessage_ = hadMessage; }
 
         // non-required interface.
-        inline bool hadMessage(void) const { return hadMessage_; }
+        inline
+        bool hadMessage(void) const { return hadMessage_; }
         
     private:
         bool hadMessage_;

@@ -21,23 +21,12 @@ namespace wield { namespace adapters { namespace polymorphic {
     class PassThroughStageQueue : public QueueInterface<MessagePtr>
     {
     public:
-        PassThroughStageQueue(ProcessingFunctor& pf)
-            : processingFunctor_(pf)
-        {
-        }
+        PassThroughStageQueue(ProcessingFunctor& pf);
         
         // called in the same thread as the stage invoking dispatch to
         // the stage owning this queue (the previous stage in the
         // stage graph).
-        void push(const MessagePtr& message) override
-        {
-            // process the message immediately.
-            message->processWith(processingFunctor_);
-
-            // the dispatcher increments the reference count before push'ing
-            // we have to decrement it here to ensure memory is cleaned up.
-            message->decrementReferenceCount();
-        }
+        void push(const MessagePtr& message) override;
         
         bool try_pop(MessagePtr&) override { return false; }
         std::size_t unsafe_size(void) const override { return 0; }
@@ -45,4 +34,23 @@ namespace wield { namespace adapters { namespace polymorphic {
     private:
         ProcessingFunctor& processingFunctor_;
     };
+
+
+    template<class ProcessingFunctor, class MessagePtr>
+    PassThroughStageQueue<ProcessingFunctor, MessagePtr>::PassThroughStageQueue(ProcessingFunctor& pf)
+        : processingFunctor_(pf)
+    {
+    }
+
+    template<class ProcessingFunctor, class MessagePtr>
+    void PassThroughStageQueue<ProcessingFunctor, MessagePtr>::push(const MessagePtr& message)
+    {
+        // process the message immediately.
+        message->processWith(processingFunctor_);
+
+        // the dispatcher increments the reference count before push'ing
+        // we have to decrement it here to ensure memory is cleaned up.
+        message->decrementReferenceCount();
+    }
+
 }}}
