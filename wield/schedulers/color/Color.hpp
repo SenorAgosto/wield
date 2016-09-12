@@ -122,7 +122,7 @@ namespace wield { namespace schedulers { namespace color {
 
         do {
             next = dequeNextStage();
-            auto success = threadAssignments_.tryAssign(threadId, next);
+            const auto success = threadAssignments_.tryAssign(threadId, next);
 
             if(!success)
             {
@@ -130,7 +130,8 @@ namespace wield { namespace schedulers { namespace color {
             }
 
         // TODO: implement Idle policy.
-        } while(next == StageEnumType::NumberOfEntries);
+        }
+        while(next == StageEnumType::NumberOfEntries);
 
         return dispatcher_[next];
     }
