@@ -131,16 +131,17 @@ namespace wield { namespace schedulers { namespace color_minus {
 
         do {
             next = dequeNextStage();
-            bool status = threadAssignments_.tryAssign(threadId, next);
+            const bool success = threadAssignments_.tryAssign(threadId, next);
 
             stats_.updatePrevious(next);
-            if(!status)
+            if(!success)
             {
                 next = StageEnumType::NumberOfEntries;
             }
 
         // TODO: implement Idle policy.
-        } while(next == StageEnumType::NumberOfEntries);
+        }
+        while(next == StageEnumType::NumberOfEntries);
 
         return dispatcher_[next];
     }
