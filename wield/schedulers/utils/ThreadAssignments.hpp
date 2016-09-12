@@ -27,8 +27,8 @@ namespace wield { namespace schedulers { namespace utils {
         // return the current assignment for a thread.
         StageEnumType currentAssignment(const std::size_t threadId);
 
-        // remove the thread from the visitor count at its current assignment.
-        inline void removeCurrentAssignment(const std::size_t threadId);
+        // remove the thread from the visitor count at its current assignment. @return the previous assignment
+        inline StageEnumType removeCurrentAssignment(const std::size_t threadId);
 
         // assign thread as a visitor to next stage if
         // the stage has room for another.
@@ -119,7 +119,7 @@ namespace wield { namespace schedulers { namespace utils {
     }
 
     template<class StageEnumType>
-    void ThreadAssignments<StageEnumType>::removeCurrentAssignment(const std::size_t threadId)
+    StageEnumType ThreadAssignments<StageEnumType>::removeCurrentAssignment(const std::size_t threadId)
     {
         const auto currentAssignment = threadAssignment_[threadId];
 
@@ -128,6 +128,9 @@ namespace wield { namespace schedulers { namespace utils {
             --threadsPerStage_[static_cast<std::size_t>(currentAssignment)];
             threadAssignment_[threadId] = StageEnumType::NumberOfEntries;
         }
+        
+        // return the previous assignment
+        return currentAssignment;
     }
 
     template<class StageEnumType>
