@@ -60,9 +60,10 @@ namespace {
 
         assignments.tryAssign(0, Stages::Stage1);
         CHECK_EQUAL(Stages::Stage1, assignments.currentAssignment(0));
-
-        assignments.removeCurrentAssignment(0);
+        CHECK_EQUAL(Stages::Stage1, assignments.removeCurrentAssignment(0));
+        
         CHECK_EQUAL(Stages::NumberOfEntries, assignments.currentAssignment(0));
+        CHECK_EQUAL(Stages::NumberOfEntries, assignments.removeCurrentAssignment(0));
     }
 
     TEST(verifyInstantiationUsingMaximumConcurrencyConstructor)
