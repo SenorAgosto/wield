@@ -42,8 +42,6 @@ namespace wield { namespace schedulers { namespace utils {
     };
 
 
-
-
     template<class StageEnumType>
     MessageCount<StageEnumType>::MessageCount()
     {
