@@ -1,7 +1,9 @@
 #pragma once 
+#include <wield/schedulers/utils/ThreadAssignments.hpp>
+#include <cstddef>
 
 namespace wield { namespace schedulers {
-
+    
     // This class implements a single threaded
     // round robin scheduling policy. This is
     // a convenience policy which can be useful
@@ -15,22 +17,45 @@ namespace wield { namespace schedulers {
         using StageType = Stage;
         using StageEnumType = StageEnum;
 
+        using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
+        using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
+        
+        struct MaxThreads {};   // a tag type to avoid ambigous call
+        
+        // This constructor assumes the maximum concurrency of a stage is 1,
+        // and creates a maximum of 1 thread per stage.
         template<typename... Args>
         RoundRobin(Dispatcher& dispatcher, Args&&... args);
+
+        // This constructor assumes the maximum concurrency of a stage is 1,
+        // and creates a maximum of @maxNumberOfThreads.
+        template<typename... Args>
+        RoundRobin(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args);
+
+        // This constructor takes the maximum concurrency information in @maxConcurrency,
+        // and creates a maximum number of threads based on the maximum concurrency possible with
+        // @maxConcurrency.
+        template<typename... Args>
+        RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args);
+        
+        // This constructor takes the maximum concurrency information in @maxConcurrency,
+        // and creates a maximum of @maxNumberOfThreads.
+        template<typename... Args>
+        RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args);
 
         // @return number of threads to create and schedule
         std::size_t numberOfThreads() const;
 
         // @return next stage to visit
-        StageType& nextStage(const std::size_t /*threadId*/);
+        StageType& nextStage(const std::size_t threadId);
 
     private:
         // calculate the next stage to visit
-        StageEnumType incrementStage();
+        StageEnumType incrementStage(const StageEnumType stage);
         
     private:
         Dispatcher& dispatcher_;
-        StageEnumType previousStage_;
+        ThreadAssignments threadAssignments_;
     };
     
 
@@ -39,7 +64,33 @@ namespace wield { namespace schedulers {
     RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
-        , previousStage_(StageEnumType::NumberOfEntries)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<typename... Args>
+    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , threadAssignments_(maxNumberOfThreads)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<typename... Args>
+    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , threadAssignments_(maxConcurrency)
+    {
+    }
+
+    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<typename... Args>
+    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+        : PollingPolicy(std::forward<Args>(args)...)
+        , dispatcher_(dispatcher)
+        , threadAssignments_(maxConcurrency, maxNumberOfThreads)
     {
     }
 
@@ -47,31 +98,43 @@ namespace wield { namespace schedulers {
     inline
     std::size_t RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::numberOfThreads() const
     {
-        return 1;
+        return threadAssignments_.size();
     }
 
     template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
     inline
-    Stage& RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(const std::size_t /*threadId*/)
+    Stage& RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(const std::size_t threadId)
     {
-        return dispatcher_[incrementStage()];
+        auto next = threadAssignments_.removeCurrentAssignment(threadId);
+        bool hasAssignment = false;
+        
+        do {
+            next = incrementStage(next);    // if this stage is busy, move to the next.
+            hasAssignment = threadAssignments_.tryAssign(threadId, next);
+
+        // TODO: implement Idle policy.
+        }
+        while(!hasAssignment);
+
+        return dispatcher_[next];
     }
 
     template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
-    StageEnum RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::incrementStage()
+    StageEnum RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::incrementStage(const StageEnum stage)
     {
-        std::size_t stageIndex = static_cast<std::size_t>(previousStage_) + 1;
+        StageEnumType newStage = stage;
+        std::size_t stageIndex = static_cast<std::size_t>(stage) + 1;
 
         if(stageIndex >= static_cast<std::size_t>(StageEnumType::NumberOfEntries))
         {
-            previousStage_ = static_cast<StageEnumType>(0);
+            newStage = static_cast<StageEnumType>(0);
         }
         else
         {
-            previousStage_ = static_cast<StageEnumType>(stageIndex);
+            newStage = static_cast<StageEnumType>(stageIndex);
         }
 
-        return previousStage_;
+        return newStage;
     }
 
 }}
