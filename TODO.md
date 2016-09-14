@@ -1,5 +1,7 @@
 # Wield TODO
 
+- apply thin-template idiom to SchedulerBase and move start(), join(), stop() and all other methods that don't directly use the SchedulingPolicy to a base class? probably not worth the complication, but if there are multiple scheduling policies in place, we needlessly instantiate these methods more than once leading to code bloat.
+
 - implement an example of using a poison pill to shutdown an application. This is for dataflow applications that are done after consuming all inputs.
 
 - unit test demonstrating scheduling a subset of the stages, e.g., the ThreadPerStageScheduler normally expects a StageEnumType with all stages in it, if we pass it a enum with half of the actual stages what happens? 
@@ -11,7 +13,6 @@
     - DBR (Drum Buffer Rope)
     - SRPT (shortest remaining processing time)
     - MG1? 
-    - Multithreaded Round-Robin
     - Multithreaded Random
 
 - show I can use different schedulers for different subgraphs of the stage graph.
