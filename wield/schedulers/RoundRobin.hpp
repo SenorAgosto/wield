@@ -4,11 +4,10 @@
 
 namespace wield { namespace schedulers {
     
-    // This class implements a single threaded
+    // This class implements a
     // round robin scheduling policy. This is
     // a convenience policy which can be useful
-    // for scheduling 'background' stages on
-    // a single utility thread.
+    // for scheduling 'background' stages
     template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
     class RoundRobin : public PollingPolicy
     {
