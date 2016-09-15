@@ -10,6 +10,8 @@
 
 namespace {
 
+    // NOTE: both scheduling policies can't currently require a specialized
+    // dispatcher, one has to be able to use a general dispatcher.
     struct MultipleSchedulersFixture
     {
         MultipleSchedulersFixture()
