@@ -11,7 +11,6 @@
 
     - Cohort 
     - DBR (Drum Buffer Rope)
-    - SRPT (shortest remaining processing time)
     - MG1? 
     - Multithreaded Random
 
