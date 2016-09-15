@@ -4,17 +4,12 @@
 
 - implement an example of using a poison pill to shutdown an application. This is for dataflow applications that are done after consuming all inputs.
 
-- unit test demonstrating scheduling a subset of the stages, e.g., the ThreadPerStageScheduler normally expects a StageEnumType with all stages in it, if we pass it a enum with half of the actual stages what happens? 
-  - Going to need a translating Dispatcher to accomplish this. Because many of the scheduling policy assume enum values start at 0. 
-
 - implement schedulers:
 
     - Cohort 
     - DBR (Drum Buffer Rope)
     - MG1? 
     - Multithreaded Random
-
-- show I can use different schedulers for different subgraphs of the stage graph.
 
 - add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
 
