@@ -11,7 +11,9 @@
 namespace {
 
     // NOTE: both scheduling policies can't currently require a specialized
-    // dispatcher, one has to be able to use a general dispatcher.
+    // dispatcher, one has to be able to use a general dispatcher. If both
+    // require a specialized dispatcher, you'll likely need to implement a
+    // one-off dispatcher doing the work of each specialized dispatcher.
     struct MultipleSchedulersFixture
     {
         MultipleSchedulersFixture()
