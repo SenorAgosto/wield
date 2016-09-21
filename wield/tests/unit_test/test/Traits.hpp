@@ -16,7 +16,7 @@ namespace test {
     //      StageEnumType     | enum of stage names
     //      ProcessingFunctor | your processing functor abstract base class.
     //      QueueType         | the queue (or adapter) you wish to use.
-    //      SchedulingPolicy  | your scheduling policy. must take dispatcher as sole template parameter.
+    //      SchedulingPolicy  | your scheduling policy. must take dispatcher and polling policy as parameters.
     struct TestTraits
     {
         using StageEnumType = Stages;
