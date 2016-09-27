@@ -28,6 +28,7 @@
 - (not sure about this) change QueueBase template arguments to take queue_type as a template template parameter
 
 Performance:
+
 - In SchedulerBase, compare whether using done_.load(std::memory_order_acquire)/done_.store(true, std::memory_order_release) is better or whether just doing done_ = true; and reading done_ is better.
 - Test different compiler options
 - Test whether the changes in OptimizePush branch are worth it. Using move semantics into queues to avoid cache-line ping-pong caused by incrementing/decrementing messages as they go into queues. 
