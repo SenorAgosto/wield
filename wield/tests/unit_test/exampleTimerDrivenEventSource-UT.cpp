@@ -22,6 +22,7 @@
 #pragma clang diagnostic ignored "-Wswitch"
 #pragma clang diagnostic ignored "-Wswitch-enum"
 #pragma clang diagnostic ignored "-Wcovered-switch-default"
+#pragma clang diagnostic ignored "-Wdeprecated" // OSMemoryBarrier is deprecated in 10.12
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
