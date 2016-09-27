@@ -44,6 +44,9 @@ namespace wield { namespace schedulers { namespace utils {
         // return the maximum number of threads we can support
         std::size_t size() const { return threadAssignment_.size(); }
         
+        // return the maximum concurrency container so scheduling decisions can be made
+        const MaxConcurrencyContainer& maxConcurrency() const { return maximumConcurrency_; }
+        
     private:
         ThreadAssignments(const ThreadAssignments&) = delete;
         ThreadAssignments& operator=(const ThreadAssignments&) = delete;
