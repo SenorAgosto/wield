@@ -15,7 +15,6 @@
     - Cohort 
     - DBR (Drum Buffer Rope)
     - MG1? 
-    - Multithreaded Random
 
 - change interface of queue so push returns a bool? This would allow ring buffers to be used as the queue implementation if desired. 
 
