@@ -1,6 +1,4 @@
-#pragma once 
-#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
-
+#pragma once
 #include <wield/schedulers/utils/MessageCount.hpp>
 #include <wield/schedulers/utils/NumberOfThreads.hpp>
 #include <wield/schedulers/utils/ThreadAssignments.hpp>
@@ -20,19 +18,15 @@ namespace wield { namespace schedulers { namespace color_minus {
     // which has fewer than the maximum allowed
     // threads visiting and attempts to visit
     // that stage.
-    template<
-          class StageEnum
-        , class DispatcherType
-        , class Stage
-        , class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnum>>
+    template<class DispatcherType, class PollingPolicy>
     class ColorMinus : public PollingPolicy
     {
     public:
 
         using Dispatcher = DispatcherType;
-        using MessageCount = schedulers::utils::MessageCount<StageEnum>;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
+        using MessageCount = schedulers::utils::MessageCount<StageEnumType>;
 
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
@@ -61,7 +55,7 @@ namespace wield { namespace schedulers { namespace color_minus {
         std::size_t numberOfThreads() const;
 
         // assign the next stage to visit.
-        StageType& nextStage(std::size_t threadId);
+        StageType& nextStage(const std::size_t threadId);
 
     private:
 
@@ -76,18 +70,18 @@ namespace wield { namespace schedulers { namespace color_minus {
     };
     
     
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, Args&&... args)
+    ColorMinus<DispatcherType, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , stats_(stats)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, const std::size_t maxNumberOfThreads, Args&&... args)
+    ColorMinus<DispatcherType, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , stats_(stats)
@@ -95,9 +89,9 @@ namespace wield { namespace schedulers { namespace color_minus {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+    ColorMinus<DispatcherType, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , stats_(stats)
@@ -105,9 +99,9 @@ namespace wield { namespace schedulers { namespace color_minus {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+    ColorMinus<DispatcherType, PollingPolicy>::ColorMinus(Dispatcher& dispatcher, MessageCount& stats, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , stats_(stats)
@@ -115,15 +109,15 @@ namespace wield { namespace schedulers { namespace color_minus {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    std::size_t ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::numberOfThreads() const
+    std::size_t ColorMinus<DispatcherType, PollingPolicy>::numberOfThreads() const
     {
         return utils::numberOfThreads(threadAssignments_.size());
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
-    Stage& ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(std::size_t threadId)
+    template<class DispatcherType, class PollingPolicy>
+    typename DispatcherType::StageType& ColorMinus<DispatcherType, PollingPolicy>::nextStage(const std::size_t threadId)
     {
         threadAssignments_.removeCurrentAssignment(threadId);
 
@@ -146,9 +140,9 @@ namespace wield { namespace schedulers { namespace color_minus {
         return dispatcher_[next];
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    StageEnum ColorMinus<StageEnum, DispatcherType, Stage, PollingPolicy>::dequeNextStage()
+    typename DispatcherType::StageEnumType ColorMinus<DispatcherType, PollingPolicy>::dequeNextStage()
     {
         return stats_.highwaterStage();
     }

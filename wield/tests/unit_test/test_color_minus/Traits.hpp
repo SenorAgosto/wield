@@ -33,11 +33,7 @@ namespace test_color_minus {
         using Dispatcher = DispatcherType<StageEnumType, Stage>;
 
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
-        using SchedulingPolicy = wield::schedulers::color_minus::ColorMinus<
-              StageEnumType
-            , Dispatcher
-            , Stage
-            , PollingPolicy>;
+        using SchedulingPolicy = wield::schedulers::color_minus::ColorMinus<Dispatcher, PollingPolicy>;
 		using Scheduler = wield::SchedulerBase<SchedulingPolicy>;
     };
 

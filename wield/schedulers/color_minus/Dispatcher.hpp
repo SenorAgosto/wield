@@ -6,10 +6,13 @@ namespace wield { namespace schedulers { namespace color_minus {
 
     // This dispatcher is for use with the Color- scheduling policy.
     // On each dispatch of an event, a counter is incremented.
-    template<class StageEnumType, class Stage>
-    class Dispatcher : public wield::DispatcherBase<StageEnumType, Stage>
+    template<class StageEnum, class Stage>
+    class Dispatcher : public wield::DispatcherBase<StageEnum, Stage>
     {
     public:
+        using StageType = Stage;
+        using StageEnumType = StageEnum;
+        
         using base_t = wield::DispatcherBase<StageEnumType, Stage>;
         using MessageCount = utils::MessageCount<StageEnumType>;
 
