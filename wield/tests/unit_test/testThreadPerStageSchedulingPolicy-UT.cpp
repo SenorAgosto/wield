@@ -19,7 +19,7 @@ namespace {
         using Dispatcher = test::Traits::Dispatcher;
         using Stage = test::Traits::Stage;
         using SchedulingPolicy =
-            wield::schedulers::ThreadPerStage<test::Stages, Dispatcher, Stage, wield::polling_policies::ExhaustivePollingPolicy<test::Stages>>;
+            wield::schedulers::ThreadPerStage<Dispatcher, wield::polling_policies::ExhaustivePollingPolicy<test::Stages>>;
 
         Dispatcher dispatcher;
         SchedulingPolicy schedulingPolicy;

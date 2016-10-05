@@ -7,13 +7,13 @@ namespace wield { namespace schedulers {
     // policy which is useful to get off the
     // ground and get running without worrying
     // about performance tuning 'til later.
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     class ThreadPerStage : public PollingPolicy
     {
     public:
         using Dispatcher = DispatcherType;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
 
         template<typename... Args>
         ThreadPerStage(Dispatcher& dispatcher, Args&&... args)
