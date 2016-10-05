@@ -5,7 +5,7 @@
 #include "./poison_pill/ProcessingFunctor.hpp"
 #include "./poison_pill/Scheduler.hpp"
 
-#include <wield/adapters/FanoutProcessingFunctor.hpp>
+#include <wield/adapters/dynamic/FanoutProcessingFunctor.hpp>
 #include <sstream>
 
 namespace {
@@ -18,10 +18,10 @@ namespace {
     using Stage = Traits::Stage;
     using Queue = Traits::Queue;
 
-    class FanoutProcessingFunctor : public wield::adapters::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>
+    class FanoutProcessingFunctor : public wield::adapters::dynamic::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>
     {
     public:
-        using wield::adapters::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>::FanoutProcessingFunctor;
+        using wield::adapters::dynamic::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>::FanoutProcessingFunctor;
         
         void operator()(Message& msg) override
         {
