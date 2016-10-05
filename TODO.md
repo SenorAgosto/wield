@@ -10,8 +10,6 @@
     - functionality for setting process and thread priority
     - functionality to set NUMA affinity (http://msdn.microsoft.com/en-us/library/windows/desktop/aa363804(v=vs.85).aspx)
 
-- implement an example of using a poison pill to shutdown an application. This is for dataflow applications that are done after consuming all inputs.
-
 - implement schedulers:
 
     - Cohort 
