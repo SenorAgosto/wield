@@ -15,7 +15,6 @@ namespace {
     using Stage = Traits::Stage;
     using Message = Traits::Message;
     
-    template<class Dispatcher>
     class FanoutProcessingFunctor : public wield::adapters::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>
     {
     public:
@@ -50,7 +49,7 @@ namespace {
         Dispatcher d;
 
         Queue q1;
-        FanoutProcessingFunctor<Dispatcher> fanout;
+        FanoutProcessingFunctor fanout;
         Stage s1;
         
         Queue q2;
