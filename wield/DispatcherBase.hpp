@@ -95,6 +95,8 @@ namespace wield {
     inline
     void DispatcherBase<StageEnum, Stage>::dispatch(StageEnumType stageName, ConcreteMessageType& message, CloneMessageTagType)
     {
+        static_assert(std::is_base_of<typename StageType::MessageType, ConcreteMessageType>::value, "ConcreteMessageType must be derived from Message.");
+        
         typename StageType::MessageType::ptr clone = new ConcreteMessageType(message);
         clone->incrementReferenceCount();
 
