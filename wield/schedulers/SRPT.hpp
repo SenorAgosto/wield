@@ -16,14 +16,14 @@ namespace wield { namespace schedulers {
     // followed by downstream stages. If two stages appear at the same
     // depth, the stage with the greater enum value will be given preference
     // by the scheduler.
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     class SRPT : public PollingPolicy
     {
     public:
         using Dispatcher = DispatcherType;
         using PollingInformation = typename PollingPolicy::PollingInformation;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
 
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
@@ -62,7 +62,7 @@ namespace wield { namespace schedulers {
         void batchEnd(PollingInformation& pollingInfo) { hadMessages_ = pollingInfo.hadMessage(); }
 
         // @return true if stage is the last stage in the enum
-        bool lastStage(const StageEnum stage) { return static_cast<std::size_t>(stage) == (static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1); }
+        bool lastStage(const StageEnumType stage) { return static_cast<std::size_t>(stage) == (static_cast<std::size_t>(StageEnumType::NumberOfEntries) - 1); }
         
     private:
         // calculate the next stage to visit
@@ -76,18 +76,18 @@ namespace wield { namespace schedulers {
     };
     
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::SRPT(Dispatcher& dispatcher, Args&&... args)
+    SRPT<DispatcherType, PollingPolicy>::SRPT(Dispatcher& dispatcher, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , hadMessages_(false)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::SRPT(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
+    SRPT<DispatcherType, PollingPolicy>::SRPT(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxNumberOfThreads)
@@ -95,9 +95,9 @@ namespace wield { namespace schedulers {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::SRPT(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+    SRPT<DispatcherType, PollingPolicy>::SRPT(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency)
@@ -105,9 +105,9 @@ namespace wield { namespace schedulers {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::SRPT(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+    SRPT<DispatcherType, PollingPolicy>::SRPT(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency, maxNumberOfThreads)
@@ -115,17 +115,19 @@ namespace wield { namespace schedulers {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    std::size_t SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::numberOfThreads() const
+    std::size_t SRPT<DispatcherType, PollingPolicy>::numberOfThreads() const
     {
         return threadAssignments_.size();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    Stage& SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(const std::size_t threadId)
+    typename DispatcherType::StageType& SRPT<DispatcherType, PollingPolicy>::nextStage(const std::size_t threadId)
     {
+        using StageEnum = typename DispatcherType::StageEnumType;
+        
         static const StageEnum lastStage = static_cast<StageEnum>(static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1);
         const auto original = threadAssignments_.removeCurrentAssignment(threadId);
         
@@ -146,9 +148,11 @@ namespace wield { namespace schedulers {
         return dispatcher_[next];
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
-    StageEnum SRPT<StageEnum, DispatcherType, Stage, PollingPolicy>::decrementStage(const StageEnum stage)
+    template<class DispatcherType, class PollingPolicy>
+    typename DispatcherType::StageEnumType SRPT<DispatcherType, PollingPolicy>::decrementStage(const typename DispatcherType::StageEnumType stage)
     {
+        using StageEnumType = typename DispatcherType::StageEnumType;
+        
         StageEnumType newStage = stage;
         std::size_t stageIndex = static_cast<std::size_t>(stage) - 1;
 

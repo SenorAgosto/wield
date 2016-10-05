@@ -18,7 +18,7 @@ namespace {
         using Dispatcher = test::Traits::Dispatcher;
         using Stage = test::Traits::Stage;
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<test::Stages>;
-        using SchedulingPolicy = wield::schedulers::SRPT<test::Stages, Dispatcher, Stage, PollingPolicy>;
+        using SchedulingPolicy = wield::schedulers::SRPT<Dispatcher, PollingPolicy>;
         using Queue = test::Traits::Queue;
 
         Dispatcher dispatcher;
