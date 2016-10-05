@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 
-namespace wield { namespace adapters {
+namespace wield { namespace adapters { namespace dynamic {
     
     // An abstract base class which implements logic necessary to
     // fanout a message to multiple downstream stages. The stages
@@ -83,5 +83,5 @@ namespace wield { namespace adapters {
     {
         stages_.swap(stages);
     }
-}}
+}}}
 
