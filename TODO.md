@@ -2,8 +2,6 @@
 
 - implement a compile-time FanoutProcessingFunctor. 
 
-- scheduling policies are templated on Stage and StageEnum and Dispatcher, both the Stage and StageEnum are available from the Dispatcher. Eliminate the need for Stage & StageEnum in the scheduling policy. 
-
 - add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
 
 - affinity & priority 
