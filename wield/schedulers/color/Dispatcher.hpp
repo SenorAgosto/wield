@@ -3,11 +3,13 @@
 
 namespace wield { namespace schedulers { namespace color {
 
-    template<class StageEnumType, class Stage, class StageNameQueue>
-    class Dispatcher : public wield::DispatcherBase<StageEnumType, Stage>
+    template<class StageEnum, class Stage, class StageNameQueue>
+    class Dispatcher : public wield::DispatcherBase<StageEnum, Stage>
     {
     public:
-        using base_t = wield::DispatcherBase<StageEnumType, Stage>;
+        using base_t = wield::DispatcherBase<StageEnum, Stage>;
+        using StageEnumType = StageEnum;
+        using StageType = Stage;
         using Queue = StageNameQueue;
 
         Dispatcher(Queue& queue);

@@ -1,5 +1,4 @@
-#pragma once 
-#include <wield/polling_policies/ExhaustivePollingPolicy.hpp>
+#pragma once
 #include <wield/schedulers/utils/NumberOfThreads.hpp>
 #include <wield/schedulers/utils/ThreadAssignments.hpp>
 
@@ -17,22 +16,16 @@ namespace wield { namespace schedulers { namespace color {
     // implementation of color uses a non-blocking
     // queue and will burn cores. TODO: implement
     // a back-off policy. 
-    template<
-          class StageEnum
-        , class DispatcherType
-        , class Stage
-        , class Queue
-        , class PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnum>>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     class Color : public PollingPolicy
     {
     public:
 
         using Dispatcher = DispatcherType;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
-
         
         // the concurrency map is set to one-thread per stage, and the max
         // number of threads is set to the number of stages.
@@ -53,7 +46,7 @@ namespace wield { namespace schedulers { namespace color {
         std::size_t numberOfThreads() const;
 
         // assign the next stage to visit.
-        StageType& nextStage(std::size_t threadId);
+        StageType& nextStage(const std::size_t threadId);
 
     private:
         // get the next stage from the work queue.
@@ -67,18 +60,18 @@ namespace wield { namespace schedulers { namespace color {
     };
     
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     template<typename... Args>
-    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
+    Color<DispatcherType, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , workQueue_(queue)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     template<typename... Args>
-    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args)
+    Color<DispatcherType, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , workQueue_(queue)
@@ -86,9 +79,9 @@ namespace wield { namespace schedulers { namespace color {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     template<typename... Args>
-    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+    Color<DispatcherType, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , workQueue_(queue)
@@ -96,9 +89,9 @@ namespace wield { namespace schedulers { namespace color {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     template<typename... Args>
-    Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+    Color<DispatcherType, Queue, PollingPolicy>::Color(Dispatcher& dispatcher, Queue& queue, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , workQueue_(queue)
@@ -106,15 +99,15 @@ namespace wield { namespace schedulers { namespace color {
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     inline
-    std::size_t Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::numberOfThreads() const
+    std::size_t Color<DispatcherType, Queue, PollingPolicy>::numberOfThreads() const
     {
         return utils::numberOfThreads(threadAssignments_.size());
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
-    Stage& Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::nextStage(std::size_t threadId)
+    template<class DispatcherType, class Queue, class PollingPolicy>
+    typename DispatcherType::StageType& Color<DispatcherType, Queue, PollingPolicy>::nextStage(const std::size_t threadId)
     {
         threadAssignments_.removeCurrentAssignment(threadId);
 
@@ -136,9 +129,9 @@ namespace wield { namespace schedulers { namespace color {
         return dispatcher_[next];
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class Queue, class PollingPolicy>
+    template<class DispatcherType, class Queue, class PollingPolicy>
     inline
-    StageEnum Color<StageEnum, DispatcherType, Stage, Queue, PollingPolicy>::dequeNextStage()
+    typename DispatcherType::StageEnumType Color<DispatcherType, Queue, PollingPolicy>::dequeNextStage()
     {
         StageEnumType next = StageEnumType::NumberOfEntries;
         workQueue_.try_pop(next);
