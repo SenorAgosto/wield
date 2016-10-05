@@ -17,7 +17,8 @@ namespace {
         using Dispatcher = typename test_color_minus::Traits::Dispatcher;
         using Stages = typename test_color_minus::Traits::StageEnumType;
         using Stage = typename test_color_minus::Traits::Stage;
-        using SchedulingPolicy = ColorMinus<Stages, Dispatcher, Stage>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<Stages>;
+        using SchedulingPolicy = ColorMinus<Dispatcher, PollingPolicy>;
         using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
         using MessageCount = wield::schedulers::utils::MessageCount<Stages>;
 
@@ -36,7 +37,8 @@ namespace {
         using Message = typename test_color_minus::Traits::Message;
         using Stages = typename test_color_minus::Traits::StageEnumType;
         using Stage = typename test_color_minus::Traits::Stage;
-        using SchedulingPolicy = ColorMinus<Stages, Dispatcher, Stage>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<Stages>;
+        using SchedulingPolicy = ColorMinus<Dispatcher, PollingPolicy>;
         using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
         using Queue = typename test_color_minus::Traits::Queue;
         using MessageCount = wield::schedulers::utils::MessageCount<Stages>;
@@ -78,7 +80,8 @@ namespace {
         using Message = typename test_color_minus::Traits::Message;
         using Stages = typename test_color_minus::Traits::StageEnumType;
         using Stage = typename test_color_minus::Traits::Stage;
-        using SchedulingPolicy = ColorMinus<Stages, Dispatcher, Stage>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<Stages>;
+        using SchedulingPolicy = ColorMinus<Dispatcher, PollingPolicy>;
         using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
         using Queue = typename test_color_minus::Traits::Queue;
         using MessageCount = wield::schedulers::utils::MessageCount<Stages>;
