@@ -11,13 +11,13 @@ namespace wield { namespace schedulers {
 
     // This class implements a scheduling policy which
     // visits stages in a random order.
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor = 4>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor = 4>
     class RandomVisit : public PollingPolicy
     {
     public:
         using Dispatcher = DispatcherType;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
 
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
@@ -53,7 +53,7 @@ namespace wield { namespace schedulers {
 
     private:
         // choose the next stage from our visit table, shuffle if needed.
-        StageEnum randomStage(const std::size_t threadId);
+        StageEnumType randomStage(const std::size_t threadId);
         void randomShuffle(const std::size_t threadId);
         
         void initVisitTable();
@@ -62,7 +62,7 @@ namespace wield { namespace schedulers {
         Dispatcher& dispatcher_;
         ThreadAssignments threadAssignments_;
         
-        using VisitTable = std::array<StageEnum, static_cast<std::size_t>(StageEnum::NumberOfEntries) * TableSizeFactor>;
+        using VisitTable = std::array<StageEnumType, static_cast<std::size_t>(StageEnumType::NumberOfEntries) * TableSizeFactor>;
         std::vector<VisitTable> visitTable_;
         std::vector<typename VisitTable::const_iterator> visitIndex_;
         
@@ -71,68 +71,68 @@ namespace wield { namespace schedulers {
     };
     
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     template<typename... Args>
-    RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, Args&&... args)
+    RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_()
         , visitTable_(threadAssignments_.size())
         , visitIndex_(threadAssignments_.size())
-        , rand_(0, static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1)
+        , rand_(0, static_cast<std::size_t>(StageEnumType::NumberOfEntries) - 1)
     {
         initVisitTable();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     template<typename... Args>
-    RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
+    RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxNumberOfThreads)
         , visitTable_(threadAssignments_.size())
         , visitIndex_(threadAssignments_.size())
-        , rand_(0, static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1)
+        , rand_(0, static_cast<std::size_t>(StageEnumType::NumberOfEntries) - 1)
     {
         initVisitTable();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     template<typename... Args>
-    RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+    RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency)
         , visitTable_(threadAssignments_.size())
         , visitIndex_(threadAssignments_.size())
-        , rand_(0, static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1)
+        , rand_(0, static_cast<std::size_t>(StageEnumType::NumberOfEntries) - 1)
     {
         initVisitTable();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     template<typename... Args>
-    RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+    RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::RandomVisit(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency, maxNumberOfThreads)
         , visitTable_(threadAssignments_.size())
         , visitIndex_(threadAssignments_.size())
-        , rand_(0, static_cast<std::size_t>(StageEnum::NumberOfEntries) - 1)
+        , rand_(0, static_cast<std::size_t>(StageEnumType::NumberOfEntries) - 1)
     {
         initVisitTable();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     inline
-    std::size_t RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::numberOfThreads() const
+    std::size_t RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::numberOfThreads() const
     {
         return threadAssignments_.size();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
     inline
-    Stage& RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::nextStage(const std::size_t threadId)
+    typename DispatcherType::StageType& RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::nextStage(const std::size_t threadId)
     {
         auto next = threadAssignments_.removeCurrentAssignment(threadId);
         bool hasAssignment = false;
@@ -148,8 +148,8 @@ namespace wield { namespace schedulers {
         return dispatcher_[next];
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
-    StageEnum RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::randomStage(const std::size_t threadId)
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
+    typename DispatcherType::StageEnumType RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::randomStage(const std::size_t threadId)
     {
         if(visitIndex_[threadId] == visitTable_[threadId].end())
         {
@@ -160,8 +160,8 @@ namespace wield { namespace schedulers {
         return *visitIndex_[threadId]++;
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
-    void RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::randomShuffle(const std::size_t threadId)
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
+    void RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::randomShuffle(const std::size_t threadId)
     {
         using diff_t = typename std::iterator_traits<typename VisitTable::iterator>::difference_type;
         
@@ -173,8 +173,8 @@ namespace wield { namespace schedulers {
         }
     }
     
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy, std::size_t TableSizeFactor>
-    void RandomVisit<StageEnum, DispatcherType, Stage, PollingPolicy, TableSizeFactor>::initVisitTable()
+    template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
+    void RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::initVisitTable()
     {
         // maximum concurrency for each stage
         const auto& maxConcurrency = threadAssignments_.maxConcurrency();
@@ -188,7 +188,7 @@ namespace wield { namespace schedulers {
                 auto v = rand_(randomDevice_);
                 if(maxConcurrency[v] != 0)
                 {
-                    visitTable[i] = static_cast<StageEnum>(v);
+                    visitTable[i] = static_cast<StageEnumType>(v);
                     ++i;
                 }
             }

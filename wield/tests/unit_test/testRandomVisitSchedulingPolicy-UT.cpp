@@ -20,7 +20,7 @@ namespace {
         using Dispatcher = test::Traits::Dispatcher;
         using Stage = test::Traits::Stage;
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<test::Stages>;
-        using SchedulingPolicy = wield::schedulers::RandomVisit<test::Stages, Dispatcher, Stage, PollingPolicy, TableSize>;
+        using SchedulingPolicy = wield::schedulers::RandomVisit<Dispatcher, PollingPolicy, TableSize>;
         using Queue = test::Traits::Queue;
 
         Dispatcher dispatcher;
