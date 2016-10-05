@@ -21,12 +21,7 @@ namespace queue_stress {
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
         
         template<class Dispatcher>
-        using SchedulingPolicy = wield::schedulers::ThreadPerStage<
-              Stages
-            , Dispatcher
-            , typename Dispatcher::StageType
-            , PollingPolicy>;
-        
+        using SchedulingPolicy = wield::schedulers::ThreadPerStage<Dispatcher, PollingPolicy>;
     };
 
     using Traits = wield::Traits<AppTraits>;

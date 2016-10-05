@@ -30,7 +30,7 @@ namespace {
         using Dispatcher = test::Traits::Dispatcher;
         using Stage = test::Traits::Stage;
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<test::Stages>;
-        using SchedulingPolicy = wield::schedulers::RoundRobin<test::Stages, Dispatcher, Stage, PollingPolicy>;
+        using SchedulingPolicy = wield::schedulers::RoundRobin<Dispatcher, PollingPolicy>;
         using Queue = test::Traits::Queue;
         using Message = test::Traits::Message;
         
