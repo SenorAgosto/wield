@@ -19,7 +19,8 @@ namespace {
         using Stages = typename test_color::Traits::StageEnumType;
         using Stage = typename test_color::Traits::Stage;
         using ColorQueue = Concurrency::concurrent_queue<Stages>;
-        using SchedulingPolicy = Color<Stages, Dispatcher, Stage, ColorQueue>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<Stages>;
+        using SchedulingPolicy = Color<Dispatcher, ColorQueue, PollingPolicy>;
         using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
 
         ColorQueue q;
@@ -57,7 +58,8 @@ namespace {
         using Stages = typename test_color::Traits::StageEnumType;
         using Stage = typename test_color::Traits::Stage;
         using ColorQueue = Concurrency::concurrent_queue<Stages>;
-        using SchedulingPolicy = Color<Stages, Dispatcher, Stage, ColorQueue>;
+        using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<Stages>;
+        using SchedulingPolicy = Color<Dispatcher, ColorQueue, PollingPolicy>;
         using MaxConcurrencyContainer = typename SchedulingPolicy::MaxConcurrencyContainer;
         using Queue = typename test_color::Traits::Queue;
 

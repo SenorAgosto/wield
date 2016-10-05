@@ -33,12 +33,7 @@ namespace test_color {
         using Dispatcher = DispatcherType<StageEnumType, Stage>;
 
         using PollingPolicy = wield::polling_policies::ExhaustivePollingPolicy<StageEnumType>;
-        using SchedulingPolicy = wield::schedulers::color::Color<
-              StageEnumType
-            , Dispatcher
-            , Stage
-            , Concurrency::concurrent_queue<StageEnumType>
-            , PollingPolicy>;
+        using SchedulingPolicy = wield::schedulers::color::Color<Dispatcher, Concurrency::concurrent_queue<StageEnumType>, PollingPolicy>;
 		using Scheduler = wield::SchedulerBase<SchedulingPolicy>;
     };
 
