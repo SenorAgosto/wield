@@ -8,13 +8,13 @@ namespace wield { namespace schedulers {
     // round robin scheduling policy. This is
     // a convenience policy which can be useful
     // for scheduling 'background' stages
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     class RoundRobin : public PollingPolicy
     {
     public:
         using Dispatcher = DispatcherType;
-        using StageType = Stage;
-        using StageEnumType = StageEnum;
+        using StageType = typename Dispatcher::StageType;
+        using StageEnumType = typename Dispatcher::StageEnumType;
 
         using ThreadAssignments = utils::ThreadAssignments<StageEnumType>;
         using MaxConcurrencyContainer = typename ThreadAssignments::MaxConcurrencyContainer;
@@ -58,51 +58,51 @@ namespace wield { namespace schedulers {
     };
     
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, Args&&... args)
+    RoundRobin<DispatcherType, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
+    RoundRobin<DispatcherType, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, const MaxThreads, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxNumberOfThreads)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
+    RoundRobin<DispatcherType, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     template<typename... Args>
-    RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
+    RoundRobin<DispatcherType, PollingPolicy>::RoundRobin(Dispatcher& dispatcher, MaxConcurrencyContainer& maxConcurrency, const std::size_t maxNumberOfThreads, Args&&... args)
         : PollingPolicy(std::forward<Args>(args)...)
         , dispatcher_(dispatcher)
         , threadAssignments_(maxConcurrency, maxNumberOfThreads)
     {
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    std::size_t RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::numberOfThreads() const
+    std::size_t RoundRobin<DispatcherType, PollingPolicy>::numberOfThreads() const
     {
         return threadAssignments_.size();
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
+    template<class DispatcherType, class PollingPolicy>
     inline
-    Stage& RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::nextStage(const std::size_t threadId)
+    typename DispatcherType::StageType& RoundRobin<DispatcherType, PollingPolicy>::nextStage(const std::size_t threadId)
     {
         auto next = threadAssignments_.removeCurrentAssignment(threadId);
         bool hasAssignment = false;
@@ -118,9 +118,11 @@ namespace wield { namespace schedulers {
         return dispatcher_[next];
     }
 
-    template<class StageEnum, class DispatcherType, class Stage, class PollingPolicy>
-    StageEnum RoundRobin<StageEnum, DispatcherType, Stage, PollingPolicy>::incrementStage(const StageEnum stage)
+    template<class DispatcherType, class PollingPolicy>
+    typename DispatcherType::StageEnumType RoundRobin<DispatcherType, PollingPolicy>::incrementStage(const typename DispatcherType::StageEnumType stage)
     {
+        using StageEnumType = typename DispatcherType::StageEnumType;
+        
         StageEnumType newStage = stage;
         std::size_t stageIndex = static_cast<std::size_t>(stage) + 1;
 
