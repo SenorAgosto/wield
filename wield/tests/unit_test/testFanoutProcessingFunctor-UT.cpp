@@ -1,5 +1,6 @@
 #include "./platform/UnitTestSupport.hpp"
 
+#include <wield/adapters/dynamic/FanoutProcessingFunctor.hpp>
 #include <wield/adapters/FanoutProcessingFunctor.hpp>
 #include <wield/CloneMessageTag.hpp>
 
@@ -15,10 +16,10 @@ namespace {
     using Stage = Traits::Stage;
     using Message = Traits::Message;
     
-    class FanoutProcessingFunctor : public wield::adapters::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>
+    class FanoutProcessingFunctor : public wield::adapters::dynamic::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>
     {
     public:
-        using wield::adapters::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>::FanoutProcessingFunctor;
+        using wield::adapters::dynamic::FanoutProcessingFunctor<Dispatcher, ProcessingFunctorInterface>::FanoutProcessingFunctor;
         
         void operator() (Message& m) override
         {
