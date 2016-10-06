@@ -11,6 +11,7 @@ A small toolkit for creating stage-based applications in c++.
 Used for unit testing on all platforms:
 
 - [UnitTest++](https://github.com/unittest-cpp/unittest-cpp). Unit test framework.
+- [arbiter](https://github.com/paxos1977/arbiter). Used in acceptance testing.
 
 Non-windows Platforms:
 
@@ -18,11 +19,16 @@ Non-windows Platforms:
 
 Windows Platforms:
 
-- Visual Leak Detector (VLD). Used on windows to detect memory leaks in unit tests)
+- Need VS Concurrent libs.
+- Visual Leak Detector (VLD). Used on windows to detect memory leaks in unit tests.
 
 ### Contributors 
 
 Austin Gilbert <ceretullis@gmail.com>
+
+### Acknowledgements 
+
+A warm "thank you" to [minorg](https://github.com/minorg) for his work in stage-based scheduling and the `yield` project (which appears to be no longer publically available).
 
 ### License
 
