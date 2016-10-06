@@ -1,7 +1,5 @@
 # Wield TODO
 
-- implement a compile-time FanoutProcessingFunctor. 
-
 - add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
 
 - affinity & priority 
