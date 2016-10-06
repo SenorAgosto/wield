@@ -22,8 +22,6 @@
 
 - add 'noexcept' to everything it is applicable to. 
 
-- (not sure about this) change QueueBase template arguments to take queue_type as a template template parameter
-
 Performance:
 
 - In SchedulerBase, compare whether using done_.load(std::memory_order_acquire)/done_.store(true, std::memory_order_release) is better or whether just doing done_ = true; and reading done_ is better.
