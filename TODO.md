@@ -1,5 +1,7 @@
 # Wield TODO
 
+- implement memory pool, preallocate memory for queue_stress acceptance test, compare performance numbers. 
+
 - add IdlePolicy to schedulers which gets invoked in the event there is no stages available to visit that have work. 
 
 - affinity & priority 
