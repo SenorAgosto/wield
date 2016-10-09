@@ -1,4 +1,5 @@
 #pragma once 
+#include <wield/schedulers/utils/NumberOfThreads.hpp>
 #include <wield/schedulers/utils/ThreadAssignments.hpp>
 
 #include <array>
@@ -127,7 +128,7 @@ namespace wield { namespace schedulers {
     inline
     std::size_t RandomVisit<DispatcherType, PollingPolicy, TableSizeFactor>::numberOfThreads() const
     {
-        return threadAssignments_.size();
+        return utils::numberOfThreads(threadAssignments_.size());
     }
 
     template<class DispatcherType, class PollingPolicy, std::size_t TableSizeFactor>
