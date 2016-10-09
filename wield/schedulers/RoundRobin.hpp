@@ -1,4 +1,5 @@
 #pragma once 
+#include <wield/schedulers/utils/NumberOfThreads.hpp>
 #include <wield/schedulers/utils/ThreadAssignments.hpp>
 #include <cstddef>
 
@@ -97,7 +98,7 @@ namespace wield { namespace schedulers {
     inline
     std::size_t RoundRobin<DispatcherType, PollingPolicy>::numberOfThreads() const
     {
-        return threadAssignments_.size();
+        return utils::numberOfThreads(threadAssignments_.size());
     }
 
     template<class DispatcherType, class PollingPolicy>
